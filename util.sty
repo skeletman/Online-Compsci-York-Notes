@@ -15,6 +15,7 @@
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{float}
+\usepackage[space=true]{accsupp}
 
 %colours
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -25,20 +26,25 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{shapes}
 
+
+
 %listings settings
+\newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
+
 \lstset{ 
   backgroundcolor=\color{white},   
   basicstyle=\ttfamily\footnotesize,        
   breakatwhitespace=false,
   breaklines=true,                 
-  captionpos=t,                    
+  captionpos=t,
+  columns=fullflexible,                
   commentstyle=\color{mygreen},    
   deletekeywords={...},            
   extendedchars=true,              
   frame=single,	                   
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       
-  language=Java,                 
+  language=Java,      
   morekeywords={*,...},            
   numbers=left,                    
   numbersep=5pt,                   
@@ -63,6 +69,14 @@
 }
 \def\inline{\lstinline[basicstyle=\ttfamily,keywordstyle={}]}
 \def\inlineJava{\lstinline[style=javaSyntax]}
+
+\def\lst@PlaceNumber{%
+\llap{\normalfont
+\BeginAccSupp{ActualText=}%
+\lst@numberstyle{\thelstnumber}%
+\EndAccSupp{}%
+\kern\lst@numbersep}}
+\makeatother
 
 %hyperref setup
 \hypersetup{
