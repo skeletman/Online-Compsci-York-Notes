@@ -754,7 +754,7 @@ An \term{array} stores a fixed number of values of the same type.
 \noindent In Java, the syntax to declare an array is to use square brackets after the type declaration.
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
-!!!type!!![] array_name; 
+!!!type!!![] !!!array_name!!!; 
 \end{lstlisting}
 \subsection{Assigning Arrays}
 There are multiple ways to assign an array in Java. 
@@ -766,12 +766,12 @@ There are multiple ways to assign an array in Java.
 To assign an array using an array literal,
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name = {comma_separated_values}; 
+!!!array_name!!! = {!!!comma_separated_values!!!}; 
 \end{lstlisting}
 Alternatively, you can write
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name = new type[]{comma_separated_values}; 
+!!!array_name!!! = new type[]{!!!comma_separated_values!!!}; 
 \end{lstlisting}
 Like variables, you can do the declaration and assignment in one line.
 \begin{egs} Array declarations and assignments
@@ -787,7 +787,7 @@ char[] c = new char[] {'A', 'Z'};
 To access the $i^{th}$ element of an array called \inline!array_name! in Java, we use square brackets
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name[i]
+!!!array_name!!![!!!i!!!]
 \end{lstlisting}
 Note that array indices start from 0, so in the previous example, \inline!a[0]! is 1 and \inline!c[1]! is \inline!'Z'!.
 \subsection{Arrays of Objects}
@@ -796,7 +796,7 @@ An array of objects is in fact an array of references, in particular, the array 
 A \term{multi-dimensional array} is an array of arrays, which may themselves be multi-dimensional arrays. In Java, to declare a 2-dimensional array, we would write the following
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
-type[][] array_name; 
+!!!type!!![][] !!!array_name!!!; 
 \end{lstlisting}
 For more dimensions, we would write more square brackets.
 \begin{defi}[Jagged and Rectangular Arrays]
@@ -806,24 +806,24 @@ For more dimensions, we would write more square brackets.
 \vspace{5pt} \\ To assign a rectangular 2-dimensional array of dimensions \inline!capacity_x! and \inline!capacity_y!, with all default values,
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name = new type[capacity_x][capacity_y]; 
+!!!array_name!!! = new !!!type!!![!!!capacity_x!!!][!!!capacity_y!!!]; 
 \end{lstlisting}
 You may also assign the length of each element of the array separately to form a jagged array, for example to declare a new array of \inline!capacity_x! arrays, where the $i^{th}$ had capacicty \inline!capacity_y_i!, the following would be written.
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name = new type[capacity_x][];
-array_name[i] = new type[capacity_y_i];
+!!!array_name!!! = new !!!type!!![!!!capacity_x!!!][];
+!!!array_name!!![!!!i!!!] = new !!!type!!![!!!capacity_y_i!!!];
 \end{lstlisting}
 You can also assign a 2-dimensional array using array literals,
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name = {comma_separated_arrays}; 
+!!!array_name!!! = {!!!comma_separated_arrays!!!}; 
 \end{lstlisting}
 \pagebreak
 To access the elements, we use the same syntax as for 1-dimensional arrays
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
-array_name[i][j] 
+!!!array_name!!![!!!i!!!][!!!j!!!] 
 \end{lstlisting}
 All of this notation extends to higher-dimensional arrays by increasing the number of square brackets
 \begin{egs} If we wanted to create a rectangular array of doubles called \inline!a!, with dimensions 3 and 4, containing all 0s, we would write
@@ -831,7 +831,7 @@ All of this notation extends to higher-dimensional arrays by increasing the numb
 \begin{lstlisting}
 double[][] a = new double[3][4];
 \end{lstlisting}
-If we wanted to create a jagged array of integers called \inline!a!, with 4 rows, and the $i^{th}$ row has $i$ columns, and \inline!array[i][j]! has value \inline!i+j!, we could write the following
+If we wanted to create a jagged array of integers called \inline!a!, with 4 rows, and the $i^{th}$ row has $i$ columns, and \inline!a[i][j]! has value \inline!i+j!, we could write the following
 \vspace{-15pt}
 \begin{lstlisting}
 int[][] a = new int[4][];
