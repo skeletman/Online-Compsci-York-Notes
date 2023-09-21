@@ -23,7 +23,7 @@
     \term{Software} means a program or set of programs.
 \end{defi}
 \begin{defi}[Application Software]
-    \term{Application software} or \textrm{applications} are software that is designed for the user to interact with the computer.
+    \term{Application software} or \term{applications} are software that is designed for the user to interact with the computer.
 \end{defi}
 \begin{egs}
     Word processor, image editor, computer game, spreadsheet.
@@ -62,7 +62,7 @@ public class HelloWorld
     }
 } 
 \end{lstlisting}
-When defining pieces of syntax, I will use {\slshape\color{mygray} italic grey} font to represent fields where the programmer needs to choose the value. For example, we will see in section \ref{sec:forLoops}, the definition of a for loop will look as follows, to indicate that \inline!initialisation!, \inline!termination!, \inline"increment" and \inline"code" should be replaced to fit the programmer's needs
+When defining pieces of syntax, I will use {\slshape\color{mygray} italic grey} font to represent fields where the programmer needs to choose the value. For example, we will see in section \ref{sec:forLoops}, the definition of a for loop will look as follows, to indicate that \inlineJava"!!!initialisation!!!", \inlineJava"!!!termination!!!", \inlineJava"!!!increment!!!" and \inlineJava"!!!code!!!" should be replaced to fit the programmer's needs
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
 for(!!!initialisation!!!; !!!termination!!!; !!!increment!!!)
@@ -76,7 +76,7 @@ Java is an \term{object oriented} programming language.
     \term{Object oriented programming} or \term{OOP} is a programming paradigm based on the notion of objects. Objects may contain both data (fields, attributes or properties), and code (methods).
 \end{defi}
 \begin{eg}
-    Suppose we wish to simulate a physical scenario, where a cube has some force applied to it. In such a physics simulation, a cube object may have a field \inline{mass}, and a method \inline{calculateAcceleration} which takes an input of a force, and uses the \inline{mass} field to calculate the acceleration that the cube would experience.
+    Suppose we wish to simulate a physical scenario, where a cube has some force applied to it. In such a physics simulation, a cube object may have a field \inlineJava{mass}, and a method \inlineJava{calculateAcceleration} which takes an input of a force, and uses the \inlineJava{mass} field to calculate the acceleration that the cube would experience.
 \end{eg}
 There are other programming paradigms: languages such as Haskell use the functional programming paradigm, which differs greatly from object oriented programming.
 \par Compilers for many programming languages, such as C, compile program code directly into machine code. In figure \ref{fig:typicalCompilePipeline} we see that this requires a different compiler for each type of machine for the program to be run on.
@@ -139,7 +139,7 @@ However, Java is \term{platform-independent}: a compiled Java program can run on
 The \term{Java Runtime Environment} or \term{JRE} is the JVM along with the Java libraries. The \term{Java Development Kit} or \term{JDK} consists of the JRE, the Java compiler, and some other tools for java development.
 \pagebreak
 \subsection{Command Line Interfaces (CLIs) and Integrated Development Environments (IDEs)}
-Henceforth we assume that the JDK is properly installed. If we wish to compile Java code using the command line, it should be saved as a .java file. Then we use \inline{javac} to compile the program into a \inline{.class} file, which contains Java byte code. Then to launch this with the JVM, we run the \inline{java} command. For example, to compile a file called \inline{test.java}, we would navigate to its directory, and enter \inline{javac test.java}, and to launch the program we enter \inline{java test}. 
+Henceforth we assume that the JDK is properly installed. If we wish to compile Java code using the command line, it should be saved as a .java file. Then we use \inlineJava{javac} to compile the program into a \inlineJava{.class} file, which contains Java byte code. Then to launch this with the JVM, we run the \inlineJava{java} command. For example, to compile a file called \inlineJava{test.java}, we would navigate to its directory, and enter \inlineJava{javac test.java}, and to launch the program we enter \inlineJava{java test}. 
 
 \par During development, instead of doing this every time we wish to test a program, programmers will often use an \term{Integrated Devevlopment Environment} or \term{IDE} to handle this. An IDE will often have many features designed for development, such as syntax highlighting, version management tools and debugging tools.
 
@@ -150,7 +150,7 @@ Henceforth we assume that the JDK is properly installed. If we wish to compile J
  A \term{console application} is an application which uses a \term{text based user interface}. Alternatively, an application can use a \term{graphical user interface} or \term{GUI}, which allows for elements such a text boxes and buttons.
 
 \subsection{"Hello World" Program}
-Once a Java program is compiled, running the program will execute the \inline{main}method in the class of the .java file that was compiled. In listing \ref{lst:HelloWorld}, the \inline{main} method is executed and hence the words "Hello World" are printed to the console when the program is executed.
+Once a Java program is compiled, running the program will execute the \inlineJava{main}method in the class of the .java file that was compiled. In listing \ref{lst:HelloWorld}, the \inlineJava{main} method is executed and hence the words "Hello World" are printed to the console when the program is executed.
 \begin{lstlisting}[caption=Hello World, label=lst:HelloWorld]
 public class HelloWorld
 {
@@ -178,21 +178,21 @@ In the Java programming language, the \term{primitive types} or \term{scalar typ
         \hline
         Java type & Description of Data & Range of values
         \\ \hline \hline
-        \inline!byte! & Integers & $-128$ to $127$ \\ \hline
-        \inline!short! & Integers & $-32,768$ to $32,767$ \\ \hline
-        \inline!int! & Integers & $-2,147,483,648$ to \newline $2,147,483,647$ \\ \hline
-        \inline!long! & Integers & $-9,223,372,036,854,775,808$ to \newline $9,223,372,036,854,775,807$ \\ \hline
-        \inline!float! & Real numbers & $\pm1.4\times10^{-45}$ to $\pm3.4\times10^{38}$ \\ \hline
-        \inline!double! & Real numbers & $\pm4.9\times10^{-324}$ to $\pm1.8\times10^{308}$ \\ \hline
-        \inline!char! & Characters & Unicode character set\\ \hline
-        \inline!boolean! & True or false & True or false \\ \hline
+        \inlineJava!byte! & Integers & $-128$ to $127$ \\ \hline
+        \inlineJava!short! & Integers & $-32,768$ to $32,767$ \\ \hline
+        \inlineJava!int! & Integers & $-2,147,483,648$ to \newline $2,147,483,647$ \\ \hline
+        \inlineJava!long! & Integers & $-9,223,372,036,854,775,808$ to \newline $9,223,372,036,854,775,807$ \\ \hline
+        \inlineJava!float! & Real numbers & $\pm1.4\times10^{-45}$ to $\pm3.4\times10^{38}$ \\ \hline
+        \inlineJava!double! & Real numbers & $\pm4.9\times10^{-324}$ to $\pm1.8\times10^{308}$ \\ \hline
+        \inlineJava!char! & Characters & Unicode character set\\ \hline
+        \inlineJava!boolean! & True or false & True or false \\ \hline
     \end{tabular}
 \end{figure}
 \subsection{Declaring and assigning variables}
 \begin{defi}[Variable and Declaration]
     When we create a named location in memory to store a value of a given type, we are \term{declaring} a \term{variable}. They are called variables as the content may vary during the runtime of the program.
 \end{defi}
-In Java, we declare variables by writing: \inline!dataType variableName!. For example, if we wanted to declare an integer variable named score, we'd write
+In Java, we declare variables by writing: \inlineJava!dataType variableName!. For example, if we wanted to declare an integer variable named score, we'd write
 \vspace{-15pt}
 \begin{lstlisting}
 int score;
@@ -200,7 +200,7 @@ int score;
 \begin{defi}[Assigning variables]
     When we give a variable a value, this is called \term{assigning} the variable a value.
 \end{defi}
-In Java, we use the \inline!=! symbol to assign variables, for example
+In Java, we use the \inlineJava!=! symbol to assign variables, for example
 \vspace{-15pt}
 \begin{lstlisting}
 score = 10;
@@ -210,7 +210,7 @@ We can declare and assign in the same line of code:
 \begin{lstlisting}
 int score = 10;
 \end{lstlisting}
-Variables can be declared as \term{constant} by being preceded by the keyword \inline!final!.
+Variables can be declared as \term{constant} by being preceded by the keyword \inlineJava!final!.
 \vspace{-30pt}
 \begin{lstlisting}
 final double speedOfLight = 300000000;
@@ -224,17 +224,17 @@ Arithmetic operations take numeric values and output a numeric value of the same
     \vspace{10pt}
     \begin{tabular}{|l|l|}
         \hline Operation & Java operator \\ \hline \hline
-        Addition & \inline!+! \\ \hline
-        Subtraction & \inline!-! \\ \hline
-        Multiplication & \inline!*! \\ \hline
-        Division & \inline!/! \\ \hline
-        Remainder or Modulus & \inline!%! \\ \hline
+        Addition & \inlineJava!+! \\ \hline
+        Subtraction & \inlineJava!-! \\ \hline
+        Multiplication & \inlineJava!*! \\ \hline
+        Division & \inlineJava!/! \\ \hline
+        Remainder or Modulus & \inlineJava!%! \\ \hline
     \end{tabular}
 \end{figure}
 \begin{defi}[Overloading]
     A method or operator is said to be \term{overloaded} if it has multiple definitions, which may depend on context such as the data type or number of inputs.
 \end{defi}
-\begin{eg}The arithmetic operations are overloaded so we can use them on all of the primitive numeric types. For example \inline!/! is defined for both \inline!int! and \inline!double!. In the \inline!int! case, it returns a rounded down value, whereas in the \inline!double! case it returns a precise (as possible given double precision) value: \inline!3 / 2! will have value \inline!1! of type \inline!int!, but \inline!3.0 / 2.0! will have value \inline!1.5! of type \inline!double!.
+\begin{eg}The arithmetic operations are overloaded so we can use them on all of the primitive numeric types. For example \inlineJava!/! is defined for both \inlineJava!int! and \inlineJava!double!. In the \inlineJava!int! case, it returns a rounded down value, whereas in the \inlineJava!double! case it returns a precise (as possible given double precision) value: \inlineJava!3 / 2! will have value \inlineJava!1! of type \inlineJava!int!, but \inlineJava!3.0 / 2.0! will have value \inlineJava!1.5! of type \inlineJava!double!.
 \end{eg}
 \pagebreak
 \subsection{Comparison Operators}
@@ -246,20 +246,19 @@ Comparison operations take numeric values and output a boolean value. In Java, t
     \vspace{10pt}
     \begin{tabular}{|l|l|}
         \hline Operation & Java operator \\ \hline \hline
-        Equal to & \inline!==! \\ \hline
-        Not equal to & \inline"!=" \\ \hline
-        Less than & \inline!<! \\ \hline
-        Greater than & \inline!>! \\ \hline
-        Less than or equal to & \inline!<=! \\ \hline
-        Greater than or equal to & \inline!>=! \\ \hline
+        Equal to & \inlineJava!==! \\ \hline
+        Not equal to & \inlineJava"!=" \\ \hline
+        Less than & \inlineJava!<! \\ \hline
+        Greater than & \inlineJava!>! \\ \hline
+        Less than or equal to & \inlineJava!<=! \\ \hline
+        Greater than or equal to & \inlineJava!>=! \\ \hline
     \end{tabular}
 \end{figure}
-\begin{note} The \inline!==! operator (and by extension \inline"!=") only compares the value for \emph{primitive types}. We will see later in section \ref{subsec:EqualityOperator} that for objects, \inline!==! is unsuitable for comparing values.
+\begin{note} The \inlineJava!==! operator (and by extension \inlineJava"!=") only compares the value for \emph{primitive types}. We will see later in section \ref{subsec:EqualityOperator} that for objects, \inlineJava!==! is unsuitable for comparing values.
     
 \end{note}
 \subsection{Logical Operators}
-Logical operations take boolean values and output a boolean value. These can be done using the operators listed in figure \ref{fig:logicalOperations}
-\vspace{-15pt}
+Logical operations take boolean values and output a boolean value. These can be done using the operators listed in figure \ref{fig:logicalOperations}.
 \begin{figure}[H]
     \caption{Logical operations in Java}
     \label{fig:logicalOperations}
@@ -267,9 +266,9 @@ Logical operations take boolean values and output a boolean value. These can be 
     \vspace{10pt}
     \begin{tabular}{|l|l|}
         \hline Operation & Java operator \\ \hline \hline
-        Logical NOT & \inline"!" \\ \hline
-        Logical OR & \inline!||! \\ \hline
-        Logical AND & \inline!&&! \\ \hline
+        Logical NOT & \inlineJava"!" \\ \hline
+        Logical OR & \inlineJava!||! \\ \hline
+        Logical AND & \inlineJava!&&! \\ \hline
     \end{tabular}
 \end{figure}
 
@@ -349,9 +348,9 @@ for(!!!initialisation!!!; !!!termination!!!; !!!increment!!!)
 \end{lstlisting}
 The code in the header behaves as follows
 \begin{itemize}
-    \item \inline!!!!initialisation!!!! runs once, at the beginning of the loop's execution
-    \item \inline!!!!termination!!!! should be a boolean expression: when this evaluates to \inline!false! the loop will terminate.
-    \item \inline!!!!increment!!!! runs after each iteration of the loop
+    \item \inlineJava"!!!initialisation!!!" runs once, at the beginning of the loop's execution
+    \item \inlineJava"!!!termination!!!" should be a boolean expression: when this evaluates to \inlineJava!false! the loop will terminate.
+    \item \inlineJava"!!!increment!!!" runs after each iteration of the loop
 \end{itemize}
 \begin{eg} A typical use of a for loop would be to add all the integers between 0 and 10. This would be written as follows
 \begin{lstlisting}[caption=A typical use of a for loop, label=lst:forLoopDemo]
@@ -361,7 +360,7 @@ for(int i = 0; i <= 10; i++)
     total += i;
 }
 \end{lstlisting}
-In listing \ref{lst:forLoopDemo} we initialise a new variable \inline!int i = 0!, and each iteration of the loop \inline!i++! is executed, incrementing \inline!i! by 1. The loop terminates when \inline!i <= 10! no longer holds.
+In listing \ref{lst:forLoopDemo} we initialise a new variable \inlineJava!int i = 0!, and each iteration of the loop \inlineJava!i++! is executed, incrementing \inlineJava!i! by 1. The loop terminates when \inlineJava!i <= 10! no longer holds.
 \end{eg}
 \begin{note}
     When a variable is declared in the initialisation of a for loop, its scope is within that for loop.
@@ -434,24 +433,24 @@ public static int multByTwo(int x)
     return x * 2;
 }
 \end{lstlisting}
-In this example \inline!public! and \inline!static! are modifiers, \inline!int! is the return type, \inline!multByTwo! is the method name, \inline!int x! is the parameter, and \inline!return x * 2;! is the method body.
+In this example \inlineJava!public! and \inlineJava!static! are modifiers, \inlineJava!int! is the return type, \inlineJava!multByTwo! is the method name, \inlineJava!int x! is the parameter, and \inlineJava!return x * 2;! is the method body.
 \end{eg}
 \noindent Methods are called using the following syntax:
 \vspace{-15pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!method_name!!!(!!!parameters!!!) 
 \end{lstlisting}
-\begin{eg} If we wanted to call the method in listing \ref{lst:multByTwo} to multiply 5 by 2 and assign it to variable \inline!num!, we would write the following code.
+\begin{eg} If we wanted to call the method in listing \ref{lst:multByTwo} to multiply 5 by 2 and assign it to variable \inlineJava!num!, we would write the following code.
 \vspace{-15pt}
 \begin{lstlisting}
 int num = multByTwo(5);
 \end{lstlisting}
-We could call the method \inline!multByTwo! twice if we so wished:
+We could call the method \inlineJava!multByTwo! twice if we so wished:
 \vspace{-15pt}
 \begin{lstlisting}
 int num = multByTwo(multByTwo(5));
 \end{lstlisting}
-Methods may affect the state of the program, so sometimes we don't need to put the output into a variable. We may use \inline!void! as the return type for such methods. Regardless, any method can also be run without assigning the return value to a variable. The following example would run the method multByTwo, but not put the return value in a variable.
+Methods may affect the state of the program, so sometimes we don't need to put the output into a variable. We may use \inlineJava!void! as the return type for such methods. Regardless, any method can also be run without assigning the return value to a variable. The following example would run the method multByTwo, but not put the return value in a variable.
 \vspace{-15pt}
 \begin{lstlisting}
 multByTwo(5);
@@ -460,18 +459,18 @@ multByTwo(5);
 \subsection{Modifiers for Methods}
 In a method header in Java, you can use \term{modifiers} to modify various behaviours of the method: one \term{access modifier} then potentially a combination of \term{non-access modifier}s. The access modifiers are as follows
 \begin{itemize}
-    \item default (if you don't specify a modifier) - The method is accessible only in the same package.
-    \item public - The method is accessible in all classes.
-    \item private - The method is only accessible in the declared class.
-    \item protected - The method is accessible in the same package and subclasses.
+    \item \inlineJava"default" (if you don't specify a modifier) - The method is accessible only in the same package.
+    \item \inlineJava"public" - The method is accessible in all classes.
+    \item \inlineJava"private" - The method is only accessible in the declared class.
+    \item \inlineJava"protected" - The method is accessible in the same package and subclasses.
 \end{itemize}
 The non-access modifiers are
 \begin{itemize}
-    \item final - The method cannot be overridden or modified.
-    \item static - The method belongs to the class rather than objects of that class.
-    \item abstract (can only be used in an abstract class) - The method has no method body, which must be supplied by any subclass.
-    \item transient - Makes the method ignored when serialising the object containing it.
-    \item synchronised - The method can be accessed only by a single thread at a time.
+    \item \inlineJava"final" - The method cannot be overridden or modified.
+    \item \inlineJava"static" - The method belongs to the class rather than objects of that class.
+    \item \inlineJava"abstract" (can only be used in an abstract class) - The method has no method body, which must be supplied by any subclass.
+    \item \inlineJava"transient" - Makes the method ignored when serialising the object containing it.
+    \item \inlineJava"synchronized" - The method can be accessed only by a single thread at a time.
 \end{itemize}
 \pagebreak
 \subsection{Method Overloading}
@@ -512,7 +511,7 @@ The syntax for class declaration is as follows:
 \end{lstlisting}
 Convention is that a class name will have the first letter capitalised.
 \subsection{The Class Body}
-The class body may consist of method and attribute declarations. You may also provide a special method called a \term{constructor}, which has the same name as the class, and the return type is not written. For example, if we were to run a physics simulation of an object with mass under a gravitational force, a class \inline!PhysicsObject! may be defined as follows
+The class body may consist of method and attribute declarations. You may also provide a special method called a \term{constructor}, which has the same name as the class, and the return type is not written. For example, if we were to run a physics simulation of an object with mass under a gravitational force, a class \inlineJava!PhysicsObject! may be defined as follows
 \begin{lstlisting}[caption=PhysicsObject, label=lst:PhysicsObject]
 public class PhysicsObject
 {
@@ -532,14 +531,14 @@ public class PhysicsObject
     }   
 }
 \end{lstlisting}
-Notice that we have declared the attributes as private, so the only way to access the attributes are through the class' methods. This kind of data protection is called \term{encapsulation}. \\ Also, we have \term{initialised} the \inline{gravity} attribute, which sets the value at the start of the lifetime of the \inline!PhysicsObject! class, or if it were not \inline!static!, at the start of the lifetime of each \inline!PhysicsObject! object. Java always initialises attributes to a given value, numerical primitives to 0, \inline!boolean! to \inline!false!, \inline!Object! to \inline!null!
+Notice that we have declared the attributes as private, so the only way to access the attributes are through the class' methods. This kind of data protection is called \term{encapsulation}. \\ Also, we have \term{initialised} the \inlineJava{gravity} attribute, which sets the value at the start of the lifetime of the \inlineJava!PhysicsObject! class, or if it were not \inlineJava!static!, at the start of the lifetime of each \inlineJava!PhysicsObject! object. Java always initialises attributes to a given value, numerical primitives to 0, \inlineJava!boolean! to \inlineJava!false!, \inlineJava!Object! to \inlineJava!null!
 \subsection{Instantiating an object}
 Creating a new object is called \term{instantiation}. This is achieved in Java as follows
 \vspace{-30pt}
 \begin{lstlisting}[style=javaSyntax]
-class_name object_name = new class_name(parameters)
+!!!class_name!!! !!!object_name!!! = new !!!class_name!!!(!!!parameters!!!)
 \end{lstlisting}
-For example, to create an object called \inline"box" of the \inline"PhysicsObject" class above, with mass 5.0, we would write
+For example, to create an object called \inlineJava"box" of the \inlineJava"PhysicsObject" class above, with mass 5.0, we would write
 \vspace{-15pt}
 \begin{lstlisting}
 PhysicsObject box = new PhysicsObject(5.0)
@@ -549,7 +548,7 @@ PhysicsObject box = new PhysicsObject(5.0)
 To access the public methods of an object we have instantiated, we use the \term{dot operator}.
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
-object_name.method_name(parameters)
+!!!object_name!!!.!!!method_name!!!(!!!parameters!!!)
 \end{lstlisting}
 Similarly for attributes we use
 \vspace{-22pt}
@@ -561,46 +560,46 @@ For example, to get the force acting on our box
 \begin{lstlisting}
 double force = box.getGravityForce();
 \end{lstlisting}
-If the \inline!static! modifier has been used in the definition, instead we need to refer to the class name rather than the object name, for example, to set the gravity constant to 1, we would write
+If the \inlineJava!static! modifier has been used in the definition, instead we need to refer to the class name rather than the object name, for example, to set the gravity constant to 1, we would write
 \vspace{-15pt}
 \begin{lstlisting}
 PhysicsObject.setGravity(1.0);
 \end{lstlisting}
 \subsection{The "this" keyword}
-The \index{this keyword} \inline!this! keyword refers to the object which owns a method or constructor. It is useful to distinguish between class attributes and parameters with the same name. 
+The \index{this keyword} \inlineJava!this! keyword refers to the object which owns a method or constructor. It is useful to distinguish between class attributes and parameters with the same name. 
 \subsection{Modifiers for Classes}
 When declaring an class, you can use \term{modifiers} to modify various behaviours of the class: one \term{access modifier} then potentially a combination of \term{non-access modifier}s. The access modifiers are as follows
 \begin{itemize}
-    \item default (if you don't specify a modifier) - The class is accessible only by classes in the same package.
-    \item public - The class is accessible in any other class.
+    \item \inlineJava"default" (if you don't specify a modifier) - The class is accessible only by classes in the same package.
+    \item \inlineJava"public" - The class is accessible in any other class.
 \end{itemize}
 The non-access modifiers are
 \begin{itemize}
-    \item final - The class cannot be inherited by other classes.
-    \item abstract - Objects of this class cannot be created.
+    \item \inlineJava"final" - The class cannot be inherited by other classes.
+    \item \inlineJava"abstract" - Objects of this class cannot be created.
 \end{itemize}
 
 
 \subsection{Modifiers for Attributes}
 When declaring an attribute, you can use \term{modifiers} to modify various behaviours of the attribute: one \term{access modifier} then potentially a combination of \term{non-access modifier}s. The access modifiers are as follows
 \begin{itemize}
-    \item default (if you don't specify a modifier) - The attribute is accessible only in the same package.
-    \item public - The attribute is accessible in all classes.
-    \item private - The attribute is only accessible in the declared class.
-    \item protected - The attribute is accessible in the same package and subclasses.
+    \item \inlineJava"default" (if you don't specify a modifier) - The attribute is accessible only in the same package.
+    \item \inlineJava"public" - The attribute is accessible in all classes.
+    \item \inlineJava"private" - The attribute is only accessible in the declared class.
+    \item \inlineJava"protected" - The attribute is accessible in the same package and subclasses.
 \end{itemize}
 The non-access modifiers are
 \begin{itemize}
-    \item final - The attribute cannot be overridden or modified.
-    \item static - The attribute belongs to the class rather than objects of that class.
-    \item transient - Makes the attribute ignored when serialising the object containing it.
-    \item synchronised - The attribute can be accessed only by a single thread at a time.
-    \item volatile - The attribute is always read from main memory, not from a thread-local cache. In practice, this means any thread will be able to read the most recently updated value for this attribute.
+    \item \inlineJava"final" - The attribute cannot be overridden or modified.
+    \item \inlineJava"static" - The attribute belongs to the class rather than objects of that class.
+    \item \inlineJava"transient" - Makes the attribute ignored when serialising the object containing it.
+    \item \inlineJava"synchronized" - The attribute can be accessed only by a single thread at a time.
+    \item \inlineJava"volatile" - The attribute is always read from main memory, not from a thread-local cache. In practice, this means any thread will be able to read the most recently updated value for this attribute.
 \end{itemize}
 \section{Inheritance}
 \subsection{Superclasses and Subclasses}
 Often we wish to make classes which represent a "kind of" another class. To do this, we use class \term{inheritance}. The original class is called a \term{superclass} and the class which represents a "kind of" the superclass is called a \term{subclass}. 
-\\ In Java, the syntax used for inheritance is the \inline!extends! keyword, 
+\\ In Java, the syntax used for inheritance is the \inlineJava!extends! keyword, 
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!modifiers!!! class !!!subclass!!! extends !!!superclass!!!
@@ -614,13 +613,13 @@ Often we wish to make classes which represent a "kind of" another class. To do t
 \pagebreak
 \section{Assignment and Equality}
 \subsection{The Assignment Operator (=)}
-\index{= operator}\index{assignment operator}The \inline!=! operator assigns a value to a variable. For example, the following assigns the value 10 to \inline!x!.
+\index{= operator}\index{assignment operator}The \inlineJava!=! operator assigns a value to a variable. For example, the following assigns the value 10 to \inlineJava!x!.
 \vspace{-15pt}
 \begin{lstlisting}
 int x = 10;
 \end{lstlisting}
 When dealing with objects instead of primitives, the value that is assigned is the memory address of the object on the right hand side.
-\begin{eg} Suppose we have a class \inline!Rectangle!
+\begin{eg} Suppose we have a class \inlineJava!Rectangle!
 \begin{lstlisting}[caption=Rectangle, label=lst:Rectangle]
 public class Rectangle
 {
@@ -650,10 +649,10 @@ public class Rectangle
 }
 \end{lstlisting}
 \pagebreak
-The listing \ref{lst:assignmentOperatorObject}, line 1 creates a new \inline!Rectangle! in memory with length 1.0 and width 1.0, and assign \inline!rect! to its memory address.
-\\ In line 2, \inline!rect2! would be assigned the value of \inline!rect!, i.e. the memory address of the rectangle.
-\\ Then in line 3, we use the \inline!setWidth! method to set \inline!rect2.width! to 5.0. As \inline!rect2! points to the same object as \inline!rect!, this method sets \inline!rect.width! to 5.0.
-\\ In line 4, we set \inline!area! to \inline!rect.getArea()!. This returns \inline!5.0!, as \inline!rect.length! is 1.0 and \inline!rect.width! is 5.0.
+The listing \ref{lst:assignmentOperatorObject}, line 1 creates a new \inlineJava!Rectangle! in memory with length 1.0 and width 1.0, and assign \inlineJava!rect! to its memory address.
+\\ In line 2, \inlineJava!rect2! would be assigned the value of \inlineJava!rect!, i.e. the memory address of the rectangle.
+\\ Then in line 3, we use the \inlineJava!setWidth! method to set \inlineJava!rect2.width! to 5.0. As \inlineJava!rect2! points to the same object as \inlineJava!rect!, this method sets \inlineJava!rect.width! to 5.0.
+\\ In line 4, we set \inlineJava!area! to \inlineJava!rect.getArea()!. This returns \inlineJava!5.0!, as \inlineJava!rect.length! is 1.0 and \inlineJava!rect.width! is 5.0.
 \begin{lstlisting}[caption=A sample of code to interact with the Rectangle class, label=lst:assignmentOperatorObject] 
 Rectangle rect = new Rectangle(1.0,1.0);
 Rectangle rect2 = rect;
@@ -662,35 +661,35 @@ double area = rect.getArea();
 \end{lstlisting}
 \end{eg}
 \begin{defi}[Aliasing]
-\term{Aliasing} is when an object is assigned multiple names. In listing \ref{lst:assignmentOperatorObject}, we see \inline!rect2! is an \term{alias} of \inline!rect!.
+\term{Aliasing} is when an object is assigned multiple names. In listing \ref{lst:assignmentOperatorObject}, we see \inlineJava!rect2! is an \term{alias} of \inlineJava!rect!.
 \end{defi}
 \subsection{The new Keyword}
 The \term{new keyword} creates a new object, at runtime it assigns an area in memory on the heap to store that object, and returns a reference to that object. It has one argument, being the constructor of the object to be initialised.
 
 \subsection{The Equality Operator (==)} \label{subsec:EqualityOperator}
-\index{== operator}\index{equality operator}The \inline!==! operator will tell you if two non-null references refer to the same object in memory. This is called \term{reference equality}. In practice, this means that when comparing objects using \inline!==!, you are comparing their memory address, not their data. \textbf{WARNING: It is a common mistake to use \inline!==! to compare the data contained by an object. You should instead use a method which compares the data you require to be compared (often the overridden \inline!equals! method).} With the following declarations, we would have that \inline!a==b! would return \inline!true!, but \inline!a==c! would return \inline!false!, despite \inline!a! and \inline!c! containing the same data!
+\index{== operator}\index{equality operator}The \inlineJava!==! operator will tell you if two non-null references refer to the same object in memory. This is called \term{reference equality}. In practice, this means that when comparing objects using \inlineJava!==!, you are comparing their memory address, not their data. \textbf{WARNING: It is a common mistake to use \inlineJava!==! to compare the data contained by an object. You should instead use a method which compares the data you require to be compared (often the overridden \inlineJava!equals! method).} With the following declarations, we would have that \inlineJava!a==b! would return \inlineJava!true!, but \inlineJava!a==c! would return \inlineJava!false!, despite \inlineJava!a! and \inlineJava!c! containing the same data!
 \vspace{-15pt}
 \begin{lstlisting}
 String a = new String("str");
 String b = a;
 String c = new String("str");
 \end{lstlisting}
-In contrast, for primitives, the \inline!==! operator returns the \term{value equality}, i.e. true if and only if the variables contain the same value.
+In contrast, for primitives, the \inlineJava!==! operator returns the \term{value equality}, i.e. true if and only if the variables contain the same value.
 \section{Common Classes}
 \subsection{Object}
-Every class is a subclass of \inline!Object!, so inherits its methods. Examples of such methods are 
+Every class is a subclass of \inlineJava!Object!, so inherits its methods. Examples of such methods are 
 \begin{itemize}
-    \item \inline!public boolean equals(Object obj)! - Returns true if the current object is equal to \inline!obj!. The equals method for the class \inline!Object! this is the same as the  \inline!==! operator. \textbf{WARNING: This means that two objects may be indistinguishable by the data and methods they hold, but are still distinguished by the equals method!} As a result, for most classes the equals method is overriden.
-    \item \inline!protected Object clone()! - Produces a clone of the current object, such that \inline!x.clone() == x! will return false.
-    \item \inline!public String toString()! - Returns a string representation of the object. Usually overridden to give more useful information.
+    \item \inlineJava!public boolean equals(Object obj)! - Returns true if the current object is equal to \inlineJava!obj!. The equals method for the class \inlineJava!Object! this is the same as the  \inlineJava!==! operator. \textbf{WARNING: This means that two objects may be indistinguishable by the data and methods they hold, but are still distinguished by the equals method!} As a result, for most classes the equals method is overriden.
+    \item \inlineJava!protected Object clone()! - Produces a clone of the current object, such that \inlineJava!x.clone() == x! will return false.
+    \item \inlineJava!public String toString()! - Returns a string representation of the object. Usually overridden to give more useful information.
 \end{itemize}
 \subsection{String}
-A \term{string} is a sequence of characters. The \inline{String} class represents \term{immutable} strings, that is, they cannot be modified by methods.
+A \term{string} is a sequence of characters. The \inlineJava{String} class represents \term{immutable} strings, that is, they cannot be modified by methods.
 \begin{defi}[String Literal]
     A \term{string literal} is a piece of code which represents a fixed string. 
 \end{defi}
-In Java, string literals are represented as a string within quotation marks, for example \inline!"This is a string literal"!. String literals are implemented as instances of the class \inline!String!. 
-\par Use of the same string literal twice will reference to the same \inline!String! object in memory. For example, with the following declarations, \inline!a == b! would return \inline!true!.
+In Java, string literals are represented as a string within quotation marks, for example \inlineJava!"This is a string literal"!. String literals are implemented as instances of the class \inlineJava!String!. 
+\par Use of the same string literal twice will reference to the same \inlineJava!String! object in memory. For example, with the following declarations, \inlineJava!a == b! would return \inlineJava!true!.
 \vspace{-15pt}
 \begin{lstlisting}
 String a = "str"
@@ -698,11 +697,11 @@ String b = "str"
 \end{lstlisting}
 The string class has many associated methods, such as:
 \begin{itemize}
-    \item \inline!public int length()! - Returns the length of the string.
-    \item \inline!public boolean equals(Object obj)! - Returns true if and only if \inline!obj! is a \inline!String! object and has the same value as the current string. Overrides the \inline!equals! method for the \inline!Object! class.
-    \item \inline!public String substring(int beginIndex, int endIndex)! - \newline Returns the substring of this string beginning with the \inline!beginIndex!$^{\text{th}}$ character, ending with the  \inline!(endIndex-1)!$^{\text{th}}$ character.
-    \item \inline!public String toLowerCase()! - Returns the string in lowercase.
-    \item \inline!public String toUpperCase()! - Returns the string in uppercase.
+    \item \inlineJava!public int length()! - Returns the length of the string.
+    \item \inlineJava!public boolean equals(Object obj)! - Returns true if and only if \inlineJava!obj! is a \inlineJava!String! object and has the same value as the current string. Overrides the \inlineJava!equals! method for the \inlineJava!Object! class.
+    \item \inlineJava!public String substring(int beginIndex, int endIndex)! - \newline Returns the substring of this string beginning with the \inlineJava!beginIndex!$^{\text{th}}$ character, ending with the  \inlineJava!(endIndex-1)!$^{\text{th}}$ character.
+    \item \inlineJava!public String toLowerCase()! - Returns the string in lowercase.
+    \item \inlineJava!public String toUpperCase()! - Returns the string in uppercase.
 \end{itemize}
 \subsection{Wrappers}
 For each primitive data type, there is a \term{wrapper class} which hold a single field of the corresponding primitive type.
@@ -726,7 +725,7 @@ For each primitive data type, there is a \term{wrapper class} which hold a singl
 \end{figure}
 \term{Autoboxing} allows us to use primitive values in place of wrapper objects, and \term{unboxing} allows vice versa.
 \subsection{Scanner}
-The \term{Scanner class} allows text input to the program, with ability to parse primitive types, and use regular expressions to parse strings. Scanners can scan from user input to a console, from files, and from String objects. \par This class comes in a package called \inline!util!.  We use the \index{import keyword}\inline!import! keyword to import packages.
+The \term{Scanner class} allows text input to the program, with ability to parse primitive types, and use regular expressions to parse strings. Scanners can scan from user input to a console, from files, and from String objects. \par This class comes in a package called \inlineJava!util!.  We use the \index{import keyword}\inlineJava!import! keyword to import packages.
 \vspace{-15pt}
 \begin{lstlisting}
 import java.util.Scanner;
@@ -784,12 +783,12 @@ char[] c = new char[] {'A', 'Z'};
 \end{lstlisting}
 \end{egs}
 \subsection{Accessing Array Elements}
-To access the $i^{th}$ element of an array called \inline!array_name! in Java, we use square brackets
+To access the $i^{th}$ element of an array called \inlineJava!array_name! in Java, we use square brackets
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!array_name!!![!!!i!!!]
 \end{lstlisting}
-Note that array indices start from 0, so in the previous example, \inline!a[0]! is 1 and \inline!c[1]! is \inline!'Z'!.
+Note that array indices start from 0, so in the previous example, \inlineJava!a[0]! is 1 and \inlineJava!c[1]! is \inlineJava!'Z'!.
 \subsection{Arrays of Objects}
 An array of objects is in fact an array of references, in particular, the array can contain multiple of the same reference, so can refer to the same object multiple times.
 \subsection{Multi-dimensional Arrays}
@@ -803,12 +802,12 @@ For more dimensions, we would write more square brackets.
 \index{rectangular array}\index{jagged array}A multi-dimensional array is \emph{rectangular} if in each dimension it always has the same length. Otherwise, the array is called \emph{jagged}.
 \end{defi}
 \noindent We can assign multi-dimensional arrays similarly to 1-dimensional arrays, here we do 2-dimensional arrays.
-\vspace{5pt} \\ To assign a rectangular 2-dimensional array of dimensions \inline!capacity_x! and \inline!capacity_y!, with all default values,
+\vspace{5pt} \\ To assign a rectangular 2-dimensional array of dimensions \inlineJava!capacity_x! and \inlineJava!capacity_y!, with all default values,
 \vspace{-22pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!array_name!!! = new !!!type!!![!!!capacity_x!!!][!!!capacity_y!!!]; 
 \end{lstlisting}
-You may also assign the length of each element of the array separately to form a jagged array, for example to declare a new array of \inline!capacity_x! arrays, where the $i^{th}$ had capacicty \inline!capacity_y_i!, the following would be written.
+You may also assign the length of each element of the array separately to form a jagged array, for example to declare a new array of \inlineJava!capacity_x! arrays, where the $i^{th}$ had capacicty \inlineJava!capacity_y_i!, the following would be written.
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!array_name!!! = new !!!type!!![!!!capacity_x!!!][];
@@ -826,12 +825,12 @@ To access the elements, we use the same syntax as for 1-dimensional arrays
 !!!array_name!!![!!!i!!!][!!!j!!!] 
 \end{lstlisting}
 All of this notation extends to higher-dimensional arrays by increasing the number of square brackets
-\begin{egs} If we wanted to create a rectangular array of doubles called \inline!a!, with dimensions 3 and 4, containing all 0s, we would write
+\begin{egs} If we wanted to create a rectangular array of doubles called \inlineJava!a!, with dimensions 3 and 4, containing all 0s, we would write
 \vspace{-15pt}
 \begin{lstlisting}
 double[][] a = new double[3][4];
 \end{lstlisting}
-If we wanted to create a jagged array of integers called \inline!a!, with 4 rows, and the $i^{th}$ row has $i$ columns, and \inline!a[i][j]! has value \inline!i+j!, we could write the following
+If we wanted to create a jagged array of integers called \inlineJava!a!, with 4 rows, and the $i^{th}$ row has $i$ columns, and \inlineJava!a[i][j]! has value \inlineJava!i+j!, we could write the following
 \vspace{-15pt}
 \begin{lstlisting}
 int[][] a = new int[4][];
