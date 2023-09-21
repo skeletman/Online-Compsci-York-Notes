@@ -47,7 +47,29 @@ A computer can only understand instructions given to it in binary, we call such 
 \begin{defi}[Syntax]
     The rules that must be followed for a piece of code to be valid in a programming language is called \term{syntax}.
 \end{defi}
+\noindent When code is written in this document, it will be presented in a box with line numbers on the left hand side. {\color{blue} Blue} font will be used for Java keywords, {\color{mymauve} purple} for string literals, and {\color{mygreen} green} for code comments. We see a sample of such a presentation in listing \ref{lst:sampleListing}.
 \pagebreak
+\vspace{-15pt}
+\begin{lstlisting}[caption=A sample of code, label=lst:sampleListing]
+/*
+A sample of Java code.
+*/
+public class HelloWorld
+{
+    public void main(String[] args)
+    {
+        System.out.println("Hello World");
+    }
+} 
+\end{lstlisting}
+When defining pieces of syntax, I will use {\slshape\color{mygray} italic grey} font to represent fields where the programmer needs to choose the value. For example, we will see in section \ref{sec:forLoops}, the definition of a for loop will look as follows, to indicate that \inline!initialisation!, \inline!termination!, \inline"increment" and \inline"code" should be replaced to fit the programmer's needs
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+for(!!!initialisation!!!; !!!termination!!!; !!!increment!!!)
+{
+    !!!code!!!
+}
+\end{lstlisting}
 \subsection{The Java Programming Language}
 Java is an \term{object oriented} programming language. 
 \begin{defi}[Object Oriented Programming] \label{def:OOP}
@@ -58,49 +80,59 @@ Java is an \term{object oriented} programming language.
 \end{eg}
 There are other programming paradigms: languages such as Haskell use the functional programming paradigm, which differs greatly from object oriented programming.
 \par Compilers for many programming languages, such as C, compile program code directly into machine code. In figure \ref{fig:typicalCompilePipeline} we see that this requires a different compiler for each type of machine for the program to be run on.
+However, Java is \term{platform-independent}: a compiled Java program can run on any type of machine. This is because Java compiles to \term{Java byte code}, which then can be run by the \term{Java virtual machine} or \term{JVM}, a piece of software that runs on various types of machines to translate the Java byte code into machine code. There are versions of JVM for Windows, Mac, Unix, Linux, mobile phones, and even many embedded systems. For a diagram see figure \ref{fig:javaCompilePipeline}.
 \begin{figure}[H]
     \centering
-    \caption{A typical pipeline for code compilation}
-    \label{fig:typicalCompilePipeline}
-    \vspace{10pt}
-    \begin{tikzpicture}[roundnode/.style={ellipse, text width=1.5cm, align=center, draw=green!60, fill=green!5, very thick, minimum size=7mm},squarednode/.style={rectangle, text width=2cm, align=center, draw=red!60, fill=white, very thick, minimum size=5mm},]
-        \node[roundnode] (sc) {Source Code};
-        \node[squarednode] (c2) [below=of sc] {Compiler \\ For PC};
-        \node[squarednode] (c1) [left=of c2] {Compiler \\ For Apple};
-        \node[squarednode] (c3) [right=of c2] {Compiler \\ For Unix};
-        \node[roundnode] (mc1) [below=of c1] {Apple Machine Code};
-        \node[roundnode] (mc2) [below=of c2] {PC \\ Machine Code};
-        \node[roundnode] (mc3) [below=of c3] {UNIX Machine Code};
-        \draw[->] (sc.south) -- (c1.north);
-        \draw[->] (sc.south) -- (c2.north);
-        \draw[->] (sc.south) -- (c3.north);
-        \draw[->] (c1.south) -- (mc1.north);
-        \draw[->] (c2.south) -- (mc2.north);
-        \draw[->] (c3.south) -- (mc3.north);
-    \end{tikzpicture}
+    \caption{A comparison between the compilation pipelines in other languages vs Java}
+    \label{fig:compilePipelineComparison}
+    \begin{subfigure}[t]{.5\textwidth}
+        \centering
+        \caption{A typical pipeline for compilation}
+        \label{fig:typicalCompilePipeline}
+        \vspace{10pt}
+        \resizebox{0.9\textwidth}{!}{
+        \begin{tikzpicture}[roundnode/.style={ellipse, text width=1.5cm, align=center, draw=green!60, fill=green!5, very thick, minimum size=7mm},squarednode/.style={rectangle, text width=2cm, align=center, draw=red!60, fill=white, very thick, minimum size=5mm},]
+            \node[roundnode] (sc) {Source Code};
+            \node[squarednode] (c2) [below=of sc] {Compiler \\ For PC};
+            \node[squarednode] (c1) [left=of c2] {Compiler \\ For Apple};
+            \node[squarednode] (c3) [right=of c2] {Compiler \\ For Unix};
+            \node[roundnode] (mc1) [below=of c1] {Apple Machine Code};
+            \node[roundnode] (mc2) [below=of c2] {PC \\ Machine Code};
+            \node[roundnode] (mc3) [below=of c3] {UNIX Machine Code};
+            \draw[->] (sc.south) -- (c1.north);
+            \draw[->] (sc.south) -- (c2.north);
+            \draw[->] (sc.south) -- (c3.north);
+            \draw[->] (c1.south) -- (mc1.north);
+            \draw[->] (c2.south) -- (mc2.north);
+            \draw[->] (c3.south) -- (mc3.north);
+        \end{tikzpicture}
+        }
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+        \centering
+        \caption{The pipeline for Java compilation}
+        \label{fig:javaCompilePipeline}
+        \vspace{10pt}
+        \resizebox{0.9\textwidth}{!}{
+        \begin{tikzpicture}[roundnode/.style={ellipse, text width=1.5cm, align=center,  draw=green!60, fill=green!5, very thick, minimum size=7mm},squarednode/.style={rectangle, draw=red!60, fill=white, very thick, minimum size=5mm},]
+            \node[roundnode] (sc) {Source Code};
+            \node[squarednode] (c) [below=of sc] {Java Compiler};
+            \node[roundnode] (jbc) [below=of c] {Java Byte Code};
+            \node[squarednode] (jvm) [below=of jbc] {Java Virtual Machine (JVM)};
+            \node[roundnode] (a) [below=of jvm] {Apple Machine Code};
+            \node[roundnode] (pc) [left=of a] {PC \\ Machine Code};
+            \node[roundnode] (unix) [right=of a] {UNIX Machine Code};
+            \draw[->] (sc.south) -- (c.north);
+            \draw[->] (c.south) -- (jbc.north);
+            \draw[->] (jbc.south) -- (jvm.north);
+            \draw[->] (jvm.south) -- (a.north);
+            \draw[->] (jvm.south) -- (pc.north);
+            \draw[->] (jvm.south) -- (unix.north);
+        \end{tikzpicture}
+        }
+    \end{subfigure}
 \end{figure}
-However, Java is \term{platform-independent}: a compiled Java program can run on any type of machine. This is because Java compiles to \term{Java byte code}, which then can be run by the \term{Java virtual machine} or \term{JVM}, which is a piece of software that runs on various types of machines to translate the Java byte code into machine code. There are versions of JVM for Windows, Mac, Unix, Linux, mobile phones, and even many embedded systems.
-\begin{figure}[H]
-    \centering
-    \caption{The pipeline for Java code compilation}
-    \label{fig:javaCompilePipeline}
-    \vspace{10pt}
-    \begin{tikzpicture}[roundnode/.style={ellipse, text width=1.5cm, align=center,  draw=green!60, fill=green!5, very thick, minimum size=7mm},squarednode/.style={rectangle, draw=red!60, fill=white, very thick, minimum size=5mm},]
-        \node[roundnode] (sc) {Source Code};
-        \node[squarednode] (c) [below=of sc] {Java Compiler};
-        \node[roundnode] (jbc) [below=of c] {Java Byte Code};
-        \node[squarednode] (jvm) [below=of jbc] {Java Virtual Machine (JVM)};
-        \node[roundnode] (a) [below=of jvm] {Apple Machine Code};
-        \node[roundnode] (pc) [left=of a] {PC \\ Machine Code};
-        \node[roundnode] (unix) [right=of a] {UNIX Machine Code};
-        \draw[->] (sc.south) -- (c.north);
-        \draw[->] (c.south) -- (jbc.north);
-        \draw[->] (jbc.south) -- (jvm.north);
-        \draw[->] (jvm.south) -- (a.north);
-        \draw[->] (jvm.south) -- (pc.north);
-        \draw[->] (jvm.south) -- (unix.north);
-    \end{tikzpicture}
-\end{figure}
+
 \begin{defi}[Libraries, Packages]
     \term{Libraries} and \term{packages} are pre-compiled Java modules for use in your own programs.
 \end{defi}
@@ -272,54 +304,54 @@ Logical operations take boolean values and output a boolean value. These can be 
 \subsection{If Statements}
 An \term{if statement} executes a piece of code conditional on a boolean condition. The Java syntax for an if statement is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
-if(condition)
+\begin{lstlisting}[style=javaSyntax]
+if(!!!condition!!!)
 {
-    code-if-condition-true
+    !!!code_if_condition_true!!!
 }
 \end{lstlisting}
 \subsection{If-Else Statements}
 An \term{if-else statement} executes a piece of code conditional on a boolean condition, and if not executes another piece of code. The Java syntax for an if-else statement is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
-if(condition)
+\begin{lstlisting}[style=javaSyntax]
+if(!!!condition!!!)
 {
-    code-if-condition-true
+    !!!code_if_condition_true!!!
 }
 else
 {
-    code-if-condition-false
+    !!!code_if_condition_false!!!
 }
 \end{lstlisting}
 \subsection{Switch Statements}
 A \term{switch statement} is a switch between many pieces of code based on the value of a varaible. In Java, the syntax for a switch statement is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
-switch(variable)
+\begin{lstlisting}[style=javaSyntax]
+switch(!!!variable!!!)
 {
-    case value1: code
+    case !!!value1!!!: !!!code!!!
         break;
     ...
-    case valueN: code
+    case !!!valueN!!!: !!!code!!!
         break;
-    default: code
+    default: !!!code!!!
         break;
 }
 \end{lstlisting}
-\subsection{For Loops}
+\subsection{For Loops} \label{sec:forLoops}
 A \term{for loop} iterates a piece of code a fixed number of times, with a varying parameter. The Java syntax for a for loop is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
-for(initialisation; termination; increment)
+\begin{lstlisting}[style=javaSyntax]
+for(!!!initialisation!!!; !!!termination!!!; !!!increment!!!)
 {
-    code
+    !!!code!!!
 }
 \end{lstlisting}
 The code in the header behaves as follows
 \begin{itemize}
-    \item \inline!initialisation! runs once, at the beginning of the loop's execution
-    \item \inline!termination! should be a boolean expression: when this evaluates to \inline!false! the loop will terminate.
-    \item \inline!increment! runs after each iteration of the loop
+    \item \inline!!!!initialisation!!!! runs once, at the beginning of the loop's execution
+    \item \inline!!!!termination!!!! should be a boolean expression: when this evaluates to \inline!false! the loop will terminate.
+    \item \inline!!!!increment!!!! runs after each iteration of the loop
 \end{itemize}
 \begin{eg} A typical use of a for loop would be to add all the integers between 0 and 10. This would be written as follows
 \begin{lstlisting}[caption=A typical use of a for loop, label=lst:forLoopDemo]
@@ -338,20 +370,20 @@ In listing \ref{lst:forLoopDemo} we initialise a new variable \inline!int i = 0!
 \subsection{While loops}
 A \term{while loop} iterates a piece of code while a boolean condition is true. The Java syntax for a for loop is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
-while(condition)
+\begin{lstlisting}[style=javaSyntax]
+while(!!!condition!!!)
 {
-    code
+    !!!code!!!
 }
 \end{lstlisting}
 \subsection{Do-While loops}
 A \term{do-while loop} executes a piece of code once, then iterates it while a boolean condition is true. The Java syntax for a for loop is
 \vspace{-20pt}
-\begin{lstlisting}[style=basic]
+\begin{lstlisting}[style=javaSyntax]
 do
 {
-    code
-} while (condition)
+    !!!code!!!
+} while (!!!condition!!!)
 \end{lstlisting}
 
 \subsection{Break statements}
@@ -384,13 +416,14 @@ for(int i = 0; i < 100; i++){
 \pagebreak
 \section{Methods}
 \label{sec:methods}
+\term{Methods} are pieces of code that perform some operation, possibly with parameters that affect that operation. The operation may return a result, or affect the state of the program. Methods can be \term{called} from elsewhere in the program to run their code, and they may be called multiple times.
 \subsection{Declaring, Defining and Calling Methods}
 Methods are defined using the following syntax:
 \vspace{-15pt}
-\begin{lstlisting}[style=basic]
-modifiers return-type method-name(parameters) 
+\begin{lstlisting}[style=javaSyntax]
+!!!modifiers!!! !!!return_type!!! !!!method_name!!!(!!!parameters!!!) 
 {
-    method-body
+    !!!method_body!!!
 }
 \end{lstlisting}
 Convention is that a method name will have the first letter lowercase. The first line of the method declaration is called the \term{method header}.
@@ -405,13 +438,18 @@ In this example \inline!public! and \inline!static! are modifiers, \inline!int! 
 \end{eg}
 \noindent Methods are called using the following syntax:
 \vspace{-15pt}
-\begin{lstlisting}[style=basic]
-method-name(parameters) 
+\begin{lstlisting}[style=javaSyntax]
+!!!method_name!!!(!!!parameters!!!) 
 \end{lstlisting}
-\begin{eg} If we wanted to use the method in listing \ref{lst:multByTwo} to multiply 5 by 2 and assign it to variable \inline!num!, we would write the following code.
+\begin{eg} If we wanted to call the method in listing \ref{lst:multByTwo} to multiply 5 by 2 and assign it to variable \inline!num!, we would write the following code.
 \vspace{-15pt}
 \begin{lstlisting}
 int num = multByTwo(5);
+\end{lstlisting}
+We could call the method \inline!multByTwo! twice if we so wished:
+\vspace{-15pt}
+\begin{lstlisting}
+int num = multByTwo(multByTwo(5));
 \end{lstlisting}
 Methods may affect the state of the program, so sometimes we don't need to put the output into a variable. We may use \inline!void! as the return type for such methods. Regardless, any method can also be run without assigning the return value to a variable. The following example would run the method multByTwo, but not put the return value in a variable.
 \vspace{-15pt}
@@ -419,7 +457,6 @@ Methods may affect the state of the program, so sometimes we don't need to put t
 multByTwo(5);
 \end{lstlisting}
 \end{eg}
-\pagebreak
 \subsection{Modifiers for Methods}
 In a method header in Java, you can use \term{modifiers} to modify various behaviours of the method: one \term{access modifier} then potentially a combination of \term{non-access modifier}s. The access modifiers are as follows
 \begin{itemize}
@@ -467,22 +504,22 @@ In definition \ref{def:OOP}, we defined object oriented programming, and said, o
 \subsection{Class Declaration}
 The syntax for class declaration is as follows:
 \vspace{-15pt}
-\begin{lstlisting}[style=basic]
-modifiers class class-name
+\begin{lstlisting}[style=javaSyntax]
+!!!modifiers!!! class !!!class_name!!!
 {
-    class-body
+    !!!class_body!!!
 }
 \end{lstlisting}
 Convention is that a class name will have the first letter capitalised.
 \subsection{The Class Body}
-The class body may consist of method and attribute declarations. You may also provide a special method called a \term{constructor}, which has the same name as the class, and the return type is not written. For example, if we were to run a physics simulation of an object with mass under a gravitational force, a class \inline!PhysicsBox! may be defined as follows
-\begin{lstlisting}[caption=PhysicsBox, label=lst:PhysicsBox]
-public class PhysicsBox
+The class body may consist of method and attribute declarations. You may also provide a special method called a \term{constructor}, which has the same name as the class, and the return type is not written. For example, if we were to run a physics simulation of an object with mass under a gravitational force, a class \inline!PhysicsObject! may be defined as follows
+\begin{lstlisting}[caption=PhysicsObject, label=lst:PhysicsObject]
+public class PhysicsObject
 {
     private double mass;
     private static double gravity = 9.81;
 
-    public PhysicsBox(double massIn){
+    public PhysicsObject(double massIn){
         mass = massIn;
     }
 
@@ -495,29 +532,29 @@ public class PhysicsBox
     }   
 }
 \end{lstlisting}
-Notice that we have declared the attributes as private, so the only way to access the attributes are through the class' methods. This kind of data protection is called \term{encapsulation}. \\ Also, we have \term{initialised} the \inline{gravity} attribute, which sets the value at the start of the lifetime of the \inline!PhysicsBox! class, or if it were not \inline!static!, at the start of the lifetime of each \inline!PhysicsBox! object. Java always initialises attributes to a given value, numerical primitives to 0, \inline!boolean! to \inline!false!, \inline!Object! to \inline!null!
+Notice that we have declared the attributes as private, so the only way to access the attributes are through the class' methods. This kind of data protection is called \term{encapsulation}. \\ Also, we have \term{initialised} the \inline{gravity} attribute, which sets the value at the start of the lifetime of the \inline!PhysicsObject! class, or if it were not \inline!static!, at the start of the lifetime of each \inline!PhysicsObject! object. Java always initialises attributes to a given value, numerical primitives to 0, \inline!boolean! to \inline!false!, \inline!Object! to \inline!null!
 \subsection{Instantiating an object}
 Creating a new object is called \term{instantiation}. This is achieved in Java as follows
 \vspace{-30pt}
-\begin{lstlisting}[style=basic]
-class-name object-name = new class-name(parameters)
+\begin{lstlisting}[style=javaSyntax]
+class_name object_name = new class_name(parameters)
 \end{lstlisting}
-For example, to create an object called \inline"box" of the \inline"PhysicsBox" class above, with mass 5.0, we would write
+For example, to create an object called \inline"box" of the \inline"PhysicsObject" class above, with mass 5.0, we would write
 \vspace{-15pt}
 \begin{lstlisting}
-PhysicsBox box = new PhysicsBox(5.0)
+PhysicsObject box = new PhysicsObject(5.0)
 \end{lstlisting}
 
 \subsection{Accessing the Public Methods and Attributes of an Object or Class}
 To access the public methods of an object we have instantiated, we use the \term{dot operator}.
 \vspace{-22pt}
-\begin{lstlisting}[style=basic]
-object-name.method-name(parameters)
+\begin{lstlisting}[style=javaSyntax]
+object_name.method_name(parameters)
 \end{lstlisting}
 Similarly for attributes we use
 \vspace{-22pt}
-\begin{lstlisting}[style=basic]
-object-name.attribute-name
+\begin{lstlisting}[style=javaSyntax]
+object_name.attribute_name
 \end{lstlisting}
 For example, to get the force acting on our box
 \vspace{-15pt}
@@ -527,7 +564,7 @@ double force = box.getGravityForce();
 If the \inline!static! modifier has been used in the definition, instead we need to refer to the class name rather than the object name, for example, to set the gravity constant to 1, we would write
 \vspace{-15pt}
 \begin{lstlisting}
-PhysicsBox.setGravity(1.0);
+PhysicsObject.setGravity(1.0);
 \end{lstlisting}
 \subsection{The "this" keyword}
 The \index{this keyword} \inline!this! keyword refers to the object which owns a method or constructor. It is useful to distinguish between class attributes and parameters with the same name. 
@@ -560,6 +597,21 @@ The non-access modifiers are
     \item synchronised - The attribute can be accessed only by a single thread at a time.
     \item volatile - The attribute is always read from main memory, not from a thread-local cache. In practice, this means any thread will be able to read the most recently updated value for this attribute.
 \end{itemize}
+\section{Inheritance}
+\subsection{Superclasses and Subclasses}
+Often we wish to make classes which represent a "kind of" another class. To do this, we use class \term{inheritance}. The original class is called a \term{superclass} and the class which represents a "kind of" the superclass is called a \term{subclass}. 
+\\ In Java, the syntax used for inheritance is the \inline!extends! keyword, 
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+!!!modifiers!!! class !!!subclass!!! extends !!!superclass!!!
+{
+    !!!code!!!
+}
+\end{lstlisting}
+\begin{eg}
+    
+\end{eg}
+\pagebreak
 \section{Assignment and Equality}
 \subsection{The Assignment Operator (=)}
 \index{= operator}\index{assignment operator}The \inline!=! operator assigns a value to a variable. For example, the following assigns the value 10 to \inline!x!.
@@ -693,5 +745,117 @@ System.out.println(i + ", " + j + ", " + k);
 sc.close();
 \end{lstlisting}
 In listing \ref{lst:scannerExample}, 3 user inputs are taken from the console, and they are outputted separated by commas.
+
+\section{Arrays}
+An \term{array} stores a fixed number of values of the same type. 
+\begin{note}
+    Arrays do not entirely follow object oriented philosophy, we will look at other collection structures that conform to the object oriented philosophy much better.
+\end{note}
+\noindent In Java, the syntax to declare an array is to use square brackets after the type declaration.
+\vspace{-22pt}
+\begin{lstlisting}[style=javaSyntax]
+!!!type!!![] array_name; 
+\end{lstlisting}
+\subsection{Assigning Arrays}
+There are multiple ways to assign an array in Java. 
+\vspace{5pt} \\ To assign an array with all default values,
+\vspace{-22pt}
+\begin{lstlisting}[style=javaSyntax]
+!!!array_name!!! = new !!!type!!![!!!capacity!!!]; 
+\end{lstlisting}
+To assign an array using an array literal,
+\vspace{-22pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name = {comma_separated_values}; 
+\end{lstlisting}
+Alternatively, you can write
+\vspace{-22pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name = new type[]{comma_separated_values}; 
+\end{lstlisting}
+Like variables, you can do the declaration and assignment in one line.
+\begin{egs} Array declarations and assignments
+\vspace{-15pt}
+\begin{lstlisting}
+int[] a = {1,2,3};
+double[] b;
+b = new double[5];
+char[] c = new char[] {'A', 'Z'};
+\end{lstlisting}
+\end{egs}
+\subsection{Accessing Array Elements}
+To access the $i^{th}$ element of an array called \inline!array_name! in Java, we use square brackets
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name[i]
+\end{lstlisting}
+Note that array indices start from 0, so in the previous example, \inline!a[0]! is 1 and \inline!c[1]! is \inline!'Z'!.
+\subsection{Arrays of Objects}
+An array of objects is in fact an array of references, in particular, the array can contain multiple of the same reference, so can refer to the same object multiple times.
+\subsection{Multi-dimensional Arrays}
+A \term{multi-dimensional array} is an array of arrays, which may themselves be multi-dimensional arrays. In Java, to declare a 2-dimensional array, we would write the following
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+type[][] array_name; 
+\end{lstlisting}
+For more dimensions, we would write more square brackets.
+\begin{defi}[Jagged and Rectangular Arrays]
+\index{rectangular array}\index{jagged array}A multi-dimensional array is \emph{rectangular} if in each dimension it always has the same length. Otherwise, the array is called \emph{jagged}.
+\end{defi}
+\noindent We can assign multi-dimensional arrays similarly to 1-dimensional arrays, here we do 2-dimensional arrays.
+\vspace{5pt} \\ To assign a rectangular 2-dimensional array of dimensions \inline!capacity_x! and \inline!capacity_y!, with all default values,
+\vspace{-22pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name = new type[capacity_x][capacity_y]; 
+\end{lstlisting}
+You may also assign the length of each element of the array separately to form a jagged array, for example to declare a new array of \inline!capacity_x! arrays, where the $i^{th}$ had capacicty \inline!capacity_y_i!, the following would be written.
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name = new type[capacity_x][];
+array_name[i] = new type[capacity_y_i];
+\end{lstlisting}
+You can also assign a 2-dimensional array using array literals,
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name = {comma_separated_arrays}; 
+\end{lstlisting}
+\pagebreak
+To access the elements, we use the same syntax as for 1-dimensional arrays
+\vspace{-20pt}
+\begin{lstlisting}[style=javaSyntax]
+array_name[i][j] 
+\end{lstlisting}
+All of this notation extends to higher-dimensional arrays by increasing the number of square brackets
+\begin{egs} If we wanted to create a rectangular array of doubles called \inline!a!, with dimensions 3 and 4, containing all 0s, we would write
+\vspace{-15pt}
+\begin{lstlisting}
+double[][] a = new double[3][4];
+\end{lstlisting}
+If we wanted to create a jagged array of integers called \inline!a!, with 4 rows, and the $i^{th}$ row has $i$ columns, and \inline!array[i][j]! has value \inline!i+j!, we could write the following
+\vspace{-15pt}
+\begin{lstlisting}
+int[][] a = new int[4][];
+for(i = 0; i < 4; i++)
+{
+    a[i] = new int[i];
+    for(j = 0; j < i; j++)
+    {
+        a[i][j] = i + j;
+    }
+}
+\end{lstlisting}
+Alternatively, we would get the same result by the following
+\vspace{-15pt}
+\begin{lstlisting}
+int[][] a = 
+{
+    {},
+    {1},
+    {2,3},
+    {3,4,5}
+};
+\end{lstlisting}
+\end{egs}
+
 \printindex
 \end{document}
