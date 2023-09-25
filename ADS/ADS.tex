@@ -598,8 +598,11 @@ The non-access modifiers are
 \end{itemize}
 \section{Inheritance}
 \subsection{Superclasses and Subclasses}
-Often we wish to make classes which represent a "kind of" another class. To do this, we use class \term{inheritance}. The original class is called a \term{superclass} and the class which represents a "kind of" the superclass is called a \term{subclass}. 
-\\ In Java, the syntax used for inheritance is the \inlineJava!extends! keyword, 
+Often we wish to make classes which represent a "kind of" another class. To do this, we use inheritance.
+\begin{defi}[Inheritance]
+\term{Inheritance} refers to fields and methods being shared between classes. In particular, a newly defined class, the \term{subclass}, will have the fields and methods of some previously defined class, the \term{superclass}, but can also implement new fields and methods of its own.
+\end{defi} 
+\noindent In Java, the syntax used for inheritance is the \inlineJava!extends! keyword, 
 \vspace{-20pt}
 \begin{lstlisting}[style=javaSyntax]
 !!!modifiers!!! class !!!subclass!!! extends !!!superclass!!!
@@ -608,8 +611,64 @@ Often we wish to make classes which represent a "kind of" another class. To do t
 }
 \end{lstlisting}
 \begin{eg}
-    We
+    We define a class \inlineJava"Book" with fields \inlineJava"title" and \inlineJava"contents" which are both of type \inlineJava"String", as well as a constructor which sets these values, and a method \inlineJava"display" which prints to console the title and contents of the book
+\begin{lstlisting}[caption=Book,label=lst:Book]
+public class Book
+{
+    private String title;
+    private String contents;
+
+    public Book(String title, String contents){
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public void display(){
+        System.out.println("Title: " + title);
+        System.out.println("Contents: " + contents);
+    }
+}
+\end{lstlisting}
+Suppose we further wanted to define a class \inlineJava"Textbook" which is a book with an extra \inlineJava"String" field \inlineJava"subject", and a new constructor. We would use inheritance as follows:
+\pagebreak
+\begin{lstlisting}[caption = Textbook, label=lst:Textbook1]
+public class Textbook extends Book
+{
+    private String subject;
+
+    public Textbook(String title, String contents, String subject){
+        this.title = title;
+        this.contents = contents;
+        this.subject = subject;
+    }
+}
+\end{lstlisting}
 \end{eg}
+\subsection{Method Overriding}
+In a subclass, we can redefine some methods that are already defined in the superclass, in particular, those with the \inlineJava"public" or \inlineJava"protected" modifier (or \inlineJava"default" if the superclass lies in the same package as the subclass). To override a method in Java, you need only define the method as usual, although you can optionally add the \inlineJava"@Override" annotation beforehand, which tells the compiler to check that this method name has been used in the superclass.
+\begin{eg}
+    As it stands,  the \inlineJava"Textbook" class is not very useful, as the \inlineJava"display()" method does not show the subject, so we override it
+\begin{lstlisting}[caption = Textbook, label=lst:Textbook1]
+public class Textbook extends Book
+{
+    private String subject;
+
+    public Textbook(String title, String contents, String subject){
+        this.title = title;
+        this.contents = contents;
+        this.subject = subject;
+    }
+
+    @Override
+    public void display(){
+        System.out.println("Title: " + title);
+        System.out.println("Subject: " + subject);
+        System.out.println("Contents: " + contents);
+    }
+}
+\end{lstlisting}
+\end{eg}
+
 \pagebreak
 \section{Assignment and Equality}
 \subsection{The Assignment Operator (=)}
@@ -855,6 +914,12 @@ int[][] a =
 };
 \end{lstlisting}
 \end{egs}
+\pagebreak
+\section{Dynamically Sized Collections}
+Arrays can be quite limiting, as they have a fixed number of elements. To get around this, we instead use a data structure that can store an arbitrary number of elements.
+\subsection{ArrayList}
+An \index{ArrayList}\inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
+
 
 \printindex
 \end{document}
