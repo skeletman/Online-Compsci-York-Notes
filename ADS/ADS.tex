@@ -648,7 +648,7 @@ public class Textbook extends Book
 In a subclass, we can redefine some methods that are already defined in the superclass, in particular, those with the \inlineJava"public" or \inlineJava"protected" modifier (or \inlineJava"default" if the superclass lies in the same package as the subclass). To override a method in Java, you need only define the method as usual, although you can optionally add the \inlineJava"@Override" annotation beforehand, which tells the compiler to check that this method name has been used in the superclass.
 \begin{eg}
     As it stands,  the \inlineJava"Textbook" class is not very useful, as the \inlineJava"display()" method does not show the subject, so we override it
-\begin{lstlisting}[caption = Textbook, label=lst:Textbook1]
+\begin{lstlisting}[caption = Textbook, label=lst:Textbook2]
 public class Textbook extends Book
 {
     private String subject;
