@@ -7,15 +7,20 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{amsthm}
+\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[linesnumbered, ruled]{algorithm2e}
 \usepackage{imakeidx}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{chngcntr}
 \usepackage{color}
 \usepackage{tikz}
 \usepackage{float}
 \usepackage[space=true]{accsupp}
+
+%no paragraph indent
+\setlength{\parindent}{0pt}
 
 %colours
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -26,9 +31,14 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{shapes}
 
+%spacing
+\def\mypar{\par\vspace{5pt}\noindent}
 
+%numbering
+\AtBeginDocument{\counterwithin{figure}{section}}
 
 %listings settings
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
 \newcommand{\copyablespace}{\BeginAccSupp{method=hex,unicode,ActualText=00A0}\hphantom{x}\EndAccSupp{}}
 
 \lstset{ 
@@ -91,7 +101,8 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{defi}[theorem]{Definition}
 \newtheorem{cor}[theorem]{Corollary}
-\newtheorem{lem}[theorem]{lemma}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{nproblem}[theorem]{Problem}
 \newtheorem*{fact}{Fact}
 \newtheorem*{eg}{Example}
 \newtheorem*{egs}{Examples}

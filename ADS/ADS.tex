@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt]{report}
 
 \usepackage{../util}
 
@@ -14,6 +14,7 @@
 \maketitle
 \tableofcontents
 \pagebreak
+\chapter{The Java Programming Language}
 \section{Software and the Java Programming language}
 \subsection{Software and Code}
 \begin{defi}[Computer Program]
@@ -48,8 +49,6 @@ A computer can only understand instructions given to it in binary, we call such 
     The rules that must be followed for a piece of code to be valid in a programming language is called \term{syntax}.
 \end{defi}
 \noindent When code is written in this document, it will be presented in a box with line numbers on the left hand side. {\color{blue} Blue} font will be used for Java keywords, {\color{mymauve} purple} for string literals, and {\color{mygreen} green} for code comments. We see a sample of such a presentation in listing \ref{lst:sampleListing}.
-\pagebreak
-\vspace{-15pt}
 \begin{lstlisting}[caption=A sample of code, label=lst:sampleListing]
 /*
 A sample of Java code.
@@ -137,7 +136,7 @@ However, Java is \term{platform-independent}: a compiled Java program can run on
     \term{Libraries} and \term{packages} are pre-compiled Java modules for use in your own programs.
 \end{defi}
 The \term{Java Runtime Environment} or \term{JRE} is the JVM along with the Java libraries. The \term{Java Development Kit} or \term{JDK} consists of the JRE, the Java compiler, and some other tools for java development.
-\pagebreak
+
 \subsection{Command Line Interfaces (CLIs) and Integrated Development Environments (IDEs)}
 Henceforth we assume that the JDK is properly installed. If we wish to compile Java code using the command line, it should be saved as a .java file. Then we use \inlineJava{javac} to compile the program into a \inlineJava{.class} file, which contains Java byte code. Then to launch this with the JVM, we run the \inlineJava{java} command. For example, to compile a file called \inlineJava{test.java}, we would navigate to its directory, and enter \inlineJava{javac test.java}, and to launch the program we enter \inlineJava{java test}. 
 
@@ -150,16 +149,7 @@ Henceforth we assume that the JDK is properly installed. If we wish to compile J
  A \term{console application} is an application which uses a \term{text based user interface}. Alternatively, an application can use a \term{graphical user interface} or \term{GUI}, which allows for elements such a text boxes and buttons.
 
 \subsection{"Hello World" Program}
-Once a Java program is compiled, running the program will execute the \inlineJava{main}method in the class of the .java file that was compiled. In listing \ref{lst:HelloWorld}, the \inlineJava{main} method is executed and hence the words "Hello World" are printed to the console when the program is executed.
-\begin{lstlisting}[caption=Hello World, label=lst:HelloWorld]
-public class HelloWorld
-{
-    public static void main(String[] args)
-    {
-        System.out.println("Hello World");
-    }
-}
-\end{lstlisting}
+Once a Java program is compiled, running the program will execute the \inlineJava{main}method in the class of the .java file that was compiled. In listing \ref{lst:sampleListing}, the \inlineJava{main} method is executed and hence the words "Hello World" are printed to the console when the program is executed.
 For more on methods, see section \ref{sec:methods}. For more on classes, see section \ref{sec:classesAndObjects}.
 
 \pagebreak
@@ -918,8 +908,62 @@ int[][] a =
 \section{Dynamically Sized Collections}
 Arrays can be quite limiting, as they have a fixed number of elements. To get around this, we instead use a data structure that can store an arbitrary number of elements.
 \subsection{ArrayList}
-An \index{ArrayList}\inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
+One example of a dynamically sized collection in Java is \term{ArrayList} in the \inline"util" package
+\vspace{-15pt}
+\begin{lstlisting}
+import java.util.ArrayList;
+\end{lstlisting}
+An \inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
+\pagebreak
+\chapter{Algorithms}
+\section*{Preamble}
+In this section I will make use of various logical symbols, figure \ref{fig:logicalSymbols} indicates their meanings
+\begin{figure}[H]
+    \caption{Logical symbols}
+    \label{fig:logicalSymbols}
+    \centering
+    \begin{tabular}{|c|l|}
+        \hline
+        Symbol & Meaning \\
+        \hline \hline
+        $\top$ & True \\ \hline
+        $\bot$ & False \\ \hline
+        $\wedge$ & Logical and \\ \hline
+        $\vee$ & Logical or \\ \hline
+        $\veebar$ & Logical xor \\ \hline
+        $\neg$ & Logical not \\ \hline
+        $\forall$ & For all \\ \hline
+        $\exists$ & There exists \\ \hline
+        $\exists!$ & There exists a unique \\ \hline
+        $\not\exists$ & There does not exist \\ \hline
+        $\implies$ & Logically implies \\ \hline
+        $\iff$ & Logically equivalent to/If and only if \\ \hline
+        $=$ & Propositionally equals \\ \hline
+        $:=$ & Is defined as \\ \hline
+        $\in$ & Is an element of \\ \hline
+        $\subseteq$ & Is a subset of \\ \hline
+        $\supseteq$ & Is a superset of \\ \hline
+    \end{tabular}
+\end{figure}
+\section{Introduction}
+\begin{defi}[Computational Problem]
+    A \term{computational problem} is a specified desired output of a computer program given specified input data
+\end{defi}
+\begin{defi}[Algorithm]
+    An \term{algorithm} is a set of instructions. In our use case, an algorithm must consist of basic instructions which a computer can carry out.
+\end{defi}
+\subsection{Example Computational Problems}
+\begin{nproblem}[The Comparison Sorting Problem]
+    The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
+    \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type which can be compared with a total order relation $<$
+    \mypar \textbf{Output:} A permutation $(a'_1, \dots, a'_n)$ of $(a_1, \dots, a_n)$ such that 
+    \[\forall \]
+\end{nproblem}
+\section{The Sorting Problem}
 
+\begin{nproblem}[The Sorting Problem]
+
+\end{nproblem}
 
 \printindex
 \end{document}

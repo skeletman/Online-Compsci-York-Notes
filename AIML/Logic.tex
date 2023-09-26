@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+
+\usepackage{../util}
+
+\title{Logic for Artificial Intelligence and Machine Learning (WIP)}
+
+\date{Autumn 2023}
+\author{Nathan McKeown-Luckly (Discord Username: skeletman)} 
+
+
+\makeindex[columns=2, title=Index, intoc]
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+\section{Introduction}
+In this document, we will discuss logic as a foundation of formal reasoning. In doing so, we will discover what it means for a statement to be true (Semantic Entailment), and what it means for a statement to be proven (Syntactic Entailment) in various logical frameworks.
+\\ Logics are usually made up of a language of valid formulae and sentences, a set of rules for proving things, and a definition of structures in which the truth of a sentence is defined.
+\section{Propositional Logic}
+Propositional logic is used to talk about the implication relations between statements.
+\begin{eg}
+    In propositional logic, we can talk and reason about sentences like "If Bob is a zebra, then Bob has stripes". We call the if-then relationship \term{implication}, and say "Bob is a zebra implies Bob has stripes". We can also make deductions, for example, from "If Bob is a zebra, then Bob has stripes", we could deduce that "If Bob has no stripes, then Bob is not a zebra".
+\end{eg}
+We also have a special proposition called False. We can encode many common logical operations in terms of implication and falsehood. 
+\begin{eg} 
+    In English, the saying "then pigs can fly" after a statement means that statement is ridiculous, so "If I am rich then pigs can fly" means "I am not rich". We could talk about the same thing in propositional logic by saying "I am rich implies false" to mean "I am not rich".
+\end{eg}
+\begin{eg}
+    Now we have defined not, we can define more complicated things such as "My coat is red or my coat is blue" as "My coat is not red implies my coat is blue".
+\end{eg}
+Propositional logic cannot quantify over objects, however
+\begin{eg}
+    In propositional logic, we could not say "All zebras have stripes"
+\end{eg}
+\pagebreak
+\subsection{The Language of Propositional Logic}
+In propositional logic, we assign some special symbols and read them as in figure \ref{fig:specialSymbolsProp}. For the meantime, we do not assign a meaning to these symbols.
+\begin{figure}[H]
+    \caption{Special Symbols for Propositional Logic}
+    \label{fig:specialSymbolsProp}
+    \centering
+    \begin{tabular}{|c|l|}
+        \hline
+        Symbol & Read as \\ \hline \hline
+        $\implies$ & Implies \\ \hline
+        $\bot$ & False \\ \hline
+        $($ & Left Bracket \\ \hline
+        $)$ & Right Bracket \\ \hline
+        %$\models$ & Models \\ \hline
+        %$\vdash$ & Proves \\ \hline
+    \end{tabular}
+\end{figure}
+\begin{defi}[Propositional Language]
+    Let $S$ be a set of symbols that contains special symbols. $S$ is known as a set of \term{primitive propositions} or \term{atomic sentences}. Usually we will use lowercase latin symbols to represent primitive propositions, such as $p,q,r$, but we leave the definition open as some applications may need more symbols than we have letters!\\ The \term{propositional language} $\mathcal{L}(S)$ consists of the set of \term{sentences} defined by the following construction
+    \begin{itemize}
+        \item If $p$ is a primitive proposition, then it is a sentence
+        \item $\bot$ is a sentence
+        \item If $\alpha$ and $\beta$ are sentences, then so is $(\alpha \implies \beta)$
+    \end{itemize}
+    Importantly, every valid sentence has a unique construction in this way.
+\end{defi}
+Note that we do not assign a meaning to sentences yet, these are simply strings of symbols at the current time. 
+\printindex
+\end{document}
