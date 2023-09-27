@@ -18,21 +18,184 @@
 In this document, we will discuss logic as a foundation of formal reasoning. In doing so, we will discover what it means for a statement to be true (Semantic Entailment), and what it means for a statement to be proven (Syntactic Entailment) in various logical frameworks.
 \\ Logics are usually made up of a language of valid formulae and sentences, a set of rules for proving things, and a definition of structures in which the truth of a sentence is defined.
 \section{Propositional Logic}
-Propositional logic is used to talk about the implication relations between statements.
+\subsection{An Informal Discussion on Propositional Logic}
+\subsubsection{What Propositional Logic can do}
+In \term{propositional logic}, we can talk about simple logical statements called \term{propositional sentences}. These consist of simple statements called \term{primitive propositions}, along with \term{logical connectives} which allow us to make more complicated expressions.
 \begin{eg}
-    In propositional logic, we can talk and reason about sentences like "If Bob is a zebra, then Bob has stripes". We call the if-then relationship \term{implication}, and say "Bob is a zebra implies Bob has stripes". We can also make deductions, for example, from "If Bob is a zebra, then Bob has stripes", we could deduce that "If Bob has no stripes, then Bob is not a zebra".
-\end{eg}
-We also have a special proposition called False. We can encode many common logical operations in terms of implication and falsehood. 
-\begin{eg} 
-    In English, the saying "then pigs can fly" after a statement means that statement is ridiculous, so "If I am rich then pigs can fly" means "I am not rich". We could talk about the same thing in propositional logic by saying "I am rich implies false" to mean "I am not rich".
+    In propositional logic, we can talk and reason about sentences like "If Bob is a zebra, then Bob has stripes". We call the if-then relationship \term{implication}, and say "Bob is a zebra implies Bob has stripes". Implication is an example of a logical connective, and "Bob is a zebra" and "Bob has stripes" are examples of primitive propositions.
 \end{eg}
 \begin{eg}
-    Now we have defined not, we can define more complicated things such as "My coat is red or my coat is blue" as "My coat is not red implies my coat is blue".
+    We could also have a sentence "My coat is red and my hat is blue". This is an example of \term{logical and}, another logical connective.
 \end{eg}
-Propositional logic cannot quantify over objects, however
+We abstract the actual statements by replacing them with symbols.
 \begin{eg}
-    In propositional logic, we could not say "All zebras have stripes"
+    We use $\implies$ to mean "implies", and we might abstract away the primitive propositions like "Bob is a zebra" to a single symbol $p$ and "Bob has stripes" to $q$. We then could write $p \implies q$ instead of "If Bob is a zebra then Bob has stripes".
 \end{eg}
+\begin{eg}
+    We use the $\wedge$ symbol for logical and. If "My coat is red" is $p$ and "My hat is blue" is $q$, then "My coat is red and my hat is blue" would be written $p \wedge q$.
+\end{eg}
+\pagebreak
+\subsubsection{Logical Connectives}
+Logical connectives are used to turn propositions into more complicated propositions. In figure \ref{fig:propositionalConnectives} we see some important examples.
+\begin{figure}[H]
+    \caption{Logical connectives in propositional logic}
+    \label{fig:propositionalConnectives}
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Connective & Meaning  \\ \hline \hline
+        $\implies$ & implies \\ \hline
+        $\neg$ & not \\ \hline
+        $\lor$ & or \\ \hline  
+        $\land$ & and \\ \hline
+        $\iff$ & if and only if \\ \hline
+    \end{tabular}
+\end{figure}
+\subsubsection{Truth Values}
+We can also assign a true-or-false \term{truth value} to each sentence. This assignment can be treated as a function from the set of sentences to $\{0, 1 \}$, where 0 represents false and 1 represents true.  Each connective will have an associated rule for how truth values must behave. If these rules are satisfied, then the assignment is called a \term{valuation}. We can visualise these rules with a \term{truth table}. 
+\begin{figure}[H]
+    \caption{Truth tables for logical connectives}
+    \label{fig:truthTablesLogicalConnectives}
+    \centering
+    \begin{tabular}{|c|c||c|}
+        \hline
+        $p$ & $q$ & $p \implies q$ \\ \hline
+        0 & 0 & 1 \\
+        0 & 1 & 1 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\ \hline
+    \end{tabular}\quad
+    \begin{tabular}{|c||c|}
+        \hline
+        $p$ & $\neg p$  \\ \hline
+        0 & 1 \\
+        1 & 0 \\\hline
+    \end{tabular}\quad
+    \begin{tabular}{|c|c||c|}
+        \hline
+        $p$ & $q$ & $p \lor q$ \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 1 \\
+        1 & 1 & 1 \\ \hline
+    \end{tabular}\\
+    \begin{tabular}{|c|c||c|}
+        \hline
+        $p$ & $q$ & $p \land q$ \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\ \hline
+    \end{tabular}\quad
+    \begin{tabular}{|c|c||c|}
+        \hline
+        $p$ & $q$ & $p \land q$ \\ \hline
+        0 & 0 & 0 \\
+        0 & 1 & 0 \\
+        1 & 0 & 0 \\
+        1 & 1 & 1 \\ \hline
+    \end{tabular}
+\end{figure}
+We interpret the truth tables in figure \ref{fig:truthTablesLogicalConnectives} as rules that an assignment must follow in order to be called a valuation. For instance, if $v$ is a valuation, $v(p) = 1$, $v(q) = 1$, and we want to know $v(p \land q)$, then we read the corresponding line of the truth table for logical and to see that $v(p \land q) = 1$.
+\pagebreak
+Now that we have defined rules of how truth valuations behave, we can now also use truth tables to display the truth values of more complicated sentences given fixed values of the primitive propositions in that expression. 
+\begin{figure}[H]
+    \caption{The truth table for \term{Pierce's Law}}
+    \label{fig:pierceLawTruthTable}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $p$ & $q$ & $p \implies q$ & $(p \implies q) \implies p$ & $((p \implies q) \implies p) \implies p$\\ \hline
+        0 & 0 & 1 & 0 & 1 \\
+        0 & 1 & 1 & 0 & 1\\
+        1 & 0 & 0 & 1 & 1 \\
+        1 & 1 & 1 & 1 & 1\\ \hline
+    \end{tabular}
+\end{figure}
+\begin{figure}[H]
+    \caption{The truth table for \term{Axiom K}}
+    \label{fig:axiomKTruthTable}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $p$ & $q$ & $q \implies p$ & $p \implies (q \implies p) \implies p$ \\ \hline
+        0 & 0 & 1 & 1 \\
+        0 & 1 & 0 & 1 \\
+        1 & 0 & 1 & 1 \\
+        1 & 1 & 1 & 1 \\ \hline
+    \end{tabular}
+\end{figure}
+\begin{figure}[H]
+    \caption{The truth table for \term{Axiom S}}
+    \label{fig:axiomSTruthTable}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c}
+        \hline
+        $p$ & $q$ & $r$ & $q \Rightarrow r$ & $p \Rightarrow (q \Rightarrow r)$ & $p \Rightarrow q$ & $p \Rightarrow r$   \\ \hline
+        0 & 0 & 0 & 1 & 1& 1& 1\\
+        0 & 0 & 1 & 1 & 1& 1& 1\\
+        0 & 1 & 0 & 0 & 1& 1& 1\\
+        0 & 1 & 1 & 1 & 1& 1& 1\\
+        1 & 0 & 0 & 1 & 1& 0& 0\\
+        1 & 0 & 1 & 1 & 1& 0& 1\\
+        1 & 1 & 0 & 0 & 0& 1& 0\\
+        1 & 1 & 1 & 1 & 1& 1& 1\\ \hline
+         \hline
+    \end{tabular}
+    \begin{tabular}{c|c|}
+        \hline
+          $(p \Rightarrow q) \Rightarrow (p \Rightarrow r)$ & $[p \Rightarrow (q \Rightarrow r)] \Rightarrow [(p \Rightarrow q) \Rightarrow (p \Rightarrow r)]$\\ \hline
+          1& 1\\
+          1& 1\\
+          1& 1\\
+          1& 1\\
+          1& 1\\
+          1& 1\\
+          0& 1\\
+          1& 1\\ \hline
+    \end{tabular}
+\end{figure}
+\pagebreak
+
+We also have a special proposition called False, written $\bot$. We can encode many common logical operations in terms of implication and falsehood. 
+\begin{eg}[Logical not]
+    In English, the saying "then pigs can fly" after a statement means that statement is ridiculous, so "If I am rich then pigs can fly" means "I am not rich". We could talk about the same thing in propositional logic by saying "I am rich implies false" to mean "I am not rich". If we were to call "I am rich" $r$, then we would write \[r \implies \bot\] to mean "I am not rich". We write as shorthand for this $\neg r$.
+\end{eg}
+\begin{eg}[Logical or]
+    Now we have defined logical not, we can define more complicated things such as "p or q" as \[\neg p \implies q\]
+    We write $p \vee q$ as shorthand for this.
+\end{eg}
+Propositional logic, however, cannot quantify over objects.
+\begin{eg}
+    In propositional logic, we could not say "All zebras have stripes". To do this we would need to add \term{quantifiers} to our logic. Propositional logic with quantifiers is called \term{first order logic}, and is much more complicated.
+\end{eg}
+In figure \ref{fig:propositionalLogicShorthand} we see the meaning of various logical shorthands
+\begin{figure}[H]
+    \caption{Various propositional logic shorthand}
+    \label{fig:propositionalLogicShorthand}
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Shorthand & Meaning & Definition \\ \hline \hline
+        $\neg p$ & not $p$ & $p \implies \bot$ \\ \hline
+        $p \lor q$ & $p$ or $q$ & $\neg p \implies q$\\ \hline  
+        $p \land q$ & $p$ and $q$ & $\neg(p \implies \neg q)$ \\ \hline
+        $p \iff q$ & $p$ if and only if $q$ & $(p \implies q) \land (q \implies p)$ \\ \hline
+    \end{tabular}
+\end{figure}
+We can also make deductions via proofs, and we use the $\vdash$ symbol to mean "the right hand side can be proven by the left hand side". We read the symbol $\vdash$ as "proves" or "syntactically entails".
+\begin{eg}[Deductions]
+From $p$ and $p \implies q$, we can deduce $q$ via a rule called \term{modus ponens}. This constitutes a proof of $q$. We would write
+\[p, \ p \implies q \vdash q \]
+\end{eg}
+There is also a notion of truth of statements in propositional logic. We use the $\vDash$ symbol to mean "whenever the left hand side is true, the right hand side is true" and read it as "semantically entails" or just "entails".
+\begin{eg}[Semantic Entailment]
+    Whenever "If Bob is a zebra, then Bob has stripes" is true, we see that "If Bob has no stripes, then Bob is not a zebra" is also true. In symbols this would be written
+    \[p \implies q \vDash \neg q \implies \neg p\]
+\end{eg} 
+
+\subsubsection{Logic vs Metalogic}
+
 \pagebreak
 \subsection{The Language of Propositional Logic}
 In propositional logic, we assign some special symbols and read them as in figure \ref{fig:specialSymbolsProp}. For the meantime, we do not assign a meaning to these symbols.
