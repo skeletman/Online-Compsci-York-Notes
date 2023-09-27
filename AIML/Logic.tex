@@ -151,7 +151,7 @@ Now that we have defined rules of how truth valuations behave, we can use truth 
     \\ In this logic, we encode logical not as follows
 \begin{figure}[H]
     \caption{The truth table for $p \implies \bot$}
-    \label{fig:TruthTableEg3}
+    \label{fig:TruthTableEg4}
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
@@ -310,17 +310,39 @@ Propositional logic also has a notion of proof, called \term{syntactic entailmen
     \item $p \implies r$ \hfill (Modus Ponens on 5 and 6)
 \end{enumerate}
 \end{eg}
+\subsubsection{Theories and Theorems}
+\begin{defi}
+    [Theory]
+    A \term{theory} is a set of sentences.
+\end{defi}
+We interpret theories as a set of premises, of which we study the logical consequences.
+\begin{defi}
+    [Theorem]
+    For a theory $T$, a \term{theorem} of $T$ is a sentence $p$ such that $T \vdash p$.
+\end{defi}
+\begin{defi}[Consistent Theory]
+    A theory $T$ is \term{consistent} if $T \not\vdash \bot$.
+    Intuitively, a theory is consistent if we cannot prove any falsehoods.
+\end{defi}
+\begin{defi}
+    [Satisfiable Theory]
+    A theory $T$ is \term{satisfiable} if it has a model, i.e. $T \not\vDash \bot$.
+\end{defi}
+\begin{defi}
+    [Deductively Closed Theory]
+    A theory $T$ is \term{deductively closed} if for every sentence $p$, if $T \vdash p$ then $p \in T$.
+\end{defi}
+\begin{defi}
+    [Complete Theory]
+    A theory $T$ is \term{complete} if it is consistent and for every sentence $p$, either $T \vdash p$ or $T \vdash \neg p$.
+\end{defi}
 \subsubsection{Metalogic}
 \label{sec:informalMetalogic}
 \term{Metalogic} refers to the study of the properties of a logical system.
 \mypar
 "$p \implies q, \ q \implies r \vdash p \implies r$" is an example of a \term{logical statement}. It is a statement made within the framework of our logic.
 \mypar
-"For all sets of premises $S$, and all sentences $p$, $S \vdash p$ if and only if $S \vDash p$" is a \term{metalogical statement}. It is a statement about our logical framework.
-
-\pagebreak
-
-
+"For all theories $T$, and all sentences $p$, $T \vdash p$ if and only if $T \vDash p$" is a \term{metalogical statement}. It is a statement about our logical framework.
 \pagebreak
 \subsection{The Language of Propositional Logic}
 In propositional logic, we assign some special symbols and read them as in figure \ref{fig:specialSymbolsProp}. For the meantime, we do not assign a meaning to these symbols.
