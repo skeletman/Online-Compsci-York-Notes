@@ -236,7 +236,7 @@ In practice, a sentence is a tautology if it has a 1 in every row of its column 
 \end{sidenote}
 \pagebreak
 \subsubsection{Semantic Entailment}
-Where tautologies are sentences which are always true, semantic entailment is when a sentence is necessarily true \textbf{given that} some set of sentences are true. 
+Where tautologies are sentences which are always true, \term{semantic entailment} is when a sentence is necessarily true \textbf{given that} some set of sentences are true. 
 \begin{defi}[Model]
     Let $S$ be a set of sentences and $v$ a valuation. $v$ is a \term{model} of S if:
     \[\forall p \in S, \ v(p) = 1 \] 
@@ -249,7 +249,7 @@ Where tautologies are sentences which are always true, semantic entailment is wh
 \end{defi}
 For semantic entailment, we use the symbol $\vDash$. Given a set of sentences $S$, and a sentence $p$ 
 \[ S \vDash p \]
-means "$S$ semantically entails $p$". In practice, $S \vDash p$ means that every row of a truth table ofeverything in $S$ and $p$ where everything in $S$ has value 1, will have value 1 for $p$. 
+means "$S$ semantically entails $p$". In practice, $S \vDash p$ means that every row of a truth table of everything in $S$ and $p$ where everything in $S$ has value 1, will have value 1 for $p$. If $S$ is empty, this means $p$ is a tautology, and we write $\vDash p$.
 \begin{egs} In these examples, I will color in green the rows of the table which all premises have value 1. Then only the green rows of the consequences are required to have value 1 for semantic entailment.
     \begin{figure}[H]
         \caption{A truth table showing $p \iff q \vDash p \implies q$}
@@ -278,30 +278,47 @@ means "$S$ semantically entails $p$". In practice, $S \vDash p$ means that every
         \end{tabular}
     \end{figure}
 \end{egs} 
-
+\subsubsection{Syntactic Entailment}
+Propositional logic also has a notion of proof, called \term{syntactic entailment}. Propositional logic comes equipped with a set of \term{axioms}, sentences which we assume to be always true for the purposes of proving things. Also, there are \term{deduction rules}, rules by which simple deductions can be made.
+\begin{eg}
+    For every sentence $p,q$ and $r$, \term{axiom K} and \term{axiom S} are examples of logical axioms. 
+    \[\textbf{Axiom K: } p \Rightarrow (q \Rightarrow p)\]
+    \[\textbf{Axiom S: }[p \Rightarrow (q \Rightarrow r)] \Rightarrow [(p \Rightarrow q) \Rightarrow (p \Rightarrow r)]\]
+\end{eg}
+\begin{eg}
+    An example of a deduction rule\footnote{In some formulations of propositional logic the only example} is \term{modus ponens}, which states for every sentence $p$ and $q$
+    \[\text{From } p \text{ and } p \implies q \text{ we can deduce } q. \]
+\end{eg}
+\begin{defi}[Proof]
+    In propositional logic, given a set of premises $S$ and sentence $p$, a \term{proof} of $p$ from $S$ is a finite  list of sentences $(t_1, \dots, t_n)$ such that each $t_i$ is 
+    \begin{itemize}
+        \item An axiom
+        \item A premise of $S$
+        \item Deducible from previous sentences via a deduction rule.
+    \end{itemize}
+    And $t_n$ is $p$. We call the $t_i$ the lines of the proof, and usually display them vertically.
+    \\If there is a proof of $p$ from $S$, we write $S \vdash p$ and say "$S$ proves $p$" or "$S$ syntactically entails $p$".
+\end{defi}
+\begin{eg} A proof of $p \implies r$ from premises $p \implies q$ and $q \implies r$
+\begin{enumerate}
+    \item $(q \implies r) \implies (p \implies (q \implies r))$ \hfill (Axiom K)
+    \item $q \implies r$ \hfill (Premise)
+    \item $p \implies (q \implies r)$ \hfill (Modus Ponens on 1 and 2)
+    \item $[p \Rightarrow (q \Rightarrow r)] \Rightarrow [(p \Rightarrow q) \Rightarrow (p \Rightarrow r)]$ \hfill (Axiom S)
+    \item $(p \implies q) \implies (p \implies r)$ \hfill (Modus Ponens on 3 and 4)
+    \item $p \implies q$ \hfill (Premise)
+    \item $p \implies r$ \hfill (Modus Ponens on 5 and 6)
+\end{enumerate}
+\end{eg}
 \subsubsection{Metalogic}
 \label{sec:informalMetalogic}
+\term{Metalogic} refers to the study of the properties of a logical system.
+\mypar
+"$p \implies q, \ q \implies r \vdash p \implies r$" is an example of a \term{logical statement}. It is a statement made within the framework of our logic.
+\mypar
+"For all sets of premises $S$, and all sentences $p$, $S \vdash p$ if and only if $S \vDash p$" is a \term{metalogical statement}. It is a statement about our logical framework.
+
 \pagebreak
-
-
-\begin{figure}[H]
-    \caption{Various propositional logic shorthand}
-    \label{fig:propositionalLogicShorthand}
-    \centering
-    \begin{tabular}{|c|c|c|}
-        \hline
-        Shorthand & Meaning & Definition \\ \hline \hline
-        $\neg p$ & not $p$ & $p \implies \bot$ \\ \hline
-        $p \lor q$ & $p$ or $q$ & $\neg p \implies q$\\ \hline  
-        $p \land q$ & $p$ and $q$ & $\neg(p \implies \neg q)$ \\ \hline
-        $p \iff q$ & $p$ if and only if $q$ & $(p \implies q) \land (q \implies p)$ \\ \hline
-    \end{tabular}
-\end{figure}
-We can also make deductions via proofs, and we use the $\vdash$ symbol to mean "the right hand side can be proven by the left hand side". We read the symbol $\vdash$ as "proves" or "syntactically entails".
-\begin{eg}[Deductions]
-From $p$ and $p \implies q$, we can deduce $q$ via a rule called \term{modus ponens}. This constitutes a proof of $q$. We would write
-\[p, \ p \implies q \vdash q \]
-\end{eg}
 
 
 \pagebreak
