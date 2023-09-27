@@ -2,7 +2,7 @@
 
 \usepackage{../util}
 
-\title{Logic for Artificial Intelligence and Machine Learning (WIP)}
+\title{Logic (WIP) \\ {\small For Artificial Intelligence and Machine Learning}}
 
 \date{Autumn 2023}
 \author{Nathan McKeown-Luckly (Discord Username: skeletman)} 
@@ -51,7 +51,7 @@ Logical connectives are used to turn propositions into more complicated proposit
         $\iff$ & if and only if \\ \hline
     \end{tabular}
 \end{figure}
-\subsubsection{Truth Values}
+\subsubsection{Truth Values and Truth Tables}
 We can also assign a true-or-false \term{truth value} to each sentence. This assignment can be treated as a function from the set of sentences to $\{0, 1 \}$, where 0 represents false and 1 represents true.  Each connective will have an associated rule for how truth values must behave. If these rules are satisfied, then the assignment is called a \term{valuation}. We can visualise these rules with a \term{truth table}. 
 \begin{figure}[H]
     \caption{Truth tables for logical connectives}
@@ -89,8 +89,8 @@ We can also assign a true-or-false \term{truth value} to each sentence. This ass
     \end{tabular}\quad
     \begin{tabular}{|c|c||c|}
         \hline
-        $p$ & $q$ & $p \land q$ \\ \hline
-        0 & 0 & 0 \\
+        $p$ & $q$ & $p \iff q$ \\ \hline
+        0 & 0 & 1 \\
         0 & 1 & 0 \\
         1 & 0 & 0 \\
         1 & 1 & 1 \\ \hline
@@ -98,11 +98,82 @@ We can also assign a true-or-false \term{truth value} to each sentence. This ass
 \end{figure}
 We interpret the truth tables in figure \ref{fig:truthTablesLogicalConnectives} as rules that an assignment must follow in order to be called a valuation. For instance, if $v$ is a valuation, $v(p) = 1$, $v(q) = 1$, and we want to know $v(p \land q)$, then we read the corresponding line of the truth table for logical and to see that $v(p \land q) = 1$.
 \pagebreak
-Now that we have defined rules of how truth valuations behave, we can now also use truth tables to display the truth values of more complicated sentences given fixed values of the primitive propositions in that expression. 
+Now that we have defined rules of how truth valuations behave, we can use truth tables to display all possible valuations for a complex sentence, each row represents one valuation. \\ The valuation of a sentence depends only on the valuation of the primitive propositions contained in it, so we start by making a column for each sub-sentence, and a row for each possible truth value of the primitive propositions, filling out the respective cells with the truth values. Then, in each row, we use the rules in figure \ref{fig:truthTablesLogicalConnectives} to calculate the truth values of the complex sentences.
+\begin{figure}[H]
+    \caption{The truth table for $(p \wedge q) \implies r$}
+    \label{fig:TruthTableEg1}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $p$ & $q$ & $r$ & $p \wedge q$ & $(p \wedge q) \implies r $\\ \hline
+        0 & 0 & 0 & 0 & 1 \\
+        0 & 0 & 1 & 0 & 1 \\
+        0 & 1 & 0 & 0 & 1 \\
+        0 & 1 & 1 & 0 & 1 \\
+        1 & 0 & 0 & 0 & 1 \\
+        1 & 0 & 1 & 0 & 1 \\
+        1 & 1 & 0 & 1 & 0 \\
+        1 & 1 & 1 & 1 & 1 \\ \hline
+    \end{tabular}
+\end{figure}
+\begin{figure}[H]
+    \caption{The truth table for $\neg(p \implies \neg q)$}
+    \label{fig:TruthTableEg2}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $p$ & $q$ & $\neg q$ & $p \implies \neg q$ & $\neg(p \implies \neg q)$ \\ \hline
+        0 & 0 & 1 & 1 & 0 \\
+        0 & 1 & 0 & 1 & 0\\
+        1 & 0 & 1 & 1 & 0 \\
+        1 & 1 & 0 & 0 & 1\\ \hline
+    \end{tabular}
+    \vspace{10pt}\\ Notice that the truth table for $\neg(p \implies \neg q)$ is the same as for $p \land q$.
+\end{figure}
+\begin{figure}[H]
+    \caption{The truth table for $\neg p \implies q$}
+    \label{fig:TruthTableEg3}
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $p$ & $q$ & $\neg p$ & $\neg p \implies q$ \\ \hline
+        0 & 0 & 1 & 0  \\
+        0 & 1 & 1 & 1 \\
+        1 & 0 & 0 & 1  \\
+        1 & 1 & 0 & 1 \\ \hline
+    \end{tabular}
+    \vspace{10pt}\\ Notice that the truth table for $\neg p \implies q$ is the same as for $p \lor q$.
+\end{figure}
+\pagebreak
+\begin{sidenote}
+    In figures \ref{fig:TruthTableEg2} and \ref{fig:TruthTableEg3}, we see that both logical and and logical or are equivalent, up to having the same truth values, to expressions involving only implies and logical not. This is very useful when analysing the mathematical properties of the framework of propositional logic itself, as we can simplify our logic for the purpose of simplifying proofs about it. The study of the properties of logic is called \term{metalogic} (see section \ref{sec:informalMetalogic}).
+    \\ In practice, instead of simplifying to a logic involving only implies and logical not, we simplify even further to a logic which has implies and a primitive proposition "false", written $\bot$, for which a valuation must assign truth value 0.
+    \\ In this logic, we encode logical not as follows
+\begin{figure}[H]
+    \caption{The truth table for $p \implies \bot$}
+    \label{fig:TruthTableEg3}
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $p$ & $\bot$ & $p \implies \bot$ \\ \hline
+        0 & 0 & 1  \\
+        1 & 0 & 0   \\\hline
+    \end{tabular}
+    \vspace{10pt}\\ Notice that the truth table for $ p \implies \bot$ is the same as for $\neg p$.
+\end{figure}
+\end{sidenote}
+\subsubsection{Tautologies}
+\begin{defi}
+    [Tautology]
+    A \term{tautology} is a sentence that always holds true. In propositional logic, this means that a sentence $s$ is a tautology if for every valuation $v$, $v(s) = 1$. 
+\end{defi}
+In practice, a sentence is a tautology if it has a 1 in every row of its column in  a truth table.
 \begin{figure}[H]
     \caption{The truth table for \term{Pierce's Law}}
     \label{fig:pierceLawTruthTable}
     \centering
+    Pierce's Law: $((p \implies q) \implies p) \implies p$
+    \vspace{10pt} \\
     \begin{tabular}{|c|c|c|c|c|}
         \hline
         $p$ & $q$ & $p \implies q$ & $(p \implies q) \implies p$ & $((p \implies q) \implies p) \implies p$\\ \hline
@@ -116,9 +187,11 @@ Now that we have defined rules of how truth valuations behave, we can now also u
     \caption{The truth table for \term{Axiom K}}
     \label{fig:axiomKTruthTable}
     \centering
+    Axiom K: $p \implies (q \implies p)$
+    \vspace{10pt} \\
     \begin{tabular}{|c|c|c|c|}
         \hline
-        $p$ & $q$ & $q \implies p$ & $p \implies (q \implies p) \implies p$ \\ \hline
+        $p$ & $q$ & $q \implies p$ & $p \implies (q \implies p)$ \\ \hline
         0 & 0 & 1 & 1 \\
         0 & 1 & 0 & 1 \\
         1 & 0 & 1 & 1 \\
@@ -129,6 +202,8 @@ Now that we have defined rules of how truth valuations behave, we can now also u
     \caption{The truth table for \term{Axiom S}}
     \label{fig:axiomSTruthTable}
     \centering
+    Axiom S: $[p \Rightarrow (q \Rightarrow r)] \Rightarrow [(p \Rightarrow q) \Rightarrow (p \Rightarrow r)]$
+    \vspace{10pt} \\
     \begin{tabular}{|c|c|c|c|c|c|c}
         \hline
         $p$ & $q$ & $r$ & $q \Rightarrow r$ & $p \Rightarrow (q \Rightarrow r)$ & $p \Rightarrow q$ & $p \Rightarrow r$   \\ \hline
@@ -155,21 +230,60 @@ Now that we have defined rules of how truth valuations behave, we can now also u
           1& 1\\ \hline
     \end{tabular}
 \end{figure}
+\begin{sidenote}
+    The "K" in "axiom K" stands for "konstante" (German for constant), and the "S" in "axiom S" stands for "substitution". This is because in certain logical semantics, propositions are interpreted as types, and implication is interpreted as functions between types. In these semantics, axiom K corresponds to a constant function, and axiom S corresponds to a substitution of variables into a function to obtain a new function.
+    \\ You can tell these are important axioms to logicians because they have names.
+\end{sidenote}
+\pagebreak
+\subsubsection{Semantic Entailment}
+Where tautologies are sentences which are always true, semantic entailment is when a sentence is necessarily true \textbf{given that} some set of sentences are true. 
+\begin{defi}[Model]
+    Let $S$ be a set of sentences and $v$ a valuation. $v$ is a \term{model} of S if:
+    \[\forall p \in S, \ v(p) = 1 \] 
+    i.e. for all sentences $p$ in $S$, its valuation $v(p)$ is 1.
+\end{defi}
+\begin{defi}
+    [Semantic Entailment]
+    We say that $S$ \term{semantically entails} $p$, or just $S$ \term{entails} $p$, if every model of $S$ is a model of $p$. That is, every valuation where everything in $S$ is true, also has $p$ is true.
+    \\ We say $S$ are the \term{premises}, and $p$ is a \term{semantic consequence}
+\end{defi}
+For semantic entailment, we use the symbol $\vDash$. Given a set of sentences $S$, and a sentence $p$ 
+\[ S \vDash p \]
+means "$S$ semantically entails $p$". In practice, $S \vDash p$ means that every row of a truth table ofeverything in $S$ and $p$ where everything in $S$ has value 1, will have value 1 for $p$. 
+\begin{egs} In these examples, I will color in green the rows of the table which all premises have value 1. Then only the green rows of the consequences are required to have value 1 for semantic entailment.
+    \begin{figure}[H]
+        \caption{A truth table showing $p \iff q \vDash p \implies q$}
+        \label{fig:TruthTableSemanticEntailment1}
+        \centering
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            $p$ & $q$  & $p \iff q$ (premise) & $p \implies q$ (consequence) \\ \hline
+            \rowcolor{green!40} 0 & 0 & 1 & 1 \\
+            0 & 1 & 0 & 1  \\
+            1 & 0 & 0 & 0  \\
+            \rowcolor{green!40} 1 & 1 & 1 & 1 \\ \hline
+        \end{tabular}
+    \end{figure}
+    \begin{figure}[H]
+        \caption{A truth table showing $p, \ p\implies q \vDash q$}
+        \label{fig:TruthTableSemanticEntailment2}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $p$ (premise) & $q$ (consequence) & $p \implies q$ (premise)  \\ \hline
+            0 & 0 & 1  \\
+            0 & 1 & 1  \\
+            1 & 0 & 0  \\
+            \rowcolor{green!40} 1 & 1 & 1  \\ \hline
+        \end{tabular}
+    \end{figure}
+\end{egs} 
+
+\subsubsection{Metalogic}
+\label{sec:informalMetalogic}
 \pagebreak
 
-We also have a special proposition called False, written $\bot$. We can encode many common logical operations in terms of implication and falsehood. 
-\begin{eg}[Logical not]
-    In English, the saying "then pigs can fly" after a statement means that statement is ridiculous, so "If I am rich then pigs can fly" means "I am not rich". We could talk about the same thing in propositional logic by saying "I am rich implies false" to mean "I am not rich". If we were to call "I am rich" $r$, then we would write \[r \implies \bot\] to mean "I am not rich". We write as shorthand for this $\neg r$.
-\end{eg}
-\begin{eg}[Logical or]
-    Now we have defined logical not, we can define more complicated things such as "p or q" as \[\neg p \implies q\]
-    We write $p \vee q$ as shorthand for this.
-\end{eg}
-Propositional logic, however, cannot quantify over objects.
-\begin{eg}
-    In propositional logic, we could not say "All zebras have stripes". To do this we would need to add \term{quantifiers} to our logic. Propositional logic with quantifiers is called \term{first order logic}, and is much more complicated.
-\end{eg}
-In figure \ref{fig:propositionalLogicShorthand} we see the meaning of various logical shorthands
+
 \begin{figure}[H]
     \caption{Various propositional logic shorthand}
     \label{fig:propositionalLogicShorthand}
@@ -188,13 +302,7 @@ We can also make deductions via proofs, and we use the $\vdash$ symbol to mean "
 From $p$ and $p \implies q$, we can deduce $q$ via a rule called \term{modus ponens}. This constitutes a proof of $q$. We would write
 \[p, \ p \implies q \vdash q \]
 \end{eg}
-There is also a notion of truth of statements in propositional logic. We use the $\vDash$ symbol to mean "whenever the left hand side is true, the right hand side is true" and read it as "semantically entails" or just "entails".
-\begin{eg}[Semantic Entailment]
-    Whenever "If Bob is a zebra, then Bob has stripes" is true, we see that "If Bob has no stripes, then Bob is not a zebra" is also true. In symbols this would be written
-    \[p \implies q \vDash \neg q \implies \neg p\]
-\end{eg} 
 
-\subsubsection{Logic vs Metalogic}
 
 \pagebreak
 \subsection{The Language of Propositional Logic}
