@@ -2,7 +2,7 @@
 
 \usepackage{../util}
 
-\title{Logic (WIP) \\ {\small For Artificial Intelligence and Machine Learning}}
+\title{Logic (WIP)}
 
 \date{Autumn 2023}
 \author{Nathan McKeown-Luckly (Discord Username: skeletman)} 
@@ -17,9 +17,8 @@
 \section{Introduction}
 In this document, we will discuss logic as a foundation of formal reasoning. In doing so, we will discover what it means for a statement to be true (Semantic Entailment), and what it means for a statement to be proven (Syntactic Entailment) in various logical frameworks.
 \\ Logics are usually made up of a language of valid formulae and sentences, a set of rules for proving things, and a definition of structures in which the truth of a sentence is defined.
-\section{Propositional Logic}
-\subsection{An Informal Discussion on Propositional Logic}
-\subsubsection{What Propositional Logic can do}
+\section{An Informal Discussion on Propositional Logic}
+\subsection{What Propositional Logic can do}
 In \term{propositional logic}, we can talk about simple logical statements called \term{propositional sentences}. These consist of simple statements called \term{primitive propositions}, along with \term{logical connectives} which allow us to make more complicated expressions.
 \begin{eg}
     In propositional logic, we can talk and reason about sentences like "If Bob is a zebra, then Bob has stripes". We call the if-then relationship \term{implication}, and say "Bob is a zebra implies Bob has stripes". Implication is an example of a logical connective, and "Bob is a zebra" and "Bob has stripes" are examples of primitive propositions.
@@ -35,7 +34,7 @@ We abstract the actual statements by replacing them with symbols.
     We use the $\wedge$ symbol for logical and. If "My coat is red" is $p$ and "My hat is blue" is $q$, then "My coat is red and my hat is blue" would be written $p \wedge q$.
 \end{eg}
 \pagebreak
-\subsubsection{Logical Connectives}
+\subsection{Logical Connectives}
 Logical connectives are used to turn propositions into more complicated propositions. In figure \ref{fig:propositionalConnectives} we see some important examples.
 \begin{figure}[H]
     \caption{Logical connectives in propositional logic}
@@ -51,7 +50,7 @@ Logical connectives are used to turn propositions into more complicated proposit
         $\iff$ & if and only if \\ \hline
     \end{tabular}
 \end{figure}
-\subsubsection{Truth Values and Truth Tables}
+\subsection{Truth Values and Truth Tables}
 We can also assign a true-or-false \term{truth value} to each sentence. This assignment can be treated as a function from the set of sentences to $\{0, 1 \}$, where 0 represents false and 1 represents true.  Each connective will have an associated rule for how truth values must behave. If these rules are satisfied, then the assignment is called a \term{valuation}. We can visualise these rules with a \term{truth table}. 
 \begin{figure}[H]
     \caption{Truth tables for logical connectives}
@@ -162,7 +161,7 @@ Now that we have defined rules of how truth valuations behave, we can use truth 
     \vspace{10pt}\\ Notice that the truth table for $ p \implies \bot$ is the same as for $\neg p$.
 \end{figure}
 \end{sidenote}
-\subsubsection{Tautologies}
+\subsection{Tautologies}
 \begin{defi}
     [Tautology]
     A \term{tautology} is a sentence that always holds true. In propositional logic, this means that a sentence $s$ is a tautology if for every valuation $v$, $v(s) = 1$. 
@@ -235,7 +234,7 @@ In practice, a sentence is a tautology if it has a 1 in every row of its column 
     \\ You can tell these are important axioms to logicians because they have names.
 \end{sidenote}
 \pagebreak
-\subsubsection{Semantic Entailment}
+\subsection{Semantic Entailment}
 Where tautologies are sentences which are always true, \term{semantic entailment} is when a sentence is necessarily true \textbf{given that} some set of sentences are true. 
 \begin{defi}[Model]
     Let $S$ be a set of sentences and $v$ a valuation. $v$ is a \term{model} of S if:
@@ -278,7 +277,7 @@ means "$S$ semantically entails $p$". In practice, $S \vDash p$ means that every
         \end{tabular}
     \end{figure}
 \end{egs} 
-\subsubsection{Syntactic Entailment}
+\subsection{Syntactic Entailment}
 Propositional logic also has a notion of proof, called \term{syntactic entailment}. Propositional logic comes equipped with a set of \term{axioms}, sentences which we assume to be always true for the purposes of proving things. Also, there are \term{deduction rules}, rules by which simple deductions can be made.
 \begin{eg}
     For every sentence $p,q$ and $r$, \term{axiom K} and \term{axiom S} are examples of logical axioms. 
@@ -310,7 +309,7 @@ Propositional logic also has a notion of proof, called \term{syntactic entailmen
     \item $p \implies r$ \hfill (Modus Ponens on 5 and 6)
 \end{enumerate}
 \end{eg}
-\subsubsection{Theories and Theorems}
+\subsection{Theories and Theorems}
 \begin{defi}
     [Theory]
     A \term{theory} is a set of sentences.
@@ -336,7 +335,7 @@ We interpret theories as a set of premises, of which we study the logical conseq
     [Complete Theory]
     A theory $T$ is \term{complete} if it is consistent and for every sentence $p$, either $T \vdash p$ or $T \vdash \neg p$.
 \end{defi}
-\subsubsection{Metalogic}
+\subsection{Metalogic}
 \label{sec:informalMetalogic}
 \term{Metalogic} refers to the study of the properties of a logical system.
 \mypar
@@ -344,6 +343,7 @@ We interpret theories as a set of premises, of which we study the logical conseq
 \mypar
 "For all theories $T$, and all sentences $p$, $T \vdash p$ if and only if $T \vDash p$" is a \term{metalogical statement}. It is a statement about our logical framework.
 \pagebreak
+\section{Propositional Logic Formally}
 \subsection{The Language of Propositional Logic}
 In propositional logic, we assign some special symbols and read them as in figure \ref{fig:specialSymbolsProp}. For the meantime, we do not assign a meaning to these symbols.
 \begin{figure}[H]
@@ -371,5 +371,43 @@ In propositional logic, we assign some special symbols and read them as in figur
     Importantly, every valid sentence has a unique construction in this way.
 \end{defi}
 Note that we do not assign a meaning to sentences yet, these are simply strings of symbols at the current time. 
+
+\pagebreak
+\section{Metalogical Problems in Propositional Logic}
+\subsection{The Completeness Problem}
+\begin{defi}
+    [Soundness Problem]
+    \index{Soundness Problem} Given that $T \vdash p$, can we show that $T \vDash p$? I.e. if we have a proof of $p$ from $T$, can we then show that every model of $T$ is also a model of $p$?
+\end{defi}
+\begin{defi}
+    [Adequacy Problem] \index{adequacy problem} Given that $T \vDash p$, can we show that $T \vdash p$? I.e. if we know that every model of $T$ is a model of $p$, can we then determine there is a proof of $p$ from $T$?
+\end{defi}
+\begin{defi}
+    [Completeness Problem] \index{completeness problem}
+    Do both the soundness and adequacy problems hold true? I.e.  is it true that $T \vdash p$ if and only if $T \vDash p$?
+\end{defi}
+The soundness problem is intuitively fairly obvious: if we could prove something that isn't true, then our deductive system would be flawed.
+\\ The adequacy problem, however, is much more difficult to reason about intuitively. How do we know that our proof system is strong enough to prove every consequence of a theory?
+\\ It turns out that the completeness problem does hold true (under standard mathematical assumptions). Some consequences of completeness are
+\begin{theorem}
+    [Decidability Theorem]
+    \index{decidability theorem}Let $T$ be a finite theory, and $p$ a sentence. There is an algorithm which determines in finite time whether $T \vdash p$ or not.
+\end{theorem}
+\begin{proof}
+    Completeness says $T \vdash p$ if and only if $T \vDash p$. An algorithm can check in finite time if $T \vDash p$ or not by constructing a truth table, then checking that every row where all of $T$ holds, $p$ holds.
+\end{proof}
+\begin{theorem}
+    [Compactness Theorem]
+    \index{compactness theorem}Let $T$ be a (possibly infinite) theory. If every finite subset of $T$ has a model, then $T$ has a model.
+    I.e. \[\text{ If every finite } S \subset T \text{ has } S \not\vDash \bot, \text{ then } T \not\vDash \bot \]
+    or equivalently
+    \[T \vDash \bot \text{ implies that there is finite } S \subseteq T \text{ that has } S \vDash \bot\]
+\end{theorem}
+\begin{proof} 
+    By completeness, we can replace $\vDash$ with $\vdash$ to see that we need only show
+    \[T \vdash \bot \text{ implies that there is finite } S \subseteq T \text{ that has } S \vdash \bot\]
+    But if there is a proof $P$ of $\bot$ from $T$, this proof uses only finitely many premises from $T$, as proofs are finite. Let $S$ be the set of premises of $T$ appearing in $P$. Then $S$ is finite and $S \vdash \bot$.
+\end{proof}
+\subsection{The Boolean Satisfiability Problem (SAT)}
 \printindex
 \end{document}
