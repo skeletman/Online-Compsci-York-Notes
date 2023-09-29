@@ -343,11 +343,11 @@ We interpret theories as a set of premises, of which we study the logical conseq
 \mypar
 "For all theories $T$, and all sentences $p$, $T \vdash p$ if and only if $T \vDash p$" is a \term{metalogical statement}. It is a statement about our logical framework.
 \pagebreak
-\section{Propositional Logic Formally}
+\section{A Formal Formulation of Propositional Logic}
 \subsection{The Language of Propositional Logic}
 In propositional logic, we assign some special symbols and read them as in figure \ref{fig:specialSymbolsProp}. For the meantime, we do not assign a meaning to these symbols.
 \begin{figure}[H]
-    \caption{Special Symbols for Propositional Logic}
+    \caption{Special symbols for propositional logic}
     \label{fig:specialSymbolsProp}
     \centering
     \begin{tabular}{|c|l|}
@@ -357,21 +357,103 @@ In propositional logic, we assign some special symbols and read them as in figur
         $\bot$ & False \\ \hline
         $($ & Left Bracket \\ \hline
         $)$ & Right Bracket \\ \hline
-        %$\models$ & Models \\ \hline
-        %$\vdash$ & Proves \\ \hline
     \end{tabular}
 \end{figure}
 \begin{defi}[Propositional Language]
-    Let $S$ be a set of symbols that contains special symbols. $S$ is known as a set of \term{primitive propositions} or \term{atomic sentences}. Usually we will use lowercase latin symbols to represent primitive propositions, such as $p,q,r$, but we leave the definition open as some applications may need more symbols than we have letters!\\ The \term{propositional language} $\mathcal{L}(S)$ consists of the set of \term{sentences} defined by the following construction
+    Let $S$ be a set of symbols that contains no special symbols. $S$ is known as a set of \term{primitive propositions} or \term{atomic sentences}. Usually we will use lowercase latin symbols to represent primitive propositions, such as $p,q,r$, but we leave the definition open as some applications may need more symbols than we have letters, maybe even infinitely many!\mypar The \term{propositional language} $\mathcal{L}(S)$ consists of the set of \term{sentences} defined by the following construction
     \begin{itemize}
-        \item If $p$ is a primitive proposition, then it is a sentence
+        \item If $p$ is a primitive proposition (i.e. $p \in S$), then it is a sentence
         \item $\bot$ is a sentence
         \item If $\alpha$ and $\beta$ are sentences, then so is $(\alpha \implies \beta)$
     \end{itemize}
     Importantly, every valid sentence has a unique construction in this way.
 \end{defi}
-Note that we do not assign a meaning to sentences yet, these are simply strings of symbols at the current time. 
-
+\begin{sidenote}
+    Recall in figures \ref{fig:TruthTableEg2}, \ref{fig:TruthTableEg3} and \ref{fig:TruthTableEg4} we saw  equivalent statements to $p \land q$, $p \lor q$ and $\neg p$. In our formulation of propositional logic, we take these \emph{as definitions} (see fig. \ref{fig:propositionalShorthand}).
+\end{sidenote}
+\begin{figure}[H]
+    \caption{Logical shorthands}
+    \label{fig:propositionalShorthand}
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Shorthand & Definition & Meaning  \\ \hline \hline
+        $\neg p$ & $p \implies \bot$ & not $p$ \\ \hline
+        $p \lor q$ & $\neg p \implies q$ & $p$ or $q$ \\ \hline  
+        $p \land q$ & $\neg(p \implies \neg q)$  & $p$ and $q$ \\ \hline
+        $p \iff q$ & $(p \implies q) \land (q \implies p)$& $p$ if and only if $q$ \\ \hline
+    \end{tabular}
+\end{figure}
+\pagebreak
+\subsection{Semantic Entailment}
+\begin{defi}
+    [Valuation]
+    A \term{valuation} is a function $v:\mathcal{L}(S) \rightarrow \{0, 1\}$ such that.
+    \begin{itemize}
+        \item $v(\bot)=0$
+        \item For all $p, q \in \mathcal{L}(S)$ we have 
+        \[v(p \implies q) = 1 \text{ if and only if } \left[v(p) = 0 \text{ or } v(q) = 1\right] \]
+    \end{itemize}
+    i.e. $v$ assigns each sentence a truth value, $\bot$ is assigned false, and the truth values respect the law of implication.
+\end{defi}
+\begin{defi}
+    [Theory]
+    A \term{theory} is a set of sentences, i.e. $T \subseteq \mathcal{L}(S).$
+\end{defi}
+\begin{defi}
+    [Model]
+    Let $T$ be a theory. A valuation $v$ is a \term{model} of $T$ if
+    \[\text{for all } p \in T, \ v(p) = 1 \]
+    i.e. everything in $T$ is assigned true by $v$.
+\end{defi}
+\begin{defi}
+    [Semantic Entailment]
+    Let $T$ be a theory and $p$ a sentence. We say that $T$ \term{semantically entails} $p$, or just $S$ \term{entails} $p$, written $T \vDash p$, if every model of $T$ is a model of $p$. 
+\end{defi}
+\begin{defi}
+    [Logical Equivalence]
+    Let $p$ and $q$ be sentences. $p$ and $q$ are \term{logically equivalent}, written $p \equiv q$, if $p \vDash q$ and $q \vDash p$.
+    \mypar
+    Let $T$ and $T'$ be theories. $T$ and $T'$ are logically equivalent if $T \vDash q$ for all $q \in T'$ and $T' \vDash p$ for all $p \in T$.
+\end{defi}
+\begin{warning}
+    A theory $T$ is \textbf{not necessarily} equivalent to some single sentence if $T$ is infinite.
+    \\ For example, if we have primitive propositions $S = \{p_i : i \in \bN\}$, and our theory $T = S$ is all of the primitive propositions. Then if $q$ is a sentence, it is finite, so may only mention finitely many of the $p_i$. Let $M$ be the maximum $i$ for which $p_i$ appears in $q$.
+    \\ Suppose $T \vDash q$. $T$ has a model $v$, just assign all $p_i$ to true. As $T \vDash q$, $v$ is a model of $q$.
+    Define a new valuation $v'$ by
+    \[ v'(p_i) = \begin{cases}
+        1 & \text{if } i \not= M+1
+        \\ 0 & \text{if } i = M+1
+    \end{cases}\]
+    $v'$ must be a model of $q$ still, as $p_{M+1}$ does not appear in $q$. But $v'$ is not a model of $T$. Hence $q \not\vDash T$.
+\end{warning}
+\subsection{Syntactic Entailment}
+Propositional logic also has a notion of proof, called \term{syntactic entailment}. Propositional logic comes equipped with a set of \term{axioms}, sentences which we assume to be always true for the purposes of proving things. Also, there are \term{deduction rules}, rules by which simple deductions can be made.
+\begin{defi}[Axioms of Propositional Logic]
+    The \term{axioms of propositional logic} are
+    \begin{itemize}
+        \item \textbf{Axiom K:} For all sentences $p$ and $q$ \[p \implies (q \implies p)\]
+        \item \textbf{Axiom S:} For all sentences $p$, $q$ and $r$ \[[p \implies (q \implies r)] \implies [(p \implies q) \implies (p \implies r)]\]
+        \item \textbf{The Law of Excluded Middle (LEM):} For all sentences $p$ \[\neg\neg p \implies p\]
+    \end{itemize}
+\end{defi}
+\begin{defi}[Deduction Rule of Propositional Logic]
+    The only \term{deduction rule} of this formulation of propositional logic is \term{modus ponens}, which states for every sentence $p$ and $q$
+    \[\text{From } p \text{ and } p \implies q \text{ we can deduce } q. \]
+\end{defi}
+\begin{defi}[Proof]
+    In propositional logic, given a theory $T$ and sentence $p$, a \term{proof} of $p$ from $T$ is a finite  list of sentences $(t_1, \dots, t_n)$ such that each $t_i$ is either
+    \begin{itemize}
+        \item An axiom
+        \item In $T$
+        \item Deducible from previous sentences via modus ponens.
+    \end{itemize}
+    And $t_n$ is $p$. We call the $t_i$ the lines of the proof, and usually display them vertically.
+    \\If there is a proof of $p$ from $T$, we write $S \vdash p$ and say "$T$ proves $p$" or "$T$ syntactically entails $p$".
+\end{defi}
+\begin{sidenote}
+    In practie when doing real proofs, we will add more deduction rules in order to simplify the proof. However, just modus ponens is strong enough to prove that all these other rules are sound, and is convenient to prove metalogical statements about thanks to its simplicity.
+\end{sidenote}
 \pagebreak
 \section{Metalogical Problems in Propositional Logic}
 \subsection{The Completeness Problem}
