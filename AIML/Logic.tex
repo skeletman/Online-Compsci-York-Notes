@@ -491,5 +491,123 @@ The soundness problem is intuitively fairly obvious: if we could prove something
     But if there is a proof $P$ of $\bot$ from $T$, this proof uses only finitely many premises from $T$, as proofs are finite. Let $S$ be the set of premises of $T$ appearing in $P$. Then $S$ is finite and $S \vdash \bot$.
 \end{proof}
 \subsection{The Boolean Satisfiability Problem (SAT)}
+
+\pagebreak
+\appendix
+\section{Worked Examples in Propositional Logic}
+\begin{question} \label{q:semanticEntailment}
+    Let $p,q,r$ be primitive propositions. Which of the following hold?
+    \begin{enumerate}
+        \item $p \land q \vDash q$
+        \item $p \vDash q$
+        \item $\vDash p \lor \neg p$
+        \item $p \land q \vDash q \lor r$
+        \item $p \land \neg p \vDash q $
+        \item $p, q \vDash p \land q $
+    \end{enumerate}
+\end{question}
+\begin{method}
+    For a set of sentences $T$, and sentence $q$, $T \vDash q$ if for every valuation (line of a truth table) where every $p$ in $T$ is true, $q$ is also true. 
+    \\ To show $T \vDash q$, we can simply draw a truth table, and check that \textbf{every} line of the truth table where every $p$ in $T$ is true, $q$ is true.
+    \\ To show $T \not\vDash q$, we need only exhibit \textbf{one} line of a truth table where every $p$ in $T$ is true but $q$ is false.
+\end{method}
+\begin{answer} In these examples, I will attempt to show $T \vDash q$ for the $T$ and $q$ as in question \ref{q:semanticEntailment} by checking the truth tables. 
+    \\I will colour in blue the sentences in $T$, and yellow $q$. Then I will colour each row where everything in $T$ is true green if $q$ is true, and red if $q$ is false.
+    \begin{enumerate}
+        \item 
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $p$ & \cellcolor{yellow!40}$q$ & \cellcolor{blue!40}$p \land q$\\
+            \hline \hline
+            0 & 0 & 0 \\
+            0 & 1 & 0 \\
+            1 & 0 & 0 \\
+            \rowcolor{green!40} 1 & 1 & 1 \\
+            \hline
+        \end{tabular} 
+        \quad 
+        \begin{minipage}{0.5\textwidth}
+            We see that, in the only row where $p \land q$ is true, $q$ is also true, so $p \land q \vDash q$
+        \end{minipage}
+        \item
+        \begin{tabular}{|c|c|}
+            \hline
+            \cellcolor{blue!40}$p$ & \cellcolor{yellow!40}$q$ \\
+            \hline \hline
+            0 & 0 \\
+            0 & 1 \\
+            \rowcolor{red!40}1 & 0 \\
+            \rowcolor{green!40}1 &  1 \\
+            \hline
+        \end{tabular} \quad
+        \begin{minipage}{0.5\textwidth}
+            We see that, in the row where $p$ is assgined true and $q$ is assigned false, $p$ is true and $q$ is false. Hence $p \not\vDash q$.
+        \end{minipage}
+        \item
+        \begin{tabular}{|c|c|c|}
+            \hline
+            $p$ & $\neg p$ & \cellcolor{yellow!40}$p \lor \neg p$ \\
+            \hline \hline
+            \rowcolor{green!40}0 & 1 & 1  \\
+            \rowcolor{green!40}1 & 0 & 1\\ \hline
+        \end{tabular}
+        \quad
+        \begin{minipage}{0.5\textwidth}
+            In this case $T$ is empty, so we need to consider every row. In every row, $p \lor \neg p$ is true, so $\vDash p \lor \neg p$.
+        \end{minipage}
+        \item 
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            $p$ & $q$ & $r$ & \cellcolor{blue!40}$p \land q$ & \cellcolor{yellow!40}$q \lor r$\\
+            \hline \hline
+            0 & 0 & 0 &0&0\\
+            0 & 0 & 1 &0&1\\
+            0 & 1 & 0 &0&1\\
+            0 & 1 & 1 &0&1\\
+            1 & 0 & 0 &0&0\\
+            1 & 0 & 1 &0&1\\
+            \rowcolor{green!40}1 & 1 & 0 &1&1\\
+            \rowcolor{green!40}1 & 1 & 1 &1&1\\
+            \hline
+        \end{tabular} 
+        \quad 
+        \begin{minipage}{0.5\textwidth}
+            We see that, the only rows where $p \land q$ are true are the rows where $p$ and $q$ are assigned true, and $r$ is assigned either true or false. In both of these rows, we see $q \lor r$ is true, hence $p \land q \vDash q \lor r$.
+        \end{minipage}
+        \item 
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            $p$ & \cellcolor{yellow!40}$q$ & $\neg p$ & \cellcolor{blue!40}$p \land \neg p$\\
+            \hline \hline
+            0 & 0 & 1 &0 \\
+            0 & 1 & 1 &0\\
+            1 & 0 & 0 &0\\
+            1 & 1 & 0 &0\\
+            \hline
+        \end{tabular} 
+        \quad 
+        \begin{minipage}{0.5\textwidth}
+            We see that, the only rows where $p \land \neg p$ is never true. So, in all zero lines of the truth table where it is true, $q$ is also true. Hence $p \land \neg p \vDash q$.
+        \end{minipage}
+        \item 
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \cellcolor{blue!40}$p$ & \cellcolor{blue!40}$q$ & \cellcolor{yellow!40}$p \land q$\\
+            \hline \hline
+            0 & 0 & 0 \\
+            0 & 1 & 0 \\
+            1 & 0 & 0 \\
+            \rowcolor{green!40}1 & 1 & 1 \\
+            \hline
+        \end{tabular} 
+        \quad 
+        \begin{minipage}{0.5\textwidth}
+            In this case, the set $T$ is $\{p,q\}$, so everything in $T$ being true means exactly both $p$ and $q$ are true. We see that in the only row where both $p$ and $q$ are true, $p \land q$ is true. Hence $p,q \vDash p \land q$.
+        \end{minipage}
+    \end{enumerate}
+\end{answer}
+
 \printindex
+
+
 \end{document}
