@@ -915,9 +915,9 @@ import java.util.ArrayList;
 \end{lstlisting}
 An \inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
 \pagebreak
-\chapter{Algorithms}
+\chapter{Data Structures}
 \section*{Preamble}
-In this section I will make use of various logical symbols, figure \ref{fig:logicalSymbols} indicates their meanings
+In this and further chapters, I will make use of various logical symbols, figure \ref{fig:logicalSymbols} indicates their meanings
 \begin{figure}[H]
     \caption{Logical symbols}
     \label{fig:logicalSymbols}
@@ -945,9 +945,89 @@ In this section I will make use of various logical symbols, figure \ref{fig:logi
         $\supseteq$ & Is a superset of \\ \hline
     \end{tabular}
 \end{figure}
+\section{Stacks and Queues}
+\begin{defi}[Stack]
+    A \term{stack} is a collection equipped with two operations.
+    \begin{itemize}
+        \item \term{push} adds an element.
+        \item \term{pop} reads and removes the last added element.
+    \end{itemize}
+    It is sometimes called a \term{LIFO} or \term{last-in-first-out} collection. 
+\end{defi}
+\begin{impl}[Stack]
+    A stack $S$ will have 2 attributes: a positive integer $S.top$, and an array $S$
+    \begin{algorithm}
+        \caption{Stack-Empty($S$)}
+        \uIf{$S.top = 0$}{\Return True\;}
+        \Else{\Return False\;}
+    \end{algorithm}
+    \begin{algorithm}
+        \caption{Push($S, x$)}
+        $S.top \gets S.top + 1$\;
+        $S[S.top] \gets x$\;
+    \end{algorithm}
+    \begin{algorithm}
+        \caption{Pop($S$)}
+        \uIf{Stack-Empty($S$)}
+        {
+            \Error Underflow\;
+        }
+        \Else
+        {
+            $S.top \gets S.top - 1$\;
+            \Return{$S[S.top+1]$}\;
+        }
+    \end{algorithm}
+\end{impl}
+\begin{sidenote}
+    Given that arrays are finite, an array overflow may occur when performing Push. We have ignored overflows in our pseudocode implementation.
+\end{sidenote}
+\pagebreak
+\begin{defi}[Queue]
+    A \term{stack} is a collection equipped with two operations.
+    \begin{itemize}
+        \item \term{enqueue} adds an element.
+        \item \term{dequeue} reads and removes the first added element.
+    \end{itemize}
+    It is sometimes called a \term{FIFO} or \term{first-in-first-out} collection. 
+\end{defi}
+\begin{impl}[Stack]
+    A stack $Q$ will have 3 attributes: An array $Q$, and positive integers $Q.head$ and $Q.tail$.
+    \begin{algorithm}
+        \caption{Enqueue($Q, x$)}
+        $Q[Q.tail] \gets x$\;
+        \uIf{}
+        {
+            $Q.tail \gets 0$\;
+        } 
+        \Else
+        {
+            $Q.tail \gets Q.tail + 1$\;
+        }
+    \end{algorithm}
+    \begin{algorithm}
+        \caption{Dequeue($Q$)}
+        $x \gets Q[Q.head]$\;
+        \uIf{$Q.head = Q.length$}
+        {
+            $Q.head \gets 0$\;
+        }
+        \Else
+        {
+            $Q.head \gets Q.head - 1$\;
+        }
+        \Return $x$\;
+    \end{algorithm}
+\end{impl}
+\begin{sidenote}
+    If we attempt to more than $Q.length$ elements, we would cause some elements to be overwritten. We have ignored overflows and underflows in our pseudocode implementation.
+\end{sidenote}
+\pagebreak
+\chapter{Algorithms}
+
 \section{Introduction}
 \begin{defi}[Computational Problem]
-    A \term{computational problem} is a specified desired output of a computer program given specified input data
+    A \term{computational problem} is a specified desired output of a computer program given specified input data.
 \end{defi}
 \begin{defi}[Algorithm]
     An \term{algorithm} is a set of instructions. In our use case, an algorithm must consist of basic instructions which a computer can carry out.
@@ -955,9 +1035,10 @@ In this section I will make use of various logical symbols, figure \ref{fig:logi
 \subsection{Example Computational Problems}
 \begin{nproblem}[The Comparison Sorting Problem]
     The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
-    \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type which can be compared with a total order relation $<$
+    \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type equipped with a total order relation $\leq$.
     \mypar \textbf{Output:} A permutation $(a'_1, \dots, a'_n)$ of $(a_1, \dots, a_n)$ such that 
-    \[\forall \]
+    \[\forall i,j \in \{1,\dots,n \}, \ \  i \leq j \implies a'_i \leq a'_j  \]
+    i.e. a permutation in (monotone) ascending order.
 \end{nproblem}
 \section{The Sorting Problem}
 
