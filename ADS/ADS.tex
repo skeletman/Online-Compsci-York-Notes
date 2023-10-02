@@ -915,7 +915,7 @@ import java.util.ArrayList;
 \end{lstlisting}
 An \inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
 \pagebreak
-\chapter{Data Structures}
+\chapter{Algorithms Data Structures}
 \section*{Preamble}
 In this and further chapters, I will make use of various logical symbols, figure \ref{fig:logicalSymbols} indicates their meanings
 \begin{figure}[H]
@@ -945,86 +945,6 @@ In this and further chapters, I will make use of various logical symbols, figure
         $\supseteq$ & Is a superset of \\ \hline
     \end{tabular}
 \end{figure}
-\section{Stacks and Queues}
-\begin{defi}[Stack]
-    A \term{stack} is a collection equipped with two operations.
-    \begin{itemize}
-        \item \term{push} adds an element.
-        \item \term{pop} reads and removes the last added element.
-    \end{itemize}
-    It is sometimes called a \term{LIFO} or \term{last-in-first-out} collection. 
-\end{defi}
-\begin{impl}[Stack]
-    A stack $S$ will have 2 attributes: a positive integer $S.top$, and an array $S$
-    \begin{algorithm}
-        \caption{Stack-Empty($S$)}
-        \uIf{$S.top = 0$}{\Return True\;}
-        \Else{\Return False\;}
-    \end{algorithm}
-    \begin{algorithm}
-        \caption{Push($S, x$)}
-        $S.top \gets S.top + 1$\;
-        $S[S.top] \gets x$\;
-    \end{algorithm}
-    \begin{algorithm}
-        \caption{Pop($S$)}
-        \uIf{Stack-Empty($S$)}
-        {
-            \Error Underflow\;
-        }
-        \Else
-        {
-            $S.top \gets S.top - 1$\;
-            \Return{$S[S.top+1]$}\;
-        }
-    \end{algorithm}
-\end{impl}
-\begin{sidenote}
-    Given that arrays are finite, an array overflow may occur when performing Push. We have ignored overflows in our pseudocode implementation.
-\end{sidenote}
-\pagebreak
-\begin{defi}[Queue]
-    A \term{stack} is a collection equipped with two operations.
-    \begin{itemize}
-        \item \term{enqueue} adds an element.
-        \item \term{dequeue} reads and removes the first added element.
-    \end{itemize}
-    It is sometimes called a \term{FIFO} or \term{first-in-first-out} collection. 
-\end{defi}
-\begin{impl}[Stack]
-    A stack $Q$ will have 3 attributes: An array $Q$, and positive integers $Q.head$ and $Q.tail$.
-    \begin{algorithm}
-        \caption{Enqueue($Q, x$)}
-        $Q[Q.tail] \gets x$\;
-        \uIf{}
-        {
-            $Q.tail \gets 0$\;
-        } 
-        \Else
-        {
-            $Q.tail \gets Q.tail + 1$\;
-        }
-    \end{algorithm}
-    \begin{algorithm}
-        \caption{Dequeue($Q$)}
-        $x \gets Q[Q.head]$\;
-        \uIf{$Q.head = Q.length$}
-        {
-            $Q.head \gets 0$\;
-        }
-        \Else
-        {
-            $Q.head \gets Q.head - 1$\;
-        }
-        \Return $x$\;
-    \end{algorithm}
-\end{impl}
-\begin{sidenote}
-    If we attempt to more than $Q.length$ elements, we would cause some elements to be overwritten. We have ignored overflows and underflows in our pseudocode implementation.
-\end{sidenote}
-\pagebreak
-\chapter{Algorithms}
-
 \section{Introduction}
 \begin{defi}[Computational Problem]
     A \term{computational problem} is a specified desired output of a computer program given specified input data.
@@ -1040,6 +960,296 @@ In this and further chapters, I will make use of various logical symbols, figure
     \[\forall i,j \in \{1,\dots,n \}, \ \  i \leq j \implies a'_i \leq a'_j  \]
     i.e. a permutation in (monotone) ascending order.
 \end{nproblem}
+\pagebreak
+\section{Stacks and Queues}
+\begin{defi}[Stack]
+    A \term{stack} is a collection equipped with two operations.
+    \begin{itemize}
+        \item \term{push} adds an element.
+        \item \term{pop} reads and removes the last added element.
+    \end{itemize}
+    It is sometimes called a \term{LIFO} or \term{last-in-first-out} collection. 
+\end{defi}
+\begin{impl}[Array-Based Stack] The idea of an \term{array-based stack} is that we can store a pointer to the top of the stack, and use this to implement Push and Pop in $O(1)$ time. Below we use an implementation that checks for underflows, but not overflows (although in this case it can be passed to the array's overflow handling).
+    \\ A stack $S$ will have 2 attributes: an array $S$, of size $S.length$, and a positive integer $S.top$.
+    \mypar
+    \begin{algorithm}[H]
+        \caption{Stack-Empty($S$)}
+        \uIf{$S.top = 0$}{\Return True\;}
+        \Else{\Return False\;}
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Push($S, x$)}
+        $S.top \gets S.top + 1$\;
+        $S[S.top] \gets x$\;
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Pop($S$)}
+        \uIf{Stack-Empty($S$)}
+        {
+            \Error Underflow\;
+        }
+        \Else
+        {
+            $S.top \gets S.top - 1$\;
+            \Return{$S[S.top+1]$}\;
+        }
+    \end{algorithm}
+    \begin{figure}[H]
+        \caption{A diagram illustrating Array-Based Stacks}
+        \centering
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+            \node (A) {Start};
+            \node[below = 0.2cm of A] (SText) {$S$};
+            \node[stack=7, below = 0cm of SText] (s) {
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of s.four east] (STopText) {$S.top$};
+            \draw[->] (STopText.west) -- (s.four east);
+
+            \node[right = 1cm of A] (B) {$S.push$  x};
+            \node[below = 0.2cm of B] (STextB) {$S$};
+            \node[stack=7, below = 0cm of STextB] (sB) {
+            \nodepart{three}x
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of sB.three east] (STopTextB) {$S.top$};
+            \draw[->] (STopTextB.west) -- (sB.three east);
+
+            \node[right = 1cm of B] (C) {$S.pop$};
+            \node[below = 0.2cm of C] (STextC) {$S$};
+            \node[stack=7, below = 0cm of STextC] (sC) {
+            \nodepart{three}{\color{lightgray} x}
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of sC.four east] (STopTextC) {$S.top$};
+            \draw[->] (STopTextC.west) -- (sC.four east);
+            \node[below = 0.2cm of sC] (returnC) {return x};
+
+            \node[right = 1cm of C] (D) {$S.push$  y};
+            \node[below = 0.2cm of D] (STextD) {$S$};
+            \node[stack=7, below = 0cm of STextD] (sD) {
+            \nodepart{three}y
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of sD.three east] (STopTextD) {$S.top$};
+            \draw[->] (STopTextD.west) -- (sD.three east);
+
+        \end{tikzpicture}
+    \end{figure}
+\end{impl}
+
+\begin{defi}[Queue]
+    A \term{queue} is a collection equipped with two operations.
+    \begin{itemize}
+        \item \term{enqueue} adds an element.
+        \item \term{dequeue} reads and removes the first added element.
+    \end{itemize}
+    It is sometimes called a \term{FIFO} or \term{first-in-first-out} collection. 
+\end{defi}
+\begin{impl}[Array-Based Circular Queue]
+    The idea of an \term{array-based circular queue} is that we can add two attributes that point to the beginning (head) and end (tail) of the queue, so we can implement Enqueue and Dequeue in $O(1)$ time. Additionally, we imagine the end of the array wraps around to the beginning, as to not cause overflows when we have space free at the beginning of the array. There are many possible implementations, here is one that does not handle overflow and underflow.
+    \\ An array-based circular queue $Q$ will have 3 attributes: An array $Q$, of size $Q.length$, and positive integers $Q.head$ and $Q.tail$.\mypar
+    \begin{algorithm}[H]
+        \caption{Enqueue($Q, x$)}
+        $Q[Q.tail] \gets x$\;
+        $Q.tail \gets (Q.tail + 1)\%Q.length$\;
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Dequeue($Q$)}
+        $x \gets Q[Q.head]$\;
+        $Q.head \gets (Q.head + 1)\%Q.length$\;
+        \Return $x$\;
+    \end{algorithm}
+    Recall, $x\%y$ is the remainder of $x$ when divided by $y$. In the case of queues, this means that if the head/tail is at the end of the array, and we wish to dequeue/enqueue, the new value wraps back to 0. An if-else-statement could have been used instead in both dequeue and enqueue.
+    \mypar Below are diagrams illustrating the operation of queues.
+    \begin{figure}[H]
+        \caption{A diagram illustrating Array-Based Circular Queues}
+        \centering
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+            \node (A) {Start};
+            \node[below = 0.2cm of A] (QAText) {$Q$};
+            \node[stack=7, below = 0cm of QAText] (QA) {
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of QA.seven east] (QAHeadText) {$Q.head$};
+            \draw[->] (QAHeadText.west) -- (QA.seven east);
+            \node[right = 0.5cm of QA.three east] (QATailText) {$Q.tail$};
+            \draw[->] (QATailText.west) -- (QA.three east);
+
+            \node[right = 1.2cm of A] (B) {$Q.enqueue$ x};
+            \node[below = 0.2cm of B] (QBText) {$Q$};
+            \node[stack=7, below = 0cm of QBText] (QB) {
+            \nodepart{three}x
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}a
+            };
+            \node[right = 0.5cm of QB.seven east] (QBHeadText) {$Q.head$};
+            \draw[->] (QBHeadText.west) -- (QB.seven east);
+            \node[right = 0.5cm of QB.two east] (QBTailText) {$Q.tail$};
+            \draw[->] (QBTailText.west) -- (QB.two east);
+
+            \node[right = 1.2cm of B] (C) {$Q.dequeue$};
+            \node[below = 0.2cm of C] (QCText) {$Q$};
+            \node[stack=7, below = 0cm of QCText] (QC) {
+            \nodepart{three}x
+            \nodepart{four}d
+            \nodepart{five}c
+            \nodepart{six}b
+            \nodepart{seven}{\color{lightgray} a}
+            };
+            \node[right = 0.5cm of QC.six east] (QCHeadText) {$Q.head$};
+            \draw[->] (QCHeadText.west) -- (QC.six east);
+            \node[right = 0.5cm of QC.two east] (QCTailText) {$Q.tail$};
+            \draw[->] (QCTailText.west) -- (QC.two east);
+            \node[below = 0.2cm of QC] (return) {return a};
+
+        \end{tikzpicture}
+    \end{figure}
+    \begin{figure}[H]
+        \caption{A diagram illustrating wrapping in Array-Based Circular Queues}
+        \centering
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+            \node (A) {\small Start};
+            \node[below = 0.2cm of A] (QAText) {$Q$};
+            \node[stack=7, below = 0cm of QAText] (QA) {
+                \nodepart{two}f
+                \nodepart{three}{\color{lightgray} e}
+                \nodepart{four}{\color{lightgray} d}
+                \nodepart{five}{\color{lightgray} c}
+                \nodepart{six}{\color{lightgray} b}
+                \nodepart{seven}{\color{lightgray} a}
+            };
+            \node[right = 0.3cm of QA.two east] (QAHeadText) {\small $Q.head$};
+            \draw[->] (QAHeadText.west) -- (QA.two east);
+            \node[right = 0.3cm of QA.one east] (QATailText) {\small $Q.tail$};
+            \draw[->] (QATailText.west) -- (QA.one east);
+
+            \node[right = .8cm of A] (B) {\small $Q.enqueue$ g};
+            \node[below = 0.2cm of B] (QBText) {$Q$};
+            \node[stack=7, below = 0cm of QBText] (QB) {
+                \nodepart{one}g
+                \nodepart{two}f
+                \nodepart{three}{\color{lightgray} e}
+                \nodepart{four}{\color{lightgray} d}
+                \nodepart{five}{\color{lightgray} c}
+                \nodepart{six}{\color{lightgray} b}
+                \nodepart{seven}{\color{lightgray} a}
+            };
+            \node[right = 0.3cm of QB.two east] (QBHeadText) {\small $Q.head$};
+            \draw[->] (QBHeadText.west) -- (QB.two east);
+            \node[right = 0.3cm of QB.seven east] (QBTailText) {\small $Q.tail$};
+            \draw[->] (QBTailText.west) -- (QB.seven east);
+
+            \node[right = .3cm of B] (C) {\small $Q.enqueue$ h};
+            \node[below = 0.2cm of C] (QCText) {$Q$};
+            \node[stack=7, below = 0cm of QCText] (QC) {
+                \nodepart{one}g
+                \nodepart{two}f
+                \nodepart{three}{\color{lightgray} e}
+                \nodepart{four}{\color{lightgray} d}
+                \nodepart{five}{\color{lightgray} c}
+                \nodepart{six}{\color{lightgray} b}
+                \nodepart{seven}h
+            };
+            \node[right = 0.3cm of QC.two east] (QCHeadText) {\small$Q.head$};
+            \draw[->] (QCHeadText.west) -- (QC.two east);
+            \node[right = 0.3cm of QC.six east] (QCTailText) {\small$Q.tail$};
+            \draw[->] (QCTailText.west) -- (QC.six east); 
+            
+            \node[right = .3cm of C] (D) {\small$Q.dequeue$};
+            \node[below = 0.2cm of D] (QDText) {$Q$};
+            \node[stack=7, below = 0cm of QDText] (QD) {
+                \nodepart{one}g
+                \nodepart{two}{\color{lightgray} f}
+                \nodepart{three}{\color{lightgray} e}
+                \nodepart{four}{\color{lightgray} d}
+                \nodepart{five}{\color{lightgray} c}
+                \nodepart{six}{\color{lightgray} b}
+                \nodepart{seven}h
+            };
+            \node[right = 0.3cm of QD.one east] (QDHeadText) {\small$Q.head$};
+            \draw[->] (QDHeadText.west) -- (QD.one east);
+            \node[right = 0.3cm of QD.six east] (QDTailText) {\small$Q.tail$};
+            \draw[->] (QDTailText.west) -- (QD.six east);
+            \node[below = 0.2cm of QD] (return) {return f};
+
+            \node[right = .5cm of D] (E) {\small$Q.dequeue$};
+            \node[below = 0.2cm of E] (QEText) {$Q$};
+            \node[stack=7, below = 0cm of QEText] (QE) {
+                \nodepart{one}{\color{lightgray} g}
+                \nodepart{two}{\color{lightgray} f}
+                \nodepart{three}{\color{lightgray} e}
+                \nodepart{four}{\color{lightgray} d}
+                \nodepart{five}{\color{lightgray} c}
+                \nodepart{six}{\color{lightgray} b}
+                \nodepart{seven}h
+            };
+            \node[right = 0.3cm of QE.seven east] (QEHeadText) {\small$Q.head$};
+            \draw[->] (QEHeadText.west) -- (QE.seven east);
+            \node[right = 0.3cm of QE.six east] (QETailText) {\small$Q.tail$};
+            \draw[->] (QETailText.west) -- (QE.six east);
+            \node[below = 0.2cm of QE] (return) {return g};
+
+        \end{tikzpicture}
+    \end{figure}
+\end{impl}
+\pagebreak
+\begin{impl}[Array-Based Circular Queue with Error Handling]
+    Our previous implementation did not handle overflow or underflow errors. One way of checking for overflow and underflow is to interpret $Q.head = Q.tail$ as "The queue is empty". This only allows us to store $Q.length - 1$ elements, as if, from empty, we attempt to enqueue $Q.length$ elements, we will return to having $Q.head = Q.tail$. \\ An array-based circular queue $Q$ will have 3 attributes: An array $Q$, of size $Q.length$, and positive integers $Q.head$ and $Q.tail$.\mypar
+    \begin{algorithm}[H]
+        \caption{Queue-Empty($Q$)}
+        \uIf{$Q.head = Q.tail$}{\Return True\;}
+        \Else{\Return False\;}
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Queue-Full($Q$)}
+        \uIf{$Q.head = (Q.tail + 1)\% Q.length$}{\Return True\;}
+        \Else{\Return False\;}
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Enqueue($Q, x$)}
+        $Q[Q.tail] \gets x$\;
+        \uIf{Queue-Full($Q$)}
+        {
+            \Error Overflow\;
+        } 
+        \Else
+        {
+            $Q.tail \gets (Q.tail + 1)\%Q.length$\;
+        }
+    \end{algorithm}
+    \begin{algorithm}[H]
+        \caption{Dequeue($Q$)}
+        $x \gets Q[Q.head]$\;
+        \uIf{Queue-Empty($Q$)}
+        {
+            \Error Underflow\;
+        }
+        \Else
+        {
+            $Q.head \gets (Q.head + 1)\%Q.length$\;
+        }
+        \Return $x$\;
+    \end{algorithm}
+\end{impl}
 \section{The Sorting Problem}
 
 \begin{nproblem}[The Sorting Problem]
