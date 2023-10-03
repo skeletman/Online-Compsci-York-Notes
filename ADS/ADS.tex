@@ -915,7 +915,7 @@ import java.util.ArrayList;
 \end{lstlisting}
 An \inlineJava{ArrayList<T>} object stores an array of type \inlineJava"T", and if an index needs to be accessed beyond the array's size, dynamically resizes the array. As a result, we obtain a data structure that can store an arbitrary number of elements.
 \pagebreak
-\chapter{Algorithms Data Structures}
+\chapter{Algorithms \& Data Structures}
 \section*{Preamble}
 In this and further chapters, I will make use of various logical symbols, figure \ref{fig:logicalSymbols} indicates their meanings
 \begin{figure}[H]
@@ -952,14 +952,23 @@ In this and further chapters, I will make use of various logical symbols, figure
 \begin{defi}[Algorithm]
     An \term{algorithm} is a set of instructions. In our use case, an algorithm must consist of basic instructions which a computer can carry out.
 \end{defi}
-\subsection{Example Computational Problems}
-\begin{nproblem}[The Comparison Sorting Problem]
-    The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
-    \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type equipped with a total order relation $\leq$.
-    \mypar \textbf{Output:} A permutation $(a'_1, \dots, a'_n)$ of $(a_1, \dots, a_n)$ such that 
-    \[\forall i,j \in \{1,\dots,n \}, \ \  i \leq j \implies a'_i \leq a'_j  \]
-    i.e. a permutation in (monotone) ascending order.
+Here is an example computational problem:
+\begin{nproblem}[The Maximum Problem] Given a finite sequence of integers, find the maximum
+    \mypar
+    \textbf{Input: }A sequence $(a_1,\dots,a_n)$ of integers.
+    \mypar \textbf{Output: }$a_k$ such that $\forall i \in \{1,\dots,n\}, \ a_k \geq a_i$.
 \end{nproblem}
+\begin{algEng}[Maximum Problem] The idea is to store a varaible which stores the maximum so far as we search the sequence, and compare each new element to this.
+    \begin{enumerate}
+        \item Decalare a variable \inline{currentMax}
+        \item Set \inline{currentMax} to $a_1$.
+        \item For each $i \in \{2,\dots,n\}$, if $a_i > $ \inline{currentMax} then set \inline{currentMax} to $a_i$.
+        \item Return \inline{currentMax}.
+    \end{enumerate}
+\end{algEng}
+\subsection{Psuedocode}
+
+\subsection{Algorithm Analysis}
 \pagebreak
 \section{Stacks and Queues}
 \begin{defi}[Stack]
@@ -1092,7 +1101,7 @@ In this and further chapters, I will make use of various logical symbols, figure
             \node[right = 0.5cm of QA.three east] (QATailText) {$Q.tail$};
             \draw[->] (QATailText.west) -- (QA.three east);
 
-            \node[right = 1.2cm of A] (B) {$Q.enqueue$ x};
+            \node[right = 1.2cm of A] (B) {Enqueue($Q,x$)};
             \node[below = 0.2cm of B] (QBText) {$Q$};
             \node[stack=7, below = 0cm of QBText] (QB) {
             \nodepart{three}x
@@ -1106,7 +1115,7 @@ In this and further chapters, I will make use of various logical symbols, figure
             \node[right = 0.5cm of QB.two east] (QBTailText) {$Q.tail$};
             \draw[->] (QBTailText.west) -- (QB.two east);
 
-            \node[right = 1.2cm of B] (C) {$Q.dequeue$};
+            \node[right = 1.2cm of B] (C) {Dequeue($Q$)};
             \node[below = 0.2cm of C] (QCText) {$Q$};
             \node[stack=7, below = 0cm of QCText] (QC) {
             \nodepart{three}x
@@ -1128,7 +1137,7 @@ In this and further chapters, I will make use of various logical symbols, figure
         \centering
         \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
             \node (A) {\small Start};
-            \node[below = 0.2cm of A] (QAText) {$Q$};
+            \node[below = 0.5cm of A.center] (QAText) {$Q$};
             \node[stack=7, below = 0cm of QAText] (QA) {
                 \nodepart{two}f
                 \nodepart{three}{\color{lightgray} e}
@@ -1142,8 +1151,8 @@ In this and further chapters, I will make use of various logical symbols, figure
             \node[right = 0.3cm of QA.one east] (QATailText) {\small $Q.tail$};
             \draw[->] (QATailText.west) -- (QA.one east);
 
-            \node[right = .8cm of A] (B) {\small $Q.enqueue$ g};
-            \node[below = 0.2cm of B] (QBText) {$Q$};
+            \node[right = 1.2cm of A.center] (B) {\small Enqueue($Q,g$)};
+            \node[below = 0.5cm of B.center] (QBText) {$Q$};
             \node[stack=7, below = 0cm of QBText] (QB) {
                 \nodepart{one}g
                 \nodepart{two}f
@@ -1158,8 +1167,8 @@ In this and further chapters, I will make use of various logical symbols, figure
             \node[right = 0.3cm of QB.seven east] (QBTailText) {\small $Q.tail$};
             \draw[->] (QBTailText.west) -- (QB.seven east);
 
-            \node[right = .3cm of B] (C) {\small $Q.enqueue$ h};
-            \node[below = 0.2cm of C] (QCText) {$Q$};
+            \node[right = 1.2cm of B.center] (C) {\small Enqueue($Q,h$)};
+            \node[below = 0.5cm of C.center] (QCText) {$Q$};
             \node[stack=7, below = 0cm of QCText] (QC) {
                 \nodepart{one}g
                 \nodepart{two}f
@@ -1174,8 +1183,8 @@ In this and further chapters, I will make use of various logical symbols, figure
             \node[right = 0.3cm of QC.six east] (QCTailText) {\small$Q.tail$};
             \draw[->] (QCTailText.west) -- (QC.six east); 
             
-            \node[right = .3cm of C] (D) {\small$Q.dequeue$};
-            \node[below = 0.2cm of D] (QDText) {$Q$};
+            \node[right = 1.2cm of C.center] (D) {\small Dequeue($Q$)};
+            \node[below = 0.5cm of D.center] (QDText) {$Q$};
             \node[stack=7, below = 0cm of QDText] (QD) {
                 \nodepart{one}g
                 \nodepart{two}{\color{lightgray} f}
@@ -1191,8 +1200,8 @@ In this and further chapters, I will make use of various logical symbols, figure
             \draw[->] (QDTailText.west) -- (QD.six east);
             \node[below = 0.2cm of QD] (return) {return f};
 
-            \node[right = .5cm of D] (E) {\small$Q.dequeue$};
-            \node[below = 0.2cm of E] (QEText) {$Q$};
+            \node[right = 1.2cm of D.center] (E) {\small Dequeue($Q$)};
+            \node[below = 0.5cm of E.center] (QEText) {$Q$};
             \node[stack=7, below = 0cm of QEText] (QE) {
                 \nodepart{one}{\color{lightgray} g}
                 \nodepart{two}{\color{lightgray} f}
@@ -1252,8 +1261,12 @@ In this and further chapters, I will make use of various logical symbols, figure
 \end{impl}
 \section{The Sorting Problem}
 
-\begin{nproblem}[The Sorting Problem]
-
+\begin{nproblem}[The Comparison Sorting Problem]
+    The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
+    \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type equipped with a total order relation $\leq$.
+    \mypar \textbf{Output:} A permutation $(a'_1, \dots, a'_n)$ of $(a_1, \dots, a_n)$ such that 
+    \[\forall i,j \in \{1,\dots,n \}, \ \  i \leq j \implies a'_i \leq a'_j  \]
+    i.e. a permutation in (monotone) ascending order.
 \end{nproblem}
 
 \printindex
