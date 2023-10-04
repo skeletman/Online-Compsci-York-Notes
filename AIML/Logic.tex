@@ -449,7 +449,7 @@ Propositional logic also has a notion of proof, called \term{syntactic entailmen
         \item Deducible from previous sentences via modus ponens.
     \end{itemize}
     And $t_n$ is $p$. We call the $t_i$ the lines of the proof, and usually display them vertically.
-    \\If there is a proof of $p$ from $T$, we write $S \vdash p$ and say "$T$ proves $p$" or "$T$ syntactically entails $p$".
+    \\If there is a proof of $p$ from $T$, we write $T \vdash p$ and say "$T$ proves $p$" or "$T$ syntactically entails $p$".
 \end{defi}
 \begin{sidenote}
     In practie when doing real proofs, we will add more deduction rules in order to simplify the proof. However, just modus ponens is strong enough to prove that all these other rules are sound, and is convenient to prove metalogical statements about thanks to its simplicity.
@@ -606,6 +606,57 @@ The soundness problem is intuitively fairly obvious: if we could prove something
         \end{minipage}
     \end{enumerate}
 \end{answer}
+\pagebreak
+\begin{question}
+    Suppose we are working in a propositional language with 4 proposition symbols, $a,b,c$ and $d$. How many models does $a \lor (b \land c)$ have?
+\end{question}
+\begin{defi}[Disjunctive Normal Form]
+    A \term{conjunctive clause} is a sentence of the form $p_1 \land \dots \land p_m$, where the $p_i$ are literals.
+    \mypar A sentence is in \term{disjunctive normal form}, or \term{DNF}, if it is a disjunction of conjunctive clauses.
+\end{defi}
+\begin{method}
+    Here we discuss a method to calculate, in a language with $n$ proposition symbols $w_1, \dots, w_n$, the number of models of any sentence in DNF.
+    \mypar
+    Firstly, we obseve it is much easier to calculate the number of models that a conjunctive clause $p_1 \land \dots \land p_m$ (with the $p_i$ having distinct proposition symbols) has. We see that the truth values of $p_1, \dots p_m$ are fixed, so there are $n - m$ truth values that aren't fixed. Hence we have $2^{n-m}$ models of $p_1 \land \dots \land p_m$.
+    \mypar
+    Now we need a method to calculate the number of models of a reduced disjunctive clause from the number of models reduced conjunctive clauses have. Thankfully, there is a theorem for that, called the \term{inclusion-exclusion principle}.
+    \begin{theorem}
+        [Inclusion-Exclusion]
+        For a collection of finite sets $A_1, \dots, A_n$, we have that the size of their union obeys the following rule.
+        \begin{multline*}
+            \left|A_1 \cup \dots \cup A_n\right| = \sum_{i=1}^{n} \left|A_i\right| - \sum_{i=1}^{n} \sum_{j=i+1}^{n} \left|A_i \cap A_j\right| + \\ \sum_{i=1}^{n} \sum_{j=i+1}^{n} \sum_{k=j+1}^{n} \left|A_i \cap A_j \cap A_k \right| - \dots + (-1)^n\left|A_1 \cap \dots \cap A_n\right|
+        \end{multline*}  
+        For $n = 2$, this is a familiar formula
+        \[|A \cup B| = |A| + |B| - |A \cap B| \] 
+    \end{theorem}
+    Now we need to apply this to models of sentences.
+    \begin{notation}
+        For a sentence $p$, we write $\Mod(p)$ for the set of models of $p$.
+    \end{notation}
+    \begin{lem} For sentences $p,q$, we have 
+        \[\Mod(p \lor q) = \Mod(p) \cup \Mod(q)\] \[\Mod(p \land q) = \Mod(p) \cap \Mod(q)\]
+    \end{lem}
+    So applying inclusion-exclusion $\Mod(p_1), \dots, \Mod(p_k)$, we get
+    \begin{multline*}
+        \left|\Mod(p_1 \lor \dots \lor p_m)\right| = \sum_{i=1}^{m} \left|\Mod(p_i)\right| - \sum_{i=1}^{m} \sum_{j=i+1}^{m} \left|\Mod(p_i \land p_j)\right| + \\ \sum_{i=1}^{m} \sum_{j=i+1}^{m} \sum_{k=j+1}^{m} \left|\Mod(p_i \land p_j \land p_k) \right| - \dots + (-1)^m\left|\Mod(p_1 \land \dots \land p_m)\right|
+    \end{multline*} 
+\end{method}
+\begin{answer}
+    To work out how many models $a \lor (b \land c)$ has, we use the inclusion-exclusion formula.
+    \[\left|\Mod\left(a \lor (b \land c)\right)\right| = \left|\Mod(a)\right| + \left|\Mod(b \land c)\right| - \left|\Mod(a \land b \land c)\right| \]
+    Then we use the formula we derived earlier to calculate the number of models of a conjunctive clause.
+    \[\begin{aligned}
+        \left|\Mod(a)\right| & = 2^{4-1}&= 8\\
+        \left|\Mod(b \land c)\right| & = 2^{4-2}&= 4\\
+        \left|\Mod(a \land b \land c)\right|&= 2^{4-3}& = 2 
+    \end{aligned} \]
+    So we get 
+    \[\left|\Mod\left(a \lor (b \land c)\right)\right| = 8 + 4 - 2 = 10 \]
+\end{answer}
+
+
+
+
 
 \printindex
 
