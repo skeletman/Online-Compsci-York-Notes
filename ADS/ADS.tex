@@ -969,7 +969,7 @@ Here is an example computational problem:
 \subsection{Psuedocode}
 Pseudocode is a language with very loose syntax, designed to be easily readable to humans. We use the following conventions, but diferrent people use different conventions.
 \begin{itemize}
-    \item We use $\gets$ for assignment, = for equality. \footnote{This differs from the textbook for the course, which uses = and ==.}
+    \item We use = for assignment, == for equality. 
     \item The body of a loop, if-statement or if-else-statment will be indented
     \item // indicates a line comment, and /* */ indicate a block comment.
     \item Variables have scope restricted to the current procedure.
@@ -987,11 +987,11 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     Suppose the data we would like to find the maximum of is stored in an array $A$. We could write the previous algorithm in pseudocode as follows.
     \begin{algorithm}
         \caption{max($A$)}
-        $\text{currentMax} \gets A[1]$\;
-        \For{$i \gets 2$ \KwTo $n$}
+        $\text{currentMax} = A[1]$\;
+        \For{$i = 2$ \KwTo $n$}
         {\If{currentMax $< A[i]$}
             {
-                currentMax $\gets A[i]$\; 
+                currentMax $= A[i]$\; 
             }
         }
         \Return currentMax\;
@@ -1014,13 +1014,13 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     \mypar
     \begin{algorithm}[H]
         \caption{Stack-Empty($S$)}
-        \uIf{$S.top = 0$}{\Return True\;}
+        \uIf{$S.top == 0$}{\Return True\;}
         \Else{\Return False\;}
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Push($S, x$)}
-        $S.top \gets S.top + 1$\;
-        $S[S.top] \gets x$\;
+        $S.top = S.top + 1$\;
+        $S[S.top] = x$\;
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Pop($S$)}
@@ -1030,7 +1030,7 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
         }
         \Else
         {
-            $S.top \gets S.top - 1$\;
+            $S.top = S.top - 1$\;
             \Return{$S[S.top+1]$}\;
         }
     \end{algorithm}
@@ -1103,13 +1103,13 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     \\ An array-based circular queue $Q$ will have 3 attributes: An array $Q$, of size $Q.length$, and positive integers $Q.head$ and $Q.tail$.\mypar
     \begin{algorithm}[H]
         \caption{Enqueue($Q, x$)}
-        $Q[Q.tail] \gets x$\;
-        $Q.tail \gets (Q.tail + 1)\%Q.length$\;
+        $Q[Q.tail] = x$\;
+        $Q.tail = (Q.tail + 1)\%Q.length$\;
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Dequeue($Q$)}
-        $x \gets Q[Q.head]$\;
-        $Q.head \gets (Q.head + 1)\%Q.length$\;
+        $x = Q[Q.head]$\;
+        $Q.head = (Q.head + 1)\%Q.length$\;
         \Return $x$\;
     \end{algorithm}
     Recall, $x\%y$ is the remainder of $x$ when divided by $y$. In the case of queues, this means that if the head/tail is at the end of the array, and we wish to dequeue/enqueue, the new value wraps back to 0. An if-else-statement could have been used instead in both dequeue and enqueue.
@@ -1255,29 +1255,29 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     Our previous implementation did not handle overflow or underflow errors. One way of checking for overflow and underflow is to interpret $Q.head = Q.tail$ as "The queue is empty". This only allows us to store $Q.length - 1$ elements, as if, from empty, we attempt to enqueue $Q.length$ elements, we will return to having $Q.head = Q.tail$. \\ An array-based circular queue $Q$ will have 3 attributes: An array $Q$, of size $Q.length$, and positive integers $Q.head$ and $Q.tail$.\mypar
     \begin{algorithm}[H]
         \caption{Queue-Empty($Q$)}
-        \uIf{$Q.head = Q.tail$}{\Return True\;}
+        \uIf{$Q.head == Q.tail$}{\Return True\;}
         \Else{\Return False\;}
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Queue-Full($Q$)}
-        \uIf{$Q.head = (Q.tail + 1)\% Q.length$}{\Return True\;}
+        \uIf{$Q.head == (Q.tail + 1)\% Q.length$}{\Return True\;}
         \Else{\Return False\;}
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Enqueue($Q, x$)}
-        $Q[Q.tail] \gets x$\;
+        $Q[Q.tail] = x$\;
         \uIf{Queue-Full($Q$)}
         {
             \Error Overflow\;
         } 
         \Else
         {
-            $Q.tail \gets (Q.tail + 1)\%Q.length$\;
+            $Q.tail = (Q.tail + 1)\%Q.length$\;
         }
     \end{algorithm}
     \begin{algorithm}[H]
         \caption{Dequeue($Q$)}
-        $x \gets Q[Q.head]$\;
+        $x = Q[Q.head]$\;
         \uIf{Queue-Empty($Q$)}
         {
             \Error Underflow\;
@@ -1285,7 +1285,7 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
         }
         \Else
         {
-            $Q.head \gets (Q.head + 1)\%Q.length$\;
+            $Q.head = (Q.head + 1)\%Q.length$\;
         }
         \Return $x$\;
     \end{algorithm}
