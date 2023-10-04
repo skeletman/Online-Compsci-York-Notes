@@ -967,7 +967,37 @@ Here is an example computational problem:
     \end{enumerate}
 \end{algEng}
 \subsection{Psuedocode}
-
+Pseudocode is a language with very loose syntax, designed to be easily readable to humans. We use the following conventions, but diferrent people use different conventions.
+\begin{itemize}
+    \item We use $\gets$ for assignment, = for equality. \footnote{This differs from the textbook for the course, which uses = and ==.}
+    \item The body of a loop, if-statement or if-else-statment will be indented
+    \item // indicates a line comment, and /* */ indicate a block comment.
+    \item Variables have scope restricted to the current procedure.
+    \item Objects are assigned by reference, i.e. if $x$ is an object, and we use the assignment $y \gets x$, then $y$ and $x$ refer to the same object.
+    \item Objects are passed by reference.
+    \item \inline{NIL} is a reference to a null object.
+    \item Parameters are passed by value.
+    \item Arrays are treated as objects.
+    \item We can refer to elements of an array using square brackets.
+    \item The \textbf{return} keyword will return control to the calling method. It may also return one or many values.
+    \item Boolean operators are \term{short-circuiting}, they evaluate from left to right, and will return a value as soon as their value is determined.
+    \item The \textbf{error} keyword is used to indicate an error. The calling procedure will handle errors.
+\end{itemize}
+\begin{eg}
+    Suppose the data we would like to find the maximum of is stored in an array $A$. We could write the previous algorithm in pseudocode as follows.
+    \begin{algorithm}
+        \caption{max($A$)}
+        $\text{currentMax} \gets A[1]$\;
+        \For{$i \gets 2$ \KwTo $n$}
+        {\If{currentMax $< A[i]$}
+            {
+                currentMax $\gets A[i]$\; 
+            }
+        }
+        \Return currentMax\;
+    \end{algorithm}
+\end{eg}
+\pagebreak
 \subsection{Algorithm Analysis}
 \pagebreak
 \section{Stacks and Queues}
@@ -1251,6 +1281,7 @@ Here is an example computational problem:
         \uIf{Queue-Empty($Q$)}
         {
             \Error Underflow\;
+            
         }
         \Else
         {
