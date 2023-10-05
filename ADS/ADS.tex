@@ -987,6 +987,7 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     Suppose the data we would like to find the maximum of is stored in an array $A$. We could write the previous algorithm in pseudocode as follows.
     \begin{algorithm}
         \caption{max($A$)}
+        \label{alg:max}
         $\text{currentMax} = A[1]$\;
         \For{$i = 2$ \KwTo $n$}
         {\If{currentMax $< A[i]$}
@@ -999,6 +1000,36 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
 \end{eg}
 \pagebreak
 \subsection{Algorithm Analysis}
+The experimental approach to algorithm analysis is to implement the algorithm, then measure the time taken for the algorithm to give output on a range of test data. This data can then be analysed using a range of methods such as data plots.
+\mypar The experimental approach has the following limitations
+\begin{itemize}
+    \item The algorithm must be implemented.
+    \item It takes time to run the algorithm.
+    \item Results will be limited to the specific data tested in the experiment.
+    \item Results are dependent of hardware and software environments.
+\end{itemize}
+The theoretical approach is to use a mathematical description of the algorithm, and then calculate the theoretical running time of the algorithm. When taking this approach, we make the following assumptions
+\begin{itemize}
+    \item We use a \term{random access machine} model, that is, the CPU can access arbitrarily many memory cells in constant time, given an address.
+    \item Instructions are executed in series.
+    \item Basic instructions such as evaluating expressions, assigning value to variables, indexing an array, calling methods and returning from methods are considered to have constant time cost.
+\end{itemize}
+We analyse pseudocode, giving each line a time cost, and calculate the number of times that line will run.
+\begin{eg}
+    An analysis of algorithm \ref{alg:max}.
+    \begin{algorithm}
+        \caption{max($A$)} 
+        $\text{currentMax} = A[1]$\tcp*{cost a, times 1}
+        \For(\tcp*[f]{cost b, times n-1}){$i = 2$ \KwTo $n$}
+        {\If(\tcp*[f]{cost c, times n-1}){currentMax $< A[i]$}
+            {
+                currentMax $= A[i]$\tcp*{cost d, times n-1} 
+            }
+        }
+        \Return currentMax\tcp*{cost e, times 1} 
+    \end{algorithm}
+    \[\text{cost } = a+e + (b+c+d)(n-1) = An + B  \]
+\end{eg}
 \pagebreak
 \section{Stacks and Queues}
 \begin{defi}[Stack]
