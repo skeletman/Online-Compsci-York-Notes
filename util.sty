@@ -1,4 +1,4 @@
-\ProvidesPackage{util}
+\ProvidesPackage{../util}
 
 % Set font to sans-serif
 \renewcommand{\familydefault}{\sfdefault}
@@ -31,9 +31,13 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 %tikz settings
-\usetikzlibrary{positioning}
-\usetikzlibrary{shapes}
-\usetikzlibrary{shapes.multipart}
+\usetikzlibrary
+  {
+    positioning, 
+    shapes, 
+    shapes.multipart,
+    calc
+  }
 
 %spacing
 \def\mypar{\par\vspace{5pt}\noindent}
@@ -117,6 +121,7 @@
 \newtheorem*{warning}{Warning}
 \newtheorem*{notation}{Notation}
 \newtheorem*{sidenote}{Sidenote}
+\newtheorem*{intuition}{Intuition}
 \newtheorem*{impl}{Implementation}
 \newtheorem*{algEng}{Algorithm in Plain English}
 

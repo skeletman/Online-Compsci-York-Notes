@@ -984,7 +984,7 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
     \item The \textbf{error} keyword is used to indicate an error. The calling procedure will handle errors.
 \end{itemize}
 \begin{eg}
-    Suppose the data we would like to find the maximum of is stored in an array $A$. We could write the previous algorithm in pseudocode as follows.
+    Suppose the data we would like to find the maximum of is stored in an array $A$ of length $n$. We could write the previous algorithm in pseudocode as follows.
     \begin{algorithm}
         \caption{max($A$)}
         \label{alg:max}
@@ -1000,6 +1000,7 @@ Pseudocode is a language with very loose syntax, designed to be easily readable 
 \end{eg}
 \pagebreak
 \subsection{Algorithm Analysis}
+\subsubsection{The Experimental Approach}
 The experimental approach to algorithm analysis is to implement the algorithm, then measure the time taken for the algorithm to give output on a range of test data. This data can then be analysed using a range of methods such as data plots.
 \mypar The experimental approach has the following limitations
 \begin{itemize}
@@ -1008,6 +1009,7 @@ The experimental approach to algorithm analysis is to implement the algorithm, t
     \item Results will be limited to the specific data tested in the experiment.
     \item Results are dependent of hardware and software environments.
 \end{itemize}
+\subsubsection{The Theoretical Approach}
 The theoretical approach is to use a mathematical description of the algorithm, and then calculate the theoretical running time of the algorithm. When taking this approach, we make the following assumptions
 \begin{itemize}
     \item We use a \term{random access machine} model, that is, the CPU can access arbitrarily many memory cells in constant time, given an address.
@@ -1016,8 +1018,8 @@ The theoretical approach is to use a mathematical description of the algorithm, 
 \end{itemize}
 We analyse pseudocode, giving each line a time cost, and calculate the number of times that line will run.
 \begin{eg}
-    An analysis of algorithm \ref{alg:max}.
-    \begin{algorithm}
+    An analysis of algorithm \ref{alg:max}. $\text{Time} = a+e + (b+c+d)(n-1)$.\\
+    \begin{algorithm}[H]
         \caption{max($A$)} 
         $\text{currentMax} = A[1]$\tcp*{cost a, times 1}
         \For(\tcp*[f]{cost b, times n-1}){$i = 2$ \KwTo $n$}
@@ -1028,8 +1030,97 @@ We analyse pseudocode, giving each line a time cost, and calculate the number of
         }
         \Return currentMax\tcp*{cost e, times 1} 
     \end{algorithm}
-    \[\text{cost } = a+e + (b+c+d)(n-1) = An + B  \]
 \end{eg}
+\pagebreak
+\subsubsection{Asymptotic Bounds on Running Times}
+When analysing the runtime or memory usage of programs, the constants are often unimportant. Hence we often classify these using \term{asymptotic bounds}, which tell us about the behaviour of our programs with large inputs. 
+\begin{intuition}
+    We define a notation, big-Theta. $f(x) = \Theta(g(x))$ means, for large inputs, $f(x)$ grows at approximately the same relative rate as $g(x)$. In practice, this means we can ignore all but the fastest growing term in the formula for $f(x)$.
+    \\ To come up with a proper definition, we define two weaker notions, big-O and big-Omega. $f(x) = O(g(x))$ means, for large inputs, $f(x)$ grows at a slower or equal relative rate as $g(x)$, and $f(x) = \Omega(g(x))$ means, for large inputs, $f(x)$ grows at a faster or equal relative rate as $g(x)$.
+    \\ In practice, we use big-O and big-Omega for things that may vary based on the input of the algorithm, such as running time, and use big-Theta for things that do not depend on the input, for example best/worst case running times.
+\end{intuition}
+\begin{egs}  Correct usage of Big-Theta notation.
+    \begin{itemize}
+        \item $x^2 + 2x + 1 = \Theta(x^2)$ 
+        \item $2^x + x^{99} = \Theta(2^x)$ 
+        \item $x\log(x) + x = \Theta(x\log(x))$ 
+    \end{itemize}
+    Correct usage of Big-O notation.
+    \begin{itemize}
+        \item $x^2 + 2x + 1 = O(x^4)$ 
+        \item $2^x + x^{99} = O(2^x)$ 
+        \item $x\log(x) + x = O(x^2)$ 
+    \end{itemize}
+    Correct usage of Big-Omega notation.
+    \begin{itemize}
+        \item $x^2 + 2x + 1 = \Omega(x)$ 
+        \item $2^x + x^{99} = \Omega(2^x)$ 
+        \item $x\log(x) + x = \Omega(1)$ 
+    \end{itemize}
+\end{egs}
+\begin{eg}
+    We calculated the runtime of algorithm \ref{alg:max} to be $a+e+(b+c+d)n$ for input an array of length $n$, for some constants $a,b,c,d$ and $e$.
+    We see that this grows linearly, independent of input, so the runtime is $\Theta(n)$.
+\end{eg}
+\pagebreak
+\begin{eg} A problem, algorithm, and runtime analysis.
+    \begin{nproblem}
+        [The Array Element Problem] Given an array $A$ and a value $x$, determine if $x$ is an element of $A$. 
+        \mypar
+        \textbf{Input: }An array $A$ and value $x$
+        \mypar
+        \textbf{Output: }True if $x$ is in $A$, False otherwise. 
+    \end{nproblem}
+    Let $A.length = n$.\mypar
+    \begin{algorithm}[H]
+        \caption{LinearSearch($A, x$)}
+        \label{alg:LinearSearch}
+        $i = 0$\tcp*{cost a, times 1}
+        \While(\tcp*[f]{cost b, 1 <= times <= n}){$i < n$}
+        {
+            \If(\tcp*[f]{cost c, 1 <= times <= n}){$A[i] == x$}
+            {
+                \Return True\tcp*{cost d, times <= 1}
+            }
+        }
+        \Return False\tcp*{cost e, times <= 1}
+    \end{algorithm}
+    \mypar
+    We see that, worst case, we have runtime 
+    \[a+d+e+(b+c)n = \Theta(n)\]
+    In best case, we have runtime 
+    \[a+b+c+d = \Theta(1)\]
+    So we can make the following statements:
+    \begin{itemize}
+        \item The runtime of LinearSearch is $O(n)$.
+        \item The runtime of LinearSearch is $\Omega(1)$.
+        \item The best-case runtime of LinearSearch is $\Theta(1)$.
+        \item The worst-case runtime of LinearSearch is $\Theta(n)$.
+    \end{itemize}
+\end{eg}
+\pagebreak
+\subsubsection{Precise Definitions of Asymptotic Bounds}
+Following are precise mathematical definitions, these are not entirely necessary unless dealing with particularly nasty algorithms.
+\begin{defi}[Asymptotic Bound]
+    We say a function $f$ is asymptotically upper bounded by a function $g$, written $f \lesssim g$, if eventually $f(x)$ is always less than $g(x)$. i.e.
+    \[\exists t, \ x > t \implies f(x) < g(x) \]
+    Similarly, we say a function $f$ is asymptotically lower bounded by a function $g$, written $f \gtrsim g$, if eventually $f(x)$ is always less than $g(x)$. i.e.
+    \[\exists t, \ x > t \implies f(x) > g(x) \]
+\end{defi}
+\begin{defi}
+    [Big-O]
+    We say a function $f$ is \term{big-O} of $g$, written $f(x) = O(g(x))$, if there is a constant $c$ such that $f$ is asymptotically upper bounded by $c\times g(x)$, i.e.
+    \[\exists c, \ f(x) \lesssim c \times g(x) \]
+\end{defi}
+\begin{defi}
+    [Big-Omega]
+    We say a function $f$ is \term{big-Omega} of $g$, written $f(x) = \Omega(g(x))$, if there is a constant $c$ such that $f$ is asymptotically lower bounded by $c\times g(x)$, i.e.
+    \[\exists c, \ f(x) \gtrsim c \times g(x) \]
+\end{defi}
+\begin{defi}
+    [Big-Theta]
+    We say a function $f$ is \term{big-Theta} of $g$, written $f(x) = \Theta(g(x))$, if it is both big-O and big-Omega of $g$.
+\end{defi}
 \pagebreak
 \section{Stacks and Queues}
 \begin{defi}[Stack]
@@ -1321,7 +1412,101 @@ We analyse pseudocode, giving each line a time cost, and calculate the number of
         \Return $x$\;
     \end{algorithm}
 \end{impl}
-\section{The Sorting Problem}
+\section{Linked Lists}
+Here we define a data structure called a \term{linked list}, which allows for the storage of arbitrarily many elements.
+\begin{defi}
+    [Singly Linked List]
+    In a \term{singly linked list} each element is stored alongside a pointer to the next element.
+\end{defi}
+\begin{figure}[H]
+    \caption{A singly linked list $L$ representing the set $\{3,101,5,2,19\}$}
+    \centering
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=2, draw}]
+        \node[cell] (cell1) 
+        {
+            \nodepart{one}{19}
+        };
+        \node[cell, right = of cell1] (cell2) 
+        {
+            \nodepart{one}{2}
+        };
+        \node[cell, right = of cell2] (cell3) 
+        {
+            \nodepart{one}{5}
+        };
+        \node[cell, right = of cell3] (cell4) 
+        {
+            \nodepart{one}{101}
+        };
+        \node[cell, right = of cell4] (cell5) 
+        {
+            \nodepart{one}{3}
+            \nodepart{two}{$\bullet$}
+        };
+        \node[below = .5cm of cell1] (headtext) {$L.head$};
+        \node[below = .5cm of cell5] (tailtext) {$L.tail$};
+        \node[above = 0.7cm of cell1.one north,anchor=center] (keytext) {\small $key$};
+        \node[above right = 1cm of cell1.two north,anchor=center] (nexttext) {\small $next$};
+        \draw[->] (cell1.two east) -- (cell2.one west);
+        \draw[->] (cell2.two east) -- (cell3.one west);
+        \draw[->] (cell3.two east) -- (cell4.one west);
+        \draw[->] (cell4.two east) -- (cell5.one west);
+        \draw[->] (headtext.north) -- (cell1.south);
+        \draw[->] (tailtext.north) -- (cell5.south);
+        \draw[->] (keytext.south) -- (cell1.one north);
+        \draw[->] (nexttext.south west) -- (cell1.two north);
+    \end{tikzpicture}
+\end{figure}
+\begin{defi}
+    [Doubly Linked List]
+    In a \term{doubly linked list} each element is stored alongside pointers to the next and previous elements.
+\end{defi}
+\begin{figure}[H]
+    \caption{A doubly linked list $L$ representing the set $\{0,541,5,12\}$}
+    \centering
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3, draw}]
+        \node[cell] (cell1) 
+        {
+            \nodepart{one}{$\bullet$}
+            \nodepart{two}{12}
+        };
+        \node[cell, right = of cell1] (cell2) 
+        {
+            \nodepart{two}{5}
+        };
+        \node[cell, right = of cell2] (cell3) 
+        {
+            \nodepart{two}{541}
+        };
+        \node[cell, right = of cell3] (cell4) 
+        {
+            \nodepart{two}{0}
+            \nodepart{three}{$\bullet$}
+        };
+        \node[below = .5cm of cell1] (headtext) {$L.head$};
+        \node[below = .5cm of cell4] (tailtext) {$L.tail$};
+        \node[above = 0.33cm of cell1.two north,anchor=south] (keytext) {\small $key$};
+        \node[above left = .5cm of cell1.one north,anchor=south east] (prevtext) {\small $prev$};
+        \node[above right = .5cm of cell1.three north,anchor=south west] (nexttext) {\small $next$};
+        \draw[->] ($(cell1.south east)!.7!(cell1.north east)$) -- ($(cell2.south west)!.7!(cell2.north west)$);
+        \draw[->] ($(cell2.south east)!.7!(cell2.north east)$) -- ($(cell3.south west)!.7!(cell3.north west)$);
+        \draw[->] ($(cell3.south east)!.7!(cell3.north east)$) -- ($(cell4.south west)!.7!(cell4.north west)$);
+        \draw[->] ($(cell2.south west)!.3!(cell2.north west)$) -- ($(cell1.south east)!.3!(cell1.north east)$);
+        \draw[->] ($(cell3.south west)!.3!(cell3.north west)$) -- ($(cell2.south east)!.3!(cell2.north east)$);
+        \draw[->] ($(cell4.south west)!.3!(cell4.north west)$) -- ($(cell3.south east)!.3!(cell3.north east)$);
+
+        \draw[->] (headtext.north) -- (cell1.south);
+        \draw[->] (tailtext.north) -- (cell4.south);
+        \draw[->] (keytext.south) -- (cell1.two north);
+        \draw[->] (prevtext.south east) -- (cell1.one north);
+        \draw[->] (nexttext.south west) -- (cell1.three north);
+    \end{tikzpicture}
+\end{figure}
+\begin{defi}
+    [Circular Linked List] A singly linked list is circular if the next pointer of the tail points to the head.\\ A doubly linked list is circular if the prev pointer of the head points to the tail, and the next pointer of the tail points to the head. 
+\end{defi}
+\section{Computational Problems}
+\subsection{The Sorting Problem}
 
 \begin{nproblem}[The Comparison Sorting Problem]
     The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
