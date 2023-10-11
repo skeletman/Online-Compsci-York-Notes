@@ -1502,6 +1502,16 @@ Here we define a data structure called a \term{linked list}, which allows for th
         \draw[->,line width = 1pt] (nexttext.south west) -- (cell1.three north);
     \end{tikzpicture}
 \end{figure}
+\begin{defi}
+    [Contiguous Data Structure]
+    We say that a data structure is \term{contiguous} if it stores all its data together in memory.
+\end{defi}
+\begin{eg}
+    An array is a contiguous data structure.
+\end{eg}
+\begin{noneg}
+    A linked list is \textbf{not} a contiguous data structure.
+\end{noneg}
 \pagebreak
 \subsection{Operations on Linked Lists}
 \subsubsection{Searching for a key in a linked list}
@@ -1594,9 +1604,9 @@ A circular linked list, intuitively, loops to and from the beginning and end.
     \end{tikzpicture}
 \end{figure}
 \subsubsection{Sentinels}
-A \term{sentinel} is a dummy object designed to simplify the boundary conditions of a doubly linked list. The idea is that the sentinel will represent NIL, but will additionally have a next and prev pointer, pointing to the head and tail respectively.
+Notice that in List-Delete and List-Insert, we have to check for the boundary conditions, it would be nice if this wasn't necessary. A \term{sentinel} is a dummy object designed to simplify the boundary conditions of a doubly linked list. The idea is that the sentinel will represent NIL, but will additionally have a next and prev pointer, pointing to the head and tail respectively.
 \begin{figure}[H]
-    \caption{A circular doubly linked list with a sentinel $L$ representing the list $(15,1,11)$}
+    \caption{A circular doubly linked list with a sentinel, $L$, representing the list $(15,1,11)$}
     \centering
     \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3, line width = 1pt,draw}]
         \node[cell,fill=mygray] (cell1) 
@@ -1637,10 +1647,38 @@ A \term{sentinel} is a dummy object designed to simplify the boundary conditions
         \draw[->,line width = 1pt] (cell4.three south) -- (tailNext1.center)  -- (tailNext2.center)  -- (cell1.two south);
     \end{tikzpicture}
 \end{figure}
+This simplifies the code for deleting and inserting elements.
+\mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Delete-Sentinel($L,x$)}
+    $x.prev.next = x.next$\;
+    $x.next.prev = x.prev$\;
+\end{algorithm}
+\mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Insert-Sentinel($L,x$)}
+    $x.next = L.nil.next$\;
+    $L.nil.next.prev = x$\;
+    $L.nil.next = x$\;
+    $x.prev = L.nil$\;
+\end{algorithm} 
+\mypar
+The code for search barely changes at all.
+\mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Search-Sentinel($L,k$)}
+    $x = L.nil.next$\;
+    \While {$x \not= L.nil$ and $x.key \not= k$}
+    {$x = x.next$\;}
+    \textbf{return }$x$\;
+\end{algorithm}
+\mypar
+Sentinels save $O(1)$ time per insert or delete operation, however cost $O(1)$ extra space. Hence they are useful when there is a need for a small number of long lists, but may be detrimental when using a large number of small lists.
 \pagebreak
-\section{Computational Problems}
-\subsection{The Sorting Problem}
-
+\section{The Sorting Problem}
 \begin{nproblem}[The Comparison Sorting Problem]
     The \term{comparison sorting problem} refers to the task of sorting a sequence of values into ascending order.
     \mypar \textbf{Input:} A sequence $(a_1, \dots, a_n)$ of values of a type equipped with a total order relation $\leq$.
