@@ -98,12 +98,12 @@ However, Java is \term{platform-independent}: a compiled Java program can run on
             \node[roundnode] (mc1) [below=of c1] {Apple Machine Code};
             \node[roundnode] (mc2) [below=of c2] {PC \\ Machine Code};
             \node[roundnode] (mc3) [below=of c3] {UNIX Machine Code};
-            \draw[->] (sc.south) -- (c1.north);
-            \draw[->] (sc.south) -- (c2.north);
-            \draw[->] (sc.south) -- (c3.north);
-            \draw[->] (c1.south) -- (mc1.north);
-            \draw[->] (c2.south) -- (mc2.north);
-            \draw[->] (c3.south) -- (mc3.north);
+            \draw[->,line width = 1pt] (sc.south) -- (c1.north);
+            \draw[->,line width = 1pt] (sc.south) -- (c2.north);
+            \draw[->,line width = 1pt] (sc.south) -- (c3.north);
+            \draw[->,line width = 1pt] (c1.south) -- (mc1.north);
+            \draw[->,line width = 1pt] (c2.south) -- (mc2.north);
+            \draw[->,line width = 1pt] (c3.south) -- (mc3.north);
         \end{tikzpicture}
         }
     \end{subfigure}%
@@ -121,12 +121,12 @@ However, Java is \term{platform-independent}: a compiled Java program can run on
             \node[roundnode] (a) [below=of jvm] {Apple Machine Code};
             \node[roundnode] (pc) [left=of a] {PC \\ Machine Code};
             \node[roundnode] (unix) [right=of a] {UNIX Machine Code};
-            \draw[->] (sc.south) -- (c.north);
-            \draw[->] (c.south) -- (jbc.north);
-            \draw[->] (jbc.south) -- (jvm.north);
-            \draw[->] (jvm.south) -- (a.north);
-            \draw[->] (jvm.south) -- (pc.north);
-            \draw[->] (jvm.south) -- (unix.north);
+            \draw[->,line width = 1pt] (sc.south) -- (c.north);
+            \draw[->,line width = 1pt] (c.south) -- (jbc.north);
+            \draw[->,line width = 1pt] (jbc.south) -- (jvm.north);
+            \draw[->,line width = 1pt] (jvm.south) -- (a.north);
+            \draw[->,line width = 1pt] (jvm.south) -- (pc.north);
+            \draw[->,line width = 1pt] (jvm.south) -- (unix.north);
         \end{tikzpicture}
         }
     \end{subfigure}
@@ -1033,7 +1033,7 @@ We analyse pseudocode, giving each line a time cost, and calculate the number of
 \end{eg}
 \pagebreak
 \subsubsection{Asymptotic Bounds on Running Times}
-When analysing the runtime or memory usage of programs, the constants are often unimportant. Hence we often classify these using \term{asymptotic bounds}, which tell us about the behaviour of our programs with large inputs. 
+When analysing the time cost or memory usage of programs, the constants are often unimportant. Hence we often classify these using \term{asymptotic bounds}, which tell us about the behaviour of our programs with large inputs. 
 \begin{intuition}
     We define a notation, big-Theta. $f(x) = \Theta(g(x))$ means, for large inputs, $f(x)$ grows at approximately the same relative rate as $g(x)$. In practice, this means we can ignore all but the fastest growing term in the formula for $f(x)$.
     \\ To come up with a proper definition, we define two weaker notions, big-O and big-Omega. $f(x) = O(g(x))$ means, for large inputs, $f(x)$ grows at a slower or equal relative rate as $g(x)$, and $f(x) = \Omega(g(x))$ means, for large inputs, $f(x)$ grows at a faster or equal relative rate as $g(x)$.
@@ -1059,11 +1059,11 @@ When analysing the runtime or memory usage of programs, the constants are often 
     \end{itemize}
 \end{egs}
 \begin{eg}
-    We calculated the runtime of algorithm \ref{alg:max} to be $a+e+(b+c+d)n$ for input an array of length $n$, for some constants $a,b,c,d$ and $e$.
-    We see that this grows linearly, independent of input, so the runtime is $\Theta(n)$.
+    We calculated the time cost of algorithm \ref{alg:max} to be $a+e+(b+c+d)n$ for input an array of length $n$, for some constants $a,b,c,d$ and $e$.
+    We see that this grows linearly, independent of input, so the time cost is $\Theta(n)$.
 \end{eg}
 \pagebreak
-\begin{eg} A problem, algorithm, and runtime analysis.
+\begin{eg} A problem, algorithm, and time cost analysis.
     \begin{nproblem}
         [The Array Element Problem] Given an array $A$ and a value $x$, determine if $x$ is an element of $A$. 
         \mypar
@@ -1086,16 +1086,16 @@ When analysing the runtime or memory usage of programs, the constants are often 
         \Return False\tcp*{cost e, times <= 1}
     \end{algorithm}
     \mypar
-    We see that, worst case, we have runtime 
+    We see that, worst case, we have time cost 
     \[a+d+e+(b+c)n = \Theta(n)\]
-    In best case, we have runtime 
+    In best case, we have time cost 
     \[a+b+c+d = \Theta(1)\]
     So we can make the following statements:
     \begin{itemize}
-        \item The runtime of LinearSearch is $O(n)$.
-        \item The runtime of LinearSearch is $\Omega(1)$.
-        \item The best-case runtime of LinearSearch is $\Theta(1)$.
-        \item The worst-case runtime of LinearSearch is $\Theta(n)$.
+        \item The time cost of LinearSearch is $O(n)$.
+        \item The time cost of LinearSearch is $\Omega(1)$.
+        \item The best-case time costs of LinearSearch is $\Theta(1)$.
+        \item The worst-case time cost of LinearSearch is $\Theta(n)$.
     \end{itemize}
 \end{eg}
 \pagebreak
@@ -1159,7 +1159,7 @@ Following are precise mathematical definitions, these are not entirely necessary
     \begin{figure}[H]
         \caption{A diagram illustrating Array-Based Stacks}
         \centering
-        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, line width = 1pt, anchor=center}]
             \node (A) {Start};
             \node[below = 0.2cm of A] (SText) {$S$};
             \node[stack=7, below = 0cm of SText] (s) {
@@ -1169,7 +1169,7 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of s.four east] (STopText) {$S.top$};
-            \draw[->] (STopText.west) -- (s.four east);
+            \draw[->,line width = 1pt] (STopText.west) -- (s.four east);
 
             \node[right = 1cm of A] (B) {$S.push$  x};
             \node[below = 0.2cm of B] (STextB) {$S$};
@@ -1181,7 +1181,7 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of sB.three east] (STopTextB) {$S.top$};
-            \draw[->] (STopTextB.west) -- (sB.three east);
+            \draw[->,line width = 1pt] (STopTextB.west) -- (sB.three east);
 
             \node[right = 1cm of B] (C) {$S.pop$};
             \node[below = 0.2cm of C] (STextC) {$S$};
@@ -1193,7 +1193,7 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of sC.four east] (STopTextC) {$S.top$};
-            \draw[->] (STopTextC.west) -- (sC.four east);
+            \draw[->,line width = 1pt] (STopTextC.west) -- (sC.four east);
             \node[below = 0.2cm of sC] (returnC) {return x};
 
             \node[right = 1cm of C] (D) {$S.push$  y};
@@ -1206,7 +1206,7 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of sD.three east] (STopTextD) {$S.top$};
-            \draw[->] (STopTextD.west) -- (sD.three east);
+            \draw[->,line width = 1pt] (STopTextD.west) -- (sD.three east);
 
         \end{tikzpicture}
     \end{figure}
@@ -1239,7 +1239,7 @@ Following are precise mathematical definitions, these are not entirely necessary
     \begin{figure}[H]
         \caption{A diagram illustrating Array-Based Circular Queues}
         \centering
-        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,line width = 1pt, draw, anchor=center}]
             \node (A) {Start};
             \node[below = 0.2cm of A] (QAText) {$Q$};
             \node[stack=7, below = 0cm of QAText] (QA) {
@@ -1249,9 +1249,9 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of QA.seven east] (QAHeadText) {$Q.head$};
-            \draw[->] (QAHeadText.west) -- (QA.seven east);
+            \draw[->,line width = 1pt] (QAHeadText.west) -- (QA.seven east);
             \node[right = 0.5cm of QA.three east] (QATailText) {$Q.tail$};
-            \draw[->] (QATailText.west) -- (QA.three east);
+            \draw[->,line width = 1pt] (QATailText.west) -- (QA.three east);
 
             \node[right = 1.2cm of A] (B) {Enqueue($Q,x$)};
             \node[below = 0.2cm of B] (QBText) {$Q$};
@@ -1263,9 +1263,9 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}a
             };
             \node[right = 0.5cm of QB.seven east] (QBHeadText) {$Q.head$};
-            \draw[->] (QBHeadText.west) -- (QB.seven east);
+            \draw[->,line width = 1pt] (QBHeadText.west) -- (QB.seven east);
             \node[right = 0.5cm of QB.two east] (QBTailText) {$Q.tail$};
-            \draw[->] (QBTailText.west) -- (QB.two east);
+            \draw[->,line width = 1pt] (QBTailText.west) -- (QB.two east);
 
             \node[right = 1.2cm of B] (C) {Dequeue($Q$)};
             \node[below = 0.2cm of C] (QCText) {$Q$};
@@ -1277,9 +1277,9 @@ Following are precise mathematical definitions, these are not entirely necessary
             \nodepart{seven}{\color{lightgray} a}
             };
             \node[right = 0.5cm of QC.six east] (QCHeadText) {$Q.head$};
-            \draw[->] (QCHeadText.west) -- (QC.six east);
+            \draw[->,line width = 1pt] (QCHeadText.west) -- (QC.six east);
             \node[right = 0.5cm of QC.two east] (QCTailText) {$Q.tail$};
-            \draw[->] (QCTailText.west) -- (QC.two east);
+            \draw[->,line width = 1pt] (QCTailText.west) -- (QC.two east);
             \node[below = 0.2cm of QC] (return) {return a};
 
         \end{tikzpicture}
@@ -1287,7 +1287,7 @@ Following are precise mathematical definitions, these are not entirely necessary
     \begin{figure}[H]
         \caption{A diagram illustrating wrapping in Array-Based Circular Queues}
         \centering
-        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, anchor=center}]
+        \begin{tikzpicture}[stack/.style={rectangle split, rectangle split parts=#1,draw, line width = 1pt, anchor=center}]
             \node (A) {\small Start};
             \node[below = 0.5cm of A.center] (QAText) {$Q$};
             \node[stack=7, below = 0cm of QAText] (QA) {
@@ -1299,9 +1299,9 @@ Following are precise mathematical definitions, these are not entirely necessary
                 \nodepart{seven}{\color{lightgray} a}
             };
             \node[right = 0.3cm of QA.two east] (QAHeadText) {\small $Q.head$};
-            \draw[->] (QAHeadText.west) -- (QA.two east);
+            \draw[->,line width = 1pt] (QAHeadText.west) -- (QA.two east);
             \node[right = 0.3cm of QA.one east] (QATailText) {\small $Q.tail$};
-            \draw[->] (QATailText.west) -- (QA.one east);
+            \draw[->,line width = 1pt] (QATailText.west) -- (QA.one east);
 
             \node[right = 1.2cm of A.center] (B) {\small Enqueue($Q,g$)};
             \node[below = 0.5cm of B.center] (QBText) {$Q$};
@@ -1315,9 +1315,9 @@ Following are precise mathematical definitions, these are not entirely necessary
                 \nodepart{seven}{\color{lightgray} a}
             };
             \node[right = 0.3cm of QB.two east] (QBHeadText) {\small $Q.head$};
-            \draw[->] (QBHeadText.west) -- (QB.two east);
+            \draw[->,line width = 1pt] (QBHeadText.west) -- (QB.two east);
             \node[right = 0.3cm of QB.seven east] (QBTailText) {\small $Q.tail$};
-            \draw[->] (QBTailText.west) -- (QB.seven east);
+            \draw[->,line width = 1pt] (QBTailText.west) -- (QB.seven east);
 
             \node[right = 1.2cm of B.center] (C) {\small Enqueue($Q,h$)};
             \node[below = 0.5cm of C.center] (QCText) {$Q$};
@@ -1331,9 +1331,9 @@ Following are precise mathematical definitions, these are not entirely necessary
                 \nodepart{seven}h
             };
             \node[right = 0.3cm of QC.two east] (QCHeadText) {\small$Q.head$};
-            \draw[->] (QCHeadText.west) -- (QC.two east);
+            \draw[->,line width = 1pt] (QCHeadText.west) -- (QC.two east);
             \node[right = 0.3cm of QC.six east] (QCTailText) {\small$Q.tail$};
-            \draw[->] (QCTailText.west) -- (QC.six east); 
+            \draw[->,line width = 1pt] (QCTailText.west) -- (QC.six east); 
             
             \node[right = 1.2cm of C.center] (D) {\small Dequeue($Q$)};
             \node[below = 0.5cm of D.center] (QDText) {$Q$};
@@ -1347,9 +1347,9 @@ Following are precise mathematical definitions, these are not entirely necessary
                 \nodepart{seven}h
             };
             \node[right = 0.3cm of QD.one east] (QDHeadText) {\small$Q.head$};
-            \draw[->] (QDHeadText.west) -- (QD.one east);
+            \draw[->,line width = 1pt] (QDHeadText.west) -- (QD.one east);
             \node[right = 0.3cm of QD.six east] (QDTailText) {\small$Q.tail$};
-            \draw[->] (QDTailText.west) -- (QD.six east);
+            \draw[->,line width = 1pt] (QDTailText.west) -- (QD.six east);
             \node[below = 0.2cm of QD] (return) {return f};
 
             \node[right = 1.2cm of D.center] (E) {\small Dequeue($Q$)};
@@ -1364,9 +1364,9 @@ Following are precise mathematical definitions, these are not entirely necessary
                 \nodepart{seven}h
             };
             \node[right = 0.3cm of QE.seven east] (QEHeadText) {\small$Q.head$};
-            \draw[->] (QEHeadText.west) -- (QE.seven east);
+            \draw[->,line width = 1pt] (QEHeadText.west) -- (QE.seven east);
             \node[right = 0.3cm of QE.six east] (QETailText) {\small$Q.tail$};
-            \draw[->] (QETailText.west) -- (QE.six east);
+            \draw[->,line width = 1pt] (QETailText.west) -- (QE.six east);
             \node[below = 0.2cm of QE] (return) {return g};
 
         \end{tikzpicture}
@@ -1416,12 +1416,12 @@ Following are precise mathematical definitions, these are not entirely necessary
 Here we define a data structure called a \term{linked list}, which allows for the storage of arbitrarily many elements.
 \begin{defi}
     [Singly Linked List]
-    In a \term{singly linked list} each element is stored alongside a pointer to the next element.
+    In a \term{singly linked list}, there is a distinguished element called the head, and each element is stored alongside a pointer to the next element. There is also an element called the tail, whose next pointer points to NIL.
 \end{defi}
 \begin{figure}[H]
-    \caption{A singly linked list $L$ representing the set $\{3,101,5,2,19\}$}
+    \caption{A singly linked list $L$ representing the list $(19,2,5,101,3)$}
     \centering
-    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=2, draw}]
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=2, line width = 1pt, draw}]
         \node[cell] (cell1) 
         {
             \nodepart{one}{19}
@@ -1444,27 +1444,27 @@ Here we define a data structure called a \term{linked list}, which allows for th
             \nodepart{two}{$\bullet$}
         };
         \node[below = .5cm of cell1] (headtext) {$L.head$};
-        \node[below = .5cm of cell5] (tailtext) {$L.tail$};
+%        \node[below = .5cm of cell5] (tailtext) {$L.tail$};
         \node[above = 0.7cm of cell1.one north,anchor=center] (keytext) {\small $key$};
         \node[above right = 1cm of cell1.two north,anchor=center] (nexttext) {\small $next$};
-        \draw[->] (cell1.two east) -- (cell2.one west);
-        \draw[->] (cell2.two east) -- (cell3.one west);
-        \draw[->] (cell3.two east) -- (cell4.one west);
-        \draw[->] (cell4.two east) -- (cell5.one west);
-        \draw[->] (headtext.north) -- (cell1.south);
-        \draw[->] (tailtext.north) -- (cell5.south);
-        \draw[->] (keytext.south) -- (cell1.one north);
-        \draw[->] (nexttext.south west) -- (cell1.two north);
+        \draw[->,line width = 1pt] (cell1.two east) -- (cell2.one west);
+        \draw[->,line width = 1pt] (cell2.two east) -- (cell3.one west);
+        \draw[->,line width = 1pt] (cell3.two east) -- (cell4.one west);
+        \draw[->,line width = 1pt] (cell4.two east) -- (cell5.one west);
+        \draw[->,line width = 1pt] (headtext.north) -- (cell1.south);
+%        \draw[->,line width = 1pt] (tailtext.north) -- (cell5.south);
+        \draw[->,line width = 1pt] (keytext.south) -- (cell1.one north);
+        \draw[->,line width = 1pt] (nexttext.south west) -- (cell1.two north);
     \end{tikzpicture}
 \end{figure}
 \begin{defi}
     [Doubly Linked List]
-    In a \term{doubly linked list} each element is stored alongside pointers to the next and previous elements.
+    In a \term{doubly linked list}, there is a distinguished element called the head, and each element is stored alongside pointers to the next and previous elements. The prev pointer of the head will point to NIL, and there is an element called the tail, whose next pointer points to NIL.
 \end{defi}
 \begin{figure}[H]
-    \caption{A doubly linked list $L$ representing the set $\{0,541,5,12\}$}
+    \caption{A doubly linked list $L$ representing the list $(12,5,541,0)$}
     \centering
-    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3, draw}]
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3,line width = 1pt, draw}]
         \node[cell] (cell1) 
         {
             \nodepart{one}{$\bullet$}
@@ -1484,27 +1484,160 @@ Here we define a data structure called a \term{linked list}, which allows for th
             \nodepart{three}{$\bullet$}
         };
         \node[below = .5cm of cell1] (headtext) {$L.head$};
-        \node[below = .5cm of cell4] (tailtext) {$L.tail$};
+        % \node[below = .5cm of cell4] (tailtext) {$L.tail$};
         \node[above = 0.33cm of cell1.two north,anchor=south] (keytext) {\small $key$};
         \node[above left = .5cm of cell1.one north,anchor=south east] (prevtext) {\small $prev$};
         \node[above right = .5cm of cell1.three north,anchor=south west] (nexttext) {\small $next$};
-        \draw[->] ($(cell1.south east)!.7!(cell1.north east)$) -- ($(cell2.south west)!.7!(cell2.north west)$);
-        \draw[->] ($(cell2.south east)!.7!(cell2.north east)$) -- ($(cell3.south west)!.7!(cell3.north west)$);
-        \draw[->] ($(cell3.south east)!.7!(cell3.north east)$) -- ($(cell4.south west)!.7!(cell4.north west)$);
-        \draw[->] ($(cell2.south west)!.3!(cell2.north west)$) -- ($(cell1.south east)!.3!(cell1.north east)$);
-        \draw[->] ($(cell3.south west)!.3!(cell3.north west)$) -- ($(cell2.south east)!.3!(cell2.north east)$);
-        \draw[->] ($(cell4.south west)!.3!(cell4.north west)$) -- ($(cell3.south east)!.3!(cell3.north east)$);
+        \draw[->,line width = 1pt] ($(cell1.south east)!.7!(cell1.north east)$) -- ($(cell2.south west)!.7!(cell2.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south east)!.7!(cell2.north east)$) -- ($(cell3.south west)!.7!(cell3.north west)$);
+        \draw[->,line width = 1pt] ($(cell3.south east)!.7!(cell3.north east)$) -- ($(cell4.south west)!.7!(cell4.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south west)!.3!(cell2.north west)$) -- ($(cell1.south east)!.3!(cell1.north east)$);
+        \draw[->,line width = 1pt] ($(cell3.south west)!.3!(cell3.north west)$) -- ($(cell2.south east)!.3!(cell2.north east)$);
+        \draw[->,line width = 1pt] ($(cell4.south west)!.3!(cell4.north west)$) -- ($(cell3.south east)!.3!(cell3.north east)$);
 
-        \draw[->] (headtext.north) -- (cell1.south);
-        \draw[->] (tailtext.north) -- (cell4.south);
-        \draw[->] (keytext.south) -- (cell1.two north);
-        \draw[->] (prevtext.south east) -- (cell1.one north);
-        \draw[->] (nexttext.south west) -- (cell1.three north);
+        \draw[->,line width = 1pt] (headtext.north) -- (cell1.south);
+        % \draw[->,line width = 1pt] (tailtext.north) -- (cell4.south);
+        \draw[->,line width = 1pt] (keytext.south) -- (cell1.two north);
+        \draw[->,line width = 1pt] (prevtext.south east) -- (cell1.one north);
+        \draw[->,line width = 1pt] (nexttext.south west) -- (cell1.three north);
     \end{tikzpicture}
 \end{figure}
+\pagebreak
+\subsection{Operations on Linked Lists}
+\subsubsection{Searching for a key in a linked list}
+We wish to search a linked list, $L$, for a key, $k$, return a pointer to the element of the list if found, otherwise return $NIL$. \mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Search($L,k$)}
+    $x = L.head$\;
+    \While {$x \not= NIL$ and $x.key \not= k$}
+    {$x = x.next$\;}
+    \textbf{return }$x$\;
+\end{algorithm}
+\mypar
+List-Search has worst case time complexity $\Theta(n)$, in the case the entire list has to be searched, and best case $\Theta(1)$, in the case that the first element has key $k$.
+\subsubsection{Inserting an element}
+When inserting an element, it is appended to the front of the list, and becomes the new head. \\ Given a list $L$ and pointer $x$ to a new list element with a set key, we append $x$ to $L$ as follows.
+\mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Insert($L,x$)}
+    $x.next = L.head$\;
+    \If{$L.head \not= NIL$}
+    {$L.head.prev = x$\;}
+    $L.head = x$\;
+    $x.prev = NIL$\;
+\end{algorithm} \mypar
+The running time of List-Insert is $O(1)$.
+\pagebreak
+\subsubsection{Deleting an element}
+Given an element $x$ of a linked list $L$, we wish to delete $x$ from $L$.
+\mypar
+\begin{algorithm}
+    [H]
+    \caption{List-Delete($L,x$)}
+    \uIf{$x.prev \not= NIL$}
+    {$x.prev.next = x.next$\;}
+    \Else 
+    {$L.head = x.next$\;}
+    \If{$x.next \not= NIL$}
+    {$x.next.prev = x.prev$\;}
+\end{algorithm}
+\mypar
+The running time of List-Delete is $O(1)$.
+\subsection{Dealing with the Boundary Conditions}
+\subsubsection{Circular Linked Lists}
+A circular linked list, intuitively, loops to and from the beginning and end.
 \begin{defi}
     [Circular Linked List] A singly linked list is circular if the next pointer of the tail points to the head.\\ A doubly linked list is circular if the prev pointer of the head points to the tail, and the next pointer of the tail points to the head. 
 \end{defi}
+\begin{figure}[H]
+    \caption{A circular doubly linked list $L$ representing the list $(12,5,541,0)$}
+    \centering
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3, line width = 1pt,draw}]
+        \node[cell] (cell1) 
+        {
+            \nodepart{one}{}
+            \nodepart{two}{12}
+        };
+        \node[cell, right = of cell1] (cell2) 
+        {
+            \nodepart{two}{5}
+        };
+        \node[cell, right = of cell2] (cell3) 
+        {
+            \nodepart{two}{541}
+        };
+        \node[cell, right = of cell3] (cell4) 
+        {
+            \nodepart{two}{0}
+            \nodepart{three}{}
+        };
+        \node[left = .5cm of cell1] (headtext) {$L.head$};
+
+        \node[above = .25cm of cell1.one north] (headPrev1) {};
+        \node[above = .25cm of cell4.two north] (headPrev2) {};
+        \node[below = .25cm of cell4.three south] (tailNext1) {};
+        \node[below = .25cm of cell1.two south] (tailNext2) {};
+
+
+        \draw[->,line width = 1pt] ($(cell1.south east)!.7!(cell1.north east)$) -- ($(cell2.south west)!.7!(cell2.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south east)!.7!(cell2.north east)$) -- ($(cell3.south west)!.7!(cell3.north west)$);
+        \draw[->,line width = 1pt] ($(cell3.south east)!.7!(cell3.north east)$) -- ($(cell4.south west)!.7!(cell4.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south west)!.3!(cell2.north west)$) -- ($(cell1.south east)!.3!(cell1.north east)$);
+        \draw[->,line width = 1pt] ($(cell3.south west)!.3!(cell3.north west)$) -- ($(cell2.south east)!.3!(cell2.north east)$);
+        \draw[->,line width = 1pt] ($(cell4.south west)!.3!(cell4.north west)$) -- ($(cell3.south east)!.3!(cell3.north east)$);
+
+        \draw[->,line width = 1pt] (headtext.east) -- (cell1.west);
+        \draw[->,line width = 1pt] (cell1.one north) -- (headPrev1.center)  -- (headPrev2.center)  -- (cell4.two north);
+        \draw[->,line width = 1pt] (cell4.three south) -- (tailNext1.center)  -- (tailNext2.center)  -- (cell1.two south);
+    \end{tikzpicture}
+\end{figure}
+\subsubsection{Sentinels}
+A \term{sentinel} is a dummy object designed to simplify the boundary conditions of a doubly linked list. The idea is that the sentinel will represent NIL, but will additionally have a next and prev pointer, pointing to the head and tail respectively.
+\begin{figure}[H]
+    \caption{A circular doubly linked list with a sentinel $L$ representing the list $(15,1,11)$}
+    \centering
+    \begin{tikzpicture}[cell/.style={rectangle split, rectangle split horizontal , rectangle split parts=3, line width = 1pt,draw}]
+        \node[cell,fill=mygray] (cell1) 
+        {
+            \nodepart{one}{}
+            \nodepart{two}{}
+        };
+        \node[cell, right = of cell1] (cell2) 
+        {
+            \nodepart{two}{15}
+        };
+        \node[cell, right = of cell2] (cell3) 
+        {
+            \nodepart{two}{1}
+        };
+        \node[cell, right = of cell3] (cell4) 
+        {
+            \nodepart{two}{11}
+            \nodepart{three}{}
+        };
+        \node[left = .5cm of cell1] (niltext) {$L.nil$};
+
+        \node[above = .25cm of cell1.one north] (headPrev1) {};
+        \node[above = .25cm of cell4.two north] (headPrev2) {};
+        \node[below = .25cm of cell4.three south] (tailNext1) {};
+        \node[below = .25cm of cell1.two south] (tailNext2) {};
+
+
+        \draw[->,line width = 1pt] ($(cell1.south east)!.7!(cell1.north east)$) -- ($(cell2.south west)!.7!(cell2.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south east)!.7!(cell2.north east)$) -- ($(cell3.south west)!.7!(cell3.north west)$);
+        \draw[->,line width = 1pt] ($(cell3.south east)!.7!(cell3.north east)$) -- ($(cell4.south west)!.7!(cell4.north west)$);
+        \draw[->,line width = 1pt] ($(cell2.south west)!.3!(cell2.north west)$) -- ($(cell1.south east)!.3!(cell1.north east)$);
+        \draw[->,line width = 1pt] ($(cell3.south west)!.3!(cell3.north west)$) -- ($(cell2.south east)!.3!(cell2.north east)$);
+        \draw[->,line width = 1pt] ($(cell4.south west)!.3!(cell4.north west)$) -- ($(cell3.south east)!.3!(cell3.north east)$);
+
+        \draw[->,line width = 1pt] (niltext.east) -- (cell1.west);
+        \draw[->,line width = 1pt] (cell1.one north) -- (headPrev1.center)  -- (headPrev2.center)  -- (cell4.two north);
+        \draw[->,line width = 1pt] (cell4.three south) -- (tailNext1.center)  -- (tailNext2.center)  -- (cell1.two south);
+    \end{tikzpicture}
+\end{figure}
+\pagebreak
 \section{Computational Problems}
 \subsection{The Sorting Problem}
 
