@@ -635,7 +635,7 @@ public class Textbook extends Book
 \end{lstlisting}
 \end{eg}
 \subsection{Method Overriding}
-In a subclass, we can redefine some methods that are already defined in the superclass, in particular, those with the \inlineJava"public" or \inlineJava"protected" modifier (or \inlineJava"default" if the superclass lies in the same package as the subclass). To override a method in Java, you need only define the method as usual, although you can optionally add the \inlineJava"@Override" annotation beforehand, which tells the compiler to check that this method name has been used in the superclass.
+In a subclass, we can redefine some methods that are already defined in the superclass, in particular, those with the \inlineJava"public" or \inlineJava"protected" modifier (or \inlineJava"default" if the superclass lies in the same package as the subclass). This is called \term{overriding}. To override a method in Java, you need only define the method as usual, although you can optionally add the \inlineJava"@Override" annotation beforehand, which tells the compiler to check that this method name has been used in the superclass.
 \begin{eg}
     As it stands,  the \inlineJava"Textbook" class is not very useful, as the \inlineJava"display()" method does not show the subject, so we override it
 \begin{lstlisting}[caption = Textbook, label=lst:Textbook2]
@@ -1686,6 +1686,24 @@ Sentinels save $O(1)$ time per insert or delete operation, however cost $O(1)$ e
     \[\forall i,j \in \{1,\dots,n \}, \ \  i \leq j \implies a'_i \leq a'_j  \]
     i.e. a permutation in (monotone) ascending order.
 \end{nproblem}
-
+\begin{sidenote}
+    Sometimes we have more than just comparison data, which can be useful to sort a list more quickly, however here we only consider algorithms that use only the comparison data.
+\end{sidenote}
+\subsection{Insertion Sort}
+A simple sorting algorithm is \term{insertion sort}. The idea is that, if the first $i$ elements of our list are sorted, we insert the $(i+1)^{th}$ element in the correct position to obtain a sorting of the first $i+1$ elements. Repeating this process we can sort the whole list.  
+\begin{algorithm}
+    \caption{Insertion-Sort($A$)}
+    \For{$i = 2$ \KwTo $A.length$}
+    {
+        $key = A[i]$\;
+        $j = i - 1$\;
+        \While{$j > 0$ and $A[j] > key$}
+        {
+            $A[j+1] = A[j]$\;
+            $j = j - 1$\;
+        }
+        $A[j+1] = key$\;    
+    }
+\end{algorithm}
 \printindex
 \end{document}
